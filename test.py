@@ -13,6 +13,7 @@ matplotlib.use('TkAgg')
 class mainWindow(tk.Frame):
     def __init__(self, master=None):
         master.bind("<KeyPress>", self.action)
+        master.bind("<Button-1>",self.copy_to_clipboard)
         tk.Frame.__init__(self, master)
         self.pack()
         self.rg = 0
@@ -21,6 +22,7 @@ class mainWindow(tk.Frame):
         self.cursor_prev = 0
         self.i = [0]
         self.n = 0
+        self.pos = 0.9
         self.result = [mathObject()]
         self.precedent = [mathSymbol('')]
         self.grec = False
@@ -30,6 +32,7 @@ class mainWindow(tk.Frame):
     def createWidgets(self):
         self.label = tk.Label(self)
         self.label.bind("<Button-1>",self.copy_to_clipboard)
+
         self.label.pack()
 
         self.indication = tk.Label(self, text="Lettre Usuelle", font=("Arial", 12), fg='#000066')
@@ -40,7 +43,7 @@ class mainWindow(tk.Frame):
         label.pack()
 
         # Define the figure size and plot the figure
-        fig = matplotlib.figure.Figure(figsize=(2000, 1), dpi=100)
+        fig = matplotlib.figure.Figure(figsize=(2000, 2), dpi=100)
         self.wx = fig.add_subplot(111)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
@@ -53,12 +56,36 @@ class mainWindow(tk.Frame):
         #self.canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
         #self.canvas._tkcanvas.pack(side=TOP, fill=BOTH, expand=1)
         self.latex_display()
-        self.quitButton = tk.Button(self, text='Quit', command=self.quit,  font=("Arial", 11))
-        self.quitButton.pack()
+
+        self.btn = tk.Frame(self)
+        self.clearButton = tk.Button(self.btn, text='Effacer',width="20", command=self.clear,  font=("Arial", 11))
+        #self.clearButton.pack()
+        self.clearButton.grid(row=1, column=0)
+
+        self.quitButton = tk.Button(self.btn, text='Quit', width="20", command=self.quit,  font=("Arial", 11))
+        self.quitButton.grid(row=1, column=1)
+        #self.quitButton.pack()
+        self.btn.pack()
+
+    def clear(self):
+        self.result = [mathObject()]
+        self.elements = []
+        self.precedent = [mathSymbol('')]
+        self.cursor = 0
+        self.rg = 0
+        self.rg_prev = 0
+        self.cursor_prev = 0
+        self.i = [0]
+
+        self.wx.clear()
+        self.result[self.rg].add(mathSymbol("|"), self.cursor)
+        self.graph()
+        self.result[self.rg].destroy(self.cursor+1)
+
 
     def latex_display(self):
         # Get the Entry Input
-        tmptext = self.result[0].str()
+        tmptext = self.result[0].str().replace('\\newline', chr(10))
         self.label.configure(text=tmptext, font=("Arial", 11))
 
     def action(self, touche):
@@ -180,9 +207,12 @@ class mainWindow(tk.Frame):
                 self.cursor = len(self.result[self.rg].content)
 
         ## touche sans actions
-        elif key in [16, 20]:
+        elif key in [16, 20] or (self.math and touche.char=='^'):
             pass
         
+        elif key==13:
+            self.multiple_choice([mathSymbol('\\newline')])
+            self.pos-=0.11
         elif touche.char=='=':
             self.multiple_choice([mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")])
         elif touche.char=='*':
@@ -351,16 +381,17 @@ class mainWindow(tk.Frame):
     def graph(self):
         # Get the Entry Input
         tmptext = self.result[0].str()
+        tmptext = tmptext.replace(r"\newline", "$ \n $")
         # Clear any previous Syntax from the figure
         self.wx.clear()
         print("$"+tmptext+"$")
-        self.wx.text(-0.1, 0.6, ("$"+tmptext+"$"), fontsize = 11)
+        self.wx.text(-0.1, self.pos, ("$"+tmptext+"$"), fontsize = 11)
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
         self.canvas.draw()
 
     def copy_to_clipboard(self, temp):
-        tmptext = self.result[0].str()
+        tmptext = self.result[0].str().replace(r"\newline", chr(10))
         pyperclip.copy(tmptext)
 
 if __name__ == '__main__':
@@ -368,5 +399,4 @@ if __name__ == '__main__':
     root.title("MathClav")
     app = mainWindow(root)
     app.mainloop()
-
 

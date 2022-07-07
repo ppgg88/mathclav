@@ -496,7 +496,6 @@ class cos():
         self.latex = r""
         return self
 
-
 class sin():
     def __init__(self) -> None:
         self.content = [mathObject()]
@@ -545,7 +544,6 @@ class arccos():
         self.latex = r""
         return self
 
-
 class arcsin():
     def __init__(self) -> None:
         self.content = [mathObject()]
@@ -593,7 +591,6 @@ class vect():
     def destroy(self) -> None:
         self.latex = r""
         return self
-
 
 class lim():
     def __init__(self) -> None:
