@@ -4,6 +4,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from latex import *
+import logging
+import sys
 import pyperclip
 
 matplotlib.use('TkAgg')
@@ -11,6 +13,15 @@ matplotlib.use('TkAgg')
 matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{{amsmath}}'
 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("mathclav.log"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
 
 class mainWindow(tk.Frame):
     def __init__(self, master=None):
@@ -135,10 +146,10 @@ class mainWindow(tk.Frame):
         self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
         self.graph()
         self.result[self.rg].destroy(self.cursor+1)
-        print(self.size)
+        logging.info("set text sizes : " + str(self.size))
 
     def action(self, touche):
-        print(touche)
+        logging.info("press :" +  str(touche))
 
         corespondance = [
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
@@ -225,8 +236,6 @@ class mainWindow(tk.Frame):
                     self.cursor = 0
                 except :
                     self.cursor = self.result[self.rg-1].content.index(self.elements[self.rg-1])+1
-                    print(self.elements)
-                    print(self.rg)
                     self.elements.pop(self.rg-1)
                     self.result.pop(self.rg)
                     self.rg = self.rg-1
@@ -345,7 +354,7 @@ class mainWindow(tk.Frame):
                     if a:
                         self.precedent.append(temp[0])
                 else : 
-                    print("fonction non enregistrer")
+                    logging.info("fonction Math non enregistrer sur la touche : " + str(key))
                     valid = False
             elif key == 191: #fraction touche '/'
                 temp = self.result[self.rg].content[self.cursor-1]
@@ -413,7 +422,6 @@ class mainWindow(tk.Frame):
 
         self.rg_prev = self.rg
         self.cursor_prev =self.cursor
-        print(self.result[self.rg].str())
         if not(key in [17, 222,39,37,8]) or not(self.math and key==191):
             if type(self.precedent[len(self.precedent)-1]).__name__ != "mathSymbol":
                 try :
@@ -429,10 +437,10 @@ class mainWindow(tk.Frame):
         self.graph()
         self.result[self.rg].destroy(self.cursor+1)
         self.latex_display()
-        print(self.elements)
-        print(self.result)
-        print(self.result[self.rg].content)
-        print(self.cursor)
+        logging.info("elements dans la piles :" + str(self.elements))
+        logging.info("elements dans le niveau :" + str(self.result[self.rg].content))
+        logging.info("position du cursseur :" + str(self.cursor))
+        logging.info("code Latex :" + self.result[0].str())
 
     def multiple_choice(self, temp):
         a = True
