@@ -1,5 +1,3 @@
-from tempfile import template
-
 
 class mathObject():
     def __init__(self) -> None:
