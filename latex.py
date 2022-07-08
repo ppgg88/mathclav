@@ -1,3 +1,6 @@
+from tempfile import template
+
+
 class mathObject():
     def __init__(self) -> None:
         self.content = []
@@ -86,7 +89,7 @@ class texte():
         self.content += other
         return self
     def __str__(self) -> str:
-        return self.latex.replace('░', str(self.content.str()))
+        return self.latex.replace('░', str(self.content.str())).replace(' ', '').replace(r'\:', r'\: ')
     def destroy(self) -> None:  
         self.latex = r""
         return self
@@ -624,6 +627,103 @@ class lim1():
         elif len(self.content[0].content)==0 and len(self.content[1].content)==0:
             return self.latex.replace('æ1', '░').replace('æ2', '░')
         return self.latex.replace('æ2', str(self.content[1].str())).replace('æ1', str(self.content[0].str()))
+    def destroy(self) -> None:
+        self.latex = r""
+        return self
+
+class matrice():
+    def __init__(self, n, m) -> None:
+        self.content = [mathObject(), mathObject()]
+        self.imax = len(self.content)-1
+        beg = r'\begin{pmatrix}'
+        end = r'\end{pmatrix}'
+        mil = r''
+        for i in range(1,n):
+            for j in range(m):
+                if j != m-1:
+                    mil += r'æ'+str(i)+','+str(j)+' &'
+                else :
+                    mil += r'æ'+str(i)+','+str(j)+r'\\'
+            
+        self.latex = beg+mil+end
+    def __add__(self, other):
+        self.content += other
+        return self
+    def __str__(self) -> str:
+        return(self.latex)
+    def destroy(self) -> None:
+        self.latex = r""
+        return self
+
+class system():
+    def __init__(self, n, m) -> None:
+        self.n = n
+        self.m = m
+        self.content = []
+        for i in range(n):
+            for j in range(m):
+                self.content.append(mathObject())
+
+        self.imax = len(self.content)-1
+
+        beg = r'\left\{\begin{matrix}'
+        end = r'\end{matrix}\right.'
+        mil = r''
+        for i in range(n):
+            for j in range(m):
+                if j != m-1:
+                    mil += r'æ'+str(i)+','+str(j)+' &'
+                else :
+                    mil += r'æ'+str(i)+','+str(j)+r'\\'
+        self.latex = beg+mil+end
+    def __add__(self, other):
+        self.content += other
+        return self
+    def __str__(self) -> str:
+        tmp = self.latex
+        t = 0
+        for i in range(self.n):
+            for j in range(self.m):
+                if self.content[t].content != []:
+                    tmp = tmp.replace('æ'+str(i)+','+str(j), str(self.content[t].str()))
+                t += 1
+        return(tmp)
+    def destroy(self) -> None:
+        self.latex = r""
+        return self
+
+class binom():
+    def __init__(self) -> None:
+        self.content = [mathObject(), mathObject()]
+        self.imax = len(self.content)-1
+        self.latex = r'\binom{æ1}{æ2}'
+    def __add__(self, other):
+        self.content += other
+        return self
+    def __str__(self) -> str:
+        if self.content[0].content == [] and self.content[1].content != []:
+            return self.latex.replace('æ2', str(self.content[1].str())).replace('æ1', '░')
+        elif self.content[0].content != [] and self.content[1].content == []:
+            return self.latex.replace('æ1', str(self.content[0].str())).replace('æ2', '░')
+        elif len(self.content[0].content)==0 and len(self.content[1].content)==0:
+            return self.latex.replace('æ1', '░').replace('æ2', '░')
+        return self.latex.replace('æ2', str(self.content[1].str())).replace('æ1', str(self.content[0].str()))
+    def destroy(self) -> None:
+        self.latex = r""
+        return self
+
+class norme():
+    def __init__(self) -> None:
+        self.content = [mathObject()]
+        self.imax = 0
+        self.latex = r'\left\| ░ \right\|'
+    def __add__(self, other) -> None:
+        self.content += other
+        return self
+    def __str__(self) -> str:
+        if self.content[0].content == []:
+            return self.latex
+        return self.latex.replace('░', str(self.content[0].str()))
     def destroy(self) -> None:
         self.latex = r""
         return self
