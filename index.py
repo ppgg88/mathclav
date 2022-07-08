@@ -147,10 +147,10 @@ class mainWindow(tk.Frame):
             [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
                 [binom()],
                 [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
-                ['d'],
+                [e(), exp(), ln(), log()],
                 [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
                 [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
-                [system(3, 2)],
+                [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
                 ['h'],
                 [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
                 [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
@@ -167,7 +167,7 @@ class mainWindow(tk.Frame):
                 [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
                 [vect()],
                 [mathSymbol('\\forall '), mathSymbol('\\exists ')],
-                [e(), exp(), ln(), log()],
+                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
                 [arccos(), arcsin(), arctan()],
                 [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
             ]
@@ -388,6 +388,8 @@ class mainWindow(tk.Frame):
                 self.precedent.append(parenthese_carre())
             elif touche.char == '|':
                 self.precedent.append(norme())
+            elif touche.char == '_':
+                self.precedent.append(indice())
             elif touche.char != None: #sinon caractere normaux
                 self.precedent.append(mathSymbol(str(touche.char)))
 

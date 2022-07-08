@@ -120,7 +120,7 @@ class frac():
         self.content_den = mathObject()
         self.content = [self.content_num, self.content_den]
         self.imax = len(self.content)-1
-        self.latex = r'\frac{æ}{b}'
+        self.latex = r'\frac{æ1}{æ2}'
     def add_num(self, other):
         self.content_num += other
         return self
@@ -129,12 +129,12 @@ class frac():
         return self
     def __str__(self) -> str:
         if(self.content_den.content == [] and self.content_num.content != []):
-            return self.latex.replace('æ', str(self.content_num.str())).replace('b', 'æ')
+            return self.latex.replace('æ1', str(self.content_num.str())).replace('æ2', '░')
         if(self.content_den.content != [] and self.content_num.content == []):
-            return self.latex.replace('b', str(self.content_den.str())).replace('æ', 'æ')
+            return self.latex.replace('æ2', str(self.content_den.str())).replace('æ1', '░')
         if(self.content_den.content == [] and self.content_num.content == []):
-            return self.latex.replace('b','æ').replace('æ', 'æ')
-        return self.latex.replace('æ', str(self.content_num.str())).replace('b', str(self.content_den.str()))
+            return self.latex.replace('æ1','░').replace('æ2', '░')
+        return self.latex.replace('æ1', str(self.content_num.str())).replace('æ2', str(self.content_den.str()))
     def destroy(self) -> None:
         self.latex = r""
         return self
