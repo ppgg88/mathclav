@@ -25,8 +25,9 @@ logging.basicConfig(
 
 class mainWindow(tk.Frame):
     def __init__(self, master=None):
-        master.bind("<KeyPress>", self.action)
-        master.bind("<Button-1>",self.copy_to_clipboard)
+        self.master = master
+        self.master.bind("<KeyPress>", self.action)
+        self.master.bind("<Button-1>",self.copy_to_clipboard)
         tk.Frame.__init__(self, master)
         self.pack()
         self.rg = 0
@@ -49,6 +50,7 @@ class mainWindow(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
+
         self.label = tk.Label(self)
         self.label.bind("<Button-1>",self.copy_to_clipboard)
 
@@ -501,6 +503,7 @@ class mainWindow(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
+    root.iconbitmap('favicon.ico')
     app = mainWindow(root)
     app.mainloop()
 
