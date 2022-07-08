@@ -421,8 +421,8 @@ class mainWindow(tk.Frame):
 
 
         self.rg_prev = self.rg
-        self.cursor_prev =self.cursor
-        if not(key in [17, 222,39,37,8]) or not(self.math and key==191):
+        self.cursor_prev = self.cursor
+        if not(key in [17, 222,39,37,8]) and not(self.math and key==191):
             if type(self.precedent[len(self.precedent)-1]).__name__ != "mathSymbol":
                 try :
                     self.result.append(self.result[self.rg].content[len(self.result[self.rg].content)-1].content[0])

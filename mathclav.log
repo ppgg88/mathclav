@@ -1,0 +1,101 @@
+2022-07-08 15:10:42,955 [INFO] press :<KeyPress event send_event=True keysym=a keycode=65 char='a' x=832 y=94>
+2022-07-08 15:10:43,140 [INFO] elements dans la piles :[]
+2022-07-08 15:10:43,140 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>]
+2022-07-08 15:10:43,140 [INFO] position du cursseur :1
+2022-07-08 15:10:43,140 [INFO] code Latex :a
+2022-07-08 15:10:43,144 [INFO] press :<KeyPress event send_event=True keysym=Shift_R keycode=16 x=832 y=94>
+2022-07-08 15:10:43,176 [INFO] elements dans la piles :[]
+2022-07-08 15:10:43,189 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>]
+2022-07-08 15:10:43,190 [INFO] position du cursseur :1
+2022-07-08 15:10:43,190 [INFO] code Latex :a
+2022-07-08 15:10:43,202 [INFO] press :<KeyPress event send_event=True state=Shift keysym=plus keycode=187 char='+' x=832 y=94>
+2022-07-08 15:10:43,233 [INFO] elements dans la piles :[]
+2022-07-08 15:10:43,233 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>, <latex.mathSymbol object at 0x000001B0D2F2F100>]
+2022-07-08 15:10:43,234 [INFO] position du cursseur :2
+2022-07-08 15:10:43,234 [INFO] code Latex :a+ 
+2022-07-08 15:10:43,520 [INFO] press :<KeyPress event send_event=True keysym=b keycode=66 char='b' x=832 y=94>
+2022-07-08 15:10:43,546 [INFO] elements dans la piles :[]
+2022-07-08 15:10:43,546 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>, <latex.mathSymbol object at 0x000001B0D2F2F100>, <latex.mathSymbol object at 0x000001B0D17DE410>]
+2022-07-08 15:10:43,547 [INFO] position du cursseur :3
+2022-07-08 15:10:43,547 [INFO] code Latex :a+ b
+2022-07-08 15:10:44,432 [INFO] press :<KeyPress event send_event=True keysym=Shift_R keycode=16 x=832 y=94>
+2022-07-08 15:10:44,457 [INFO] elements dans la piles :[]
+2022-07-08 15:10:44,458 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>, <latex.mathSymbol object at 0x000001B0D2F2F100>, <latex.mathSymbol object at 0x000001B0D17DE410>]
+2022-07-08 15:10:44,458 [INFO] position du cursseur :3
+2022-07-08 15:10:44,458 [INFO] code Latex :a+ b
+2022-07-08 15:10:44,459 [INFO] press :<KeyPress event send_event=True state=Shift keysym=plus keycode=187 char='+' x=832 y=94>
+2022-07-08 15:10:44,487 [INFO] elements dans la piles :[]
+2022-07-08 15:10:44,487 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>, <latex.mathSymbol object at 0x000001B0D2F2F100>, <latex.mathSymbol object at 0x000001B0D17DE410>, <latex.mathSymbol object at 0x000001B0D17DEF20>]
+2022-07-08 15:10:44,488 [INFO] position du cursseur :4
+2022-07-08 15:10:44,488 [INFO] code Latex :a+ b+ 
+2022-07-08 15:10:44,816 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=832 y=94>
+2022-07-08 15:10:44,843 [INFO] elements dans la piles :[]
+2022-07-08 15:10:44,844 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B0D2EAA1A0>, <latex.mathSymbol object at 0x000001B0D2F2F100>, <latex.mathSymbol object at 0x000001B0D17DE410>, <latex.mathSymbol object at 0x000001B0D17DEF20>]
+2022-07-08 15:10:44,844 [INFO] position du cursseur :4
+2022-07-08 15:10:44,844 [INFO] code Latex :a+ b+ 
+2022-07-08 15:11:23,434 [INFO] press :<KeyPress event send_event=True keysym=i keycode=73 char='i' x=832 y=94>
+2022-07-08 15:11:23,470 [INFO] elements dans la piles :[<latex.integral object at 0x000001B0D17F2530>]
+2022-07-08 15:11:23,470 [INFO] elements dans le niveau :[]
+2022-07-08 15:11:23,470 [INFO] position du cursseur :0
+2022-07-08 15:11:23,471 [INFO] code Latex :a+ b+ \int_{a}^{b}
+2022-07-08 15:11:25,757 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=832 y=94>
+2022-07-08 15:15:57,305 [INFO] press :<KeyPress event send_event=True keysym=a keycode=65 char='a' x=851 y=256>
+2022-07-08 15:15:57,495 [INFO] elements dans la piles :[]
+2022-07-08 15:15:57,496 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>]
+2022-07-08 15:15:57,496 [INFO] position du cursseur :1
+2022-07-08 15:15:57,496 [INFO] code Latex :a
+2022-07-08 15:15:58,057 [INFO] press :<KeyPress event send_event=True keysym=Shift_R keycode=16 x=851 y=256>
+2022-07-08 15:15:58,083 [INFO] elements dans la piles :[]
+2022-07-08 15:15:58,084 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>]
+2022-07-08 15:15:58,084 [INFO] position du cursseur :1
+2022-07-08 15:15:58,084 [INFO] code Latex :a
+2022-07-08 15:15:58,182 [INFO] press :<KeyPress event send_event=True state=Shift keysym=plus keycode=187 char='+' x=851 y=256>
+2022-07-08 15:15:58,211 [INFO] elements dans la piles :[]
+2022-07-08 15:15:58,211 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>, <latex.mathSymbol object at 0x00000177A2A515D0>]
+2022-07-08 15:15:58,212 [INFO] position du cursseur :2
+2022-07-08 15:15:58,212 [INFO] code Latex :a+ 
+2022-07-08 15:15:59,171 [INFO] press :<KeyPress event send_event=True keysym=b keycode=66 char='b' x=851 y=256>
+2022-07-08 15:15:59,202 [INFO] elements dans la piles :[]
+2022-07-08 15:15:59,202 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>, <latex.mathSymbol object at 0x00000177A2A515D0>, <latex.mathSymbol object at 0x00000177A130A260>]
+2022-07-08 15:15:59,202 [INFO] position du cursseur :3
+2022-07-08 15:15:59,202 [INFO] code Latex :a+ b
+2022-07-08 15:15:59,884 [INFO] press :<KeyPress event send_event=True keysym=Shift_R keycode=16 x=851 y=256>
+2022-07-08 15:15:59,908 [INFO] elements dans la piles :[]
+2022-07-08 15:15:59,908 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>, <latex.mathSymbol object at 0x00000177A2A515D0>, <latex.mathSymbol object at 0x00000177A130A260>]
+2022-07-08 15:15:59,908 [INFO] position du cursseur :3
+2022-07-08 15:15:59,908 [INFO] code Latex :a+ b
+2022-07-08 15:15:59,924 [INFO] press :<KeyPress event send_event=True state=Shift keysym=plus keycode=187 char='+' x=851 y=256>
+2022-07-08 15:15:59,952 [INFO] elements dans la piles :[]
+2022-07-08 15:15:59,953 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>, <latex.mathSymbol object at 0x00000177A2A515D0>, <latex.mathSymbol object at 0x00000177A130A260>, <latex.mathSymbol object at 0x00000177A130B730>]
+2022-07-08 15:15:59,953 [INFO] position du cursseur :4
+2022-07-08 15:15:59,954 [INFO] code Latex :a+ b+ 
+2022-07-08 15:16:01,205 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=851 y=256>
+2022-07-08 15:16:01,226 [INFO] elements dans la piles :[]
+2022-07-08 15:16:01,227 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A29D6020>, <latex.mathSymbol object at 0x00000177A2A515D0>, <latex.mathSymbol object at 0x00000177A130A260>, <latex.mathSymbol object at 0x00000177A130B730>]
+2022-07-08 15:16:01,228 [INFO] position du cursseur :4
+2022-07-08 15:16:01,228 [INFO] code Latex :a+ b+ 
+2022-07-08 15:16:01,854 [INFO] press :<KeyPress event send_event=True keysym=i keycode=73 char='i' x=851 y=256>
+2022-07-08 15:16:01,886 [INFO] elements dans la piles :[<latex.integral object at 0x00000177A1321630>]
+2022-07-08 15:16:01,886 [INFO] elements dans le niveau :[]
+2022-07-08 15:16:01,887 [INFO] position du cursseur :0
+2022-07-08 15:16:01,887 [INFO] code Latex :a+ b+ \int_{a}^{b}
+2022-07-08 15:16:02,771 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=851 y=256>
+2022-07-08 15:16:02,792 [INFO] elements dans la piles :[<latex.integral object at 0x00000177A1321630>]
+2022-07-08 15:16:02,792 [INFO] elements dans le niveau :[]
+2022-07-08 15:16:02,793 [INFO] position du cursseur :0
+2022-07-08 15:16:02,793 [INFO] code Latex :a+ b+ \int_{a}^{b}
+2022-07-08 15:16:04,749 [INFO] press :<KeyPress event send_event=True keysym=a keycode=65 char='a' x=851 y=256>
+2022-07-08 15:16:04,778 [INFO] elements dans la piles :[<latex.integral object at 0x00000177A1321630>]
+2022-07-08 15:16:04,779 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A2A790C0>]
+2022-07-08 15:16:04,779 [INFO] position du cursseur :1
+2022-07-08 15:16:04,779 [INFO] code Latex :a+ b+ \int_{a}^{b}
+2022-07-08 15:16:05,246 [INFO] press :<KeyPress event send_event=True state=0x40000 keysym=Right keycode=39 x=851 y=256>
+2022-07-08 15:16:05,274 [INFO] elements dans la piles :[<latex.integral object at 0x00000177A1321630>]
+2022-07-08 15:16:05,274 [INFO] elements dans le niveau :[]
+2022-07-08 15:16:05,275 [INFO] position du cursseur :0
+2022-07-08 15:16:05,275 [INFO] code Latex :a+ b+ \int_{a}^{b}
+2022-07-08 15:16:06,206 [INFO] press :<KeyPress event send_event=True keysym=b keycode=66 char='b' x=851 y=256>
+2022-07-08 15:16:06,238 [INFO] elements dans la piles :[<latex.integral object at 0x00000177A1321630>]
+2022-07-08 15:16:06,239 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x00000177A138EFB0>]
+2022-07-08 15:16:06,239 [INFO] position du cursseur :1
+2022-07-08 15:16:06,240 [INFO] code Latex :a+ b+ \int_{a}^{b}
