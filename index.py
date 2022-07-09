@@ -162,9 +162,9 @@ class mainWindow(tk.Frame):
                 [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
                 [e(), exp(), ln(), log()],
                 [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
+                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
                 [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
-                [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
-                ['h'],
+                [system(2, 2),system(3, 2),system(4, 2),system(5, 2),]
                 [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
                 [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
                 ['k'],
