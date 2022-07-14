@@ -1148,3 +1148,154 @@
 2022-07-09 08:58:13,713 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001DA385661A0>, <latex.mathSymbol object at 0x000001DA385DF5B0>, <latex.mathSymbol object at 0x000001DA3865B0D0>, <latex.integral object at 0x000001DA38632E90>]
 2022-07-09 08:58:13,713 [INFO] position du cursseur :4
 2022-07-09 08:58:13,713 [INFO] code Latex :a+ \int_{a}^{b}
+2022-07-14 17:13:25,130 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=690 y=-58>
+2022-07-14 17:13:25,553 [INFO] press :<KeyPress event send_event=True keysym=a keycode=65 char='a' x=690 y=-58>
+2022-07-14 17:13:26,870 [INFO] press :<KeyPress event send_event=True keysym=a keycode=65 char='a' x=690 y=-57>
+2022-07-14 17:13:32,326 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=690 y=-57>
+2022-07-14 17:14:16,050 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=387 y=184>
+2022-07-14 17:14:16,322 [INFO] elements dans la piles :[]
+2022-07-14 17:14:16,322 [INFO] elements dans le niveau :[]
+2022-07-14 17:14:16,323 [INFO] position du cursseur :0
+2022-07-14 17:14:16,323 [INFO] code Latex :
+2022-07-14 17:14:17,925 [INFO] press :<KeyPress event send_event=True keysym=s keycode=83 char='s' x=387 y=184>
+2022-07-14 17:14:18,036 [INFO] elements dans la piles :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:18,036 [INFO] elements dans le niveau :[]
+2022-07-14 17:14:18,037 [INFO] position du cursseur :0
+2022-07-14 17:14:19,035 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=387 y=184>
+2022-07-14 17:14:19,063 [INFO] elements dans la piles :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:19,064 [INFO] elements dans le niveau :[]
+2022-07-14 17:14:19,064 [INFO] position du cursseur :0
+2022-07-14 17:14:19,504 [INFO] press :<KeyPress event send_event=True keysym=a keycode=65 char='a' x=387 y=184>
+2022-07-14 17:14:19,536 [INFO] elements dans la piles :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:19,536 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D34B91B0>]
+2022-07-14 17:14:19,536 [INFO] position du cursseur :1
+2022-07-14 17:14:19,536 [INFO] code Latex :\sqrt{a} 
+2022-07-14 17:14:20,308 [INFO] press :<KeyPress event send_event=True keysym=Shift_R keycode=16 x=387 y=184>
+2022-07-14 17:14:20,338 [INFO] elements dans la piles :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:20,339 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D34B91B0>]
+2022-07-14 17:14:20,339 [INFO] position du cursseur :1
+2022-07-14 17:14:20,340 [INFO] code Latex :\sqrt{a} 
+2022-07-14 17:14:20,378 [INFO] press :<KeyPress event send_event=True state=Shift keysym=plus keycode=187 char='+' x=387 y=184>
+2022-07-14 17:14:20,411 [INFO] elements dans la piles :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:20,411 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D34B91B0>, <latex.mathSymbol object at 0x000001B9CDAC7730>]
+2022-07-14 17:14:20,414 [INFO] position du cursseur :2
+2022-07-14 17:14:20,414 [INFO] code Latex :\sqrt{a+ } 
+2022-07-14 17:14:20,607 [INFO] press :<KeyPress event send_event=True keysym=b keycode=66 char='b' x=387 y=184>
+2022-07-14 17:14:20,646 [INFO] elements dans la piles :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:20,648 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D34B91B0>, <latex.mathSymbol object at 0x000001B9CDAC7730>, <latex.mathSymbol object at 0x000001B9D34F4670>]
+2022-07-14 17:14:20,648 [INFO] position du cursseur :3
+2022-07-14 17:14:20,648 [INFO] code Latex :\sqrt{a+ b} 
+2022-07-14 17:14:22,004 [INFO] press :<KeyPress event send_event=True state=0x40000 keysym=Right keycode=39 x=387 y=184>
+2022-07-14 17:14:22,035 [INFO] elements dans la piles :[]
+2022-07-14 17:14:22,036 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>]
+2022-07-14 17:14:22,037 [INFO] position du cursseur :1
+2022-07-14 17:14:22,037 [INFO] code Latex :\sqrt{a+ b} 
+2022-07-14 17:14:22,885 [INFO] press :<KeyPress event send_event=True keysym=minus keycode=54 char='-' x=387 y=184>
+2022-07-14 17:14:22,926 [INFO] elements dans la piles :[]
+2022-07-14 17:14:22,926 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>]
+2022-07-14 17:14:22,927 [INFO] position du cursseur :2
+2022-07-14 17:14:22,927 [INFO] code Latex :\sqrt{a+ b} - 
+2022-07-14 17:14:24,554 [INFO] press :<KeyPress event send_event=True keysym=z keycode=90 char='z' x=387 y=184>
+2022-07-14 17:14:24,589 [INFO] elements dans la piles :[]
+2022-07-14 17:14:24,590 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.mathSymbol object at 0x000001B9D35626E0>]
+2022-07-14 17:14:24,591 [INFO] position du cursseur :3
+2022-07-14 17:14:24,591 [INFO] code Latex :\sqrt{a+ b} - z
+2022-07-14 17:14:24,787 [INFO] press :<KeyPress event send_event=True keysym=twosuperior keycode=222 char='²' x=387 y=184>
+2022-07-14 17:14:24,815 [INFO] elements dans la piles :[]
+2022-07-14 17:14:24,816 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.mathSymbol object at 0x000001B9D35626E0>]
+2022-07-14 17:14:24,817 [INFO] position du cursseur :3
+2022-07-14 17:14:24,817 [INFO] code Latex :\sqrt{a+ b} - z
+2022-07-14 17:14:25,043 [INFO] press :<KeyPress event send_event=True keysym=colon keycode=191 char=':' x=387 y=184>
+2022-07-14 17:14:25,076 [INFO] elements dans la piles :[<latex.frac object at 0x000001B9CDAC7EB0>]
+2022-07-14 17:14:25,077 [INFO] elements dans le niveau :[]
+2022-07-14 17:14:25,078 [INFO] position du cursseur :0
+2022-07-14 17:14:26,987 [INFO] press :<KeyPress event send_event=True keysym=x keycode=88 char='x' x=387 y=184>
+2022-07-14 17:14:27,017 [INFO] elements dans la piles :[<latex.frac object at 0x000001B9CDAC7EB0>]
+2022-07-14 17:14:27,018 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D352B400>]
+2022-07-14 17:14:27,018 [INFO] position du cursseur :1
+2022-07-14 17:14:27,019 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}
+2022-07-14 17:14:27,846 [INFO] press :<KeyPress event send_event=True state=0x40000 keysym=Right keycode=39 x=387 y=184>
+2022-07-14 17:14:27,878 [INFO] elements dans la piles :[]
+2022-07-14 17:14:27,879 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>]
+2022-07-14 17:14:27,879 [INFO] position du cursseur :3
+2022-07-14 17:14:27,880 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}
+2022-07-14 17:14:30,127 [INFO] press :<KeyPress event send_event=True keysym=Shift_R keycode=16 x=387 y=184>
+2022-07-14 17:14:30,152 [INFO] elements dans la piles :[]
+2022-07-14 17:14:30,153 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>]
+2022-07-14 17:14:30,154 [INFO] position du cursseur :3
+2022-07-14 17:14:30,155 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}
+2022-07-14 17:14:30,182 [INFO] press :<KeyPress event send_event=True state=Shift keysym=plus keycode=187 char='+' x=387 y=184>
+2022-07-14 17:14:30,219 [INFO] elements dans la piles :[]
+2022-07-14 17:14:30,220 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>]
+2022-07-14 17:14:30,220 [INFO] position du cursseur :4
+2022-07-14 17:14:30,221 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ 
+2022-07-14 17:14:31,349 [INFO] press :<KeyPress event send_event=True keysym=f keycode=70 char='f' x=387 y=184>
+2022-07-14 17:14:31,397 [INFO] elements dans la piles :[]
+2022-07-14 17:14:31,398 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>]
+2022-07-14 17:14:31,398 [INFO] position du cursseur :5
+2022-07-14 17:14:31,398 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f
+2022-07-14 17:14:32,441 [INFO] press :<KeyPress event send_event=True keysym=parenleft keycode=53 char='(' x=387 y=184>
+2022-07-14 17:14:32,477 [INFO] elements dans la piles :[<latex.parenthese object at 0x000001B9D35C6710>]
+2022-07-14 17:14:32,480 [INFO] elements dans le niveau :[]
+2022-07-14 17:14:32,480 [INFO] position du cursseur :0
+2022-07-14 17:14:32,481 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(æ \right) 
+2022-07-14 17:14:32,751 [INFO] press :<KeyPress event send_event=True keysym=x keycode=88 char='x' x=387 y=184>
+2022-07-14 17:14:32,789 [INFO] elements dans la piles :[<latex.parenthese object at 0x000001B9D35C6710>]
+2022-07-14 17:14:32,790 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D35910C0>]
+2022-07-14 17:14:32,790 [INFO] position du cursseur :1
+2022-07-14 17:14:32,790 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) 
+2022-07-14 17:14:33,223 [INFO] press :<KeyPress event send_event=True state=0x40000 keysym=Right keycode=39 x=387 y=184>
+2022-07-14 17:14:33,260 [INFO] elements dans la piles :[]
+2022-07-14 17:14:33,261 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>]
+2022-07-14 17:14:33,262 [INFO] position du cursseur :6
+2022-07-14 17:14:33,263 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) 
+2022-07-14 17:14:34,678 [INFO] press :<KeyPress event send_event=True keysym=minus keycode=54 char='-' x=387 y=184>
+2022-07-14 17:14:34,751 [INFO] elements dans la piles :[]
+2022-07-14 17:14:34,752 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>, <latex.mathSymbol object at 0x000001B9D362E140>]
+2022-07-14 17:14:34,753 [INFO] position du cursseur :7
+2022-07-14 17:14:34,753 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - 
+2022-07-14 17:14:35,598 [INFO] press :<KeyPress event send_event=True keysym=g keycode=71 char='g' x=387 y=184>
+2022-07-14 17:14:35,640 [INFO] elements dans la piles :[]
+2022-07-14 17:14:35,641 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>, <latex.mathSymbol object at 0x000001B9D362E140>, <latex.mathSymbol object at 0x000001B9D3562FB0>]
+2022-07-14 17:14:35,642 [INFO] position du cursseur :8
+2022-07-14 17:14:35,643 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - \rightarrow 
+2022-07-14 17:14:35,741 [INFO] press :<KeyPress event send_event=True keysym=g keycode=71 char='g' x=387 y=184>
+2022-07-14 17:14:35,777 [INFO] elements dans la piles :[]
+2022-07-14 17:14:35,777 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>, <latex.mathSymbol object at 0x000001B9D362E140>, <latex.mathSymbol object at 0x000001B9CDAC6BF0>]
+2022-07-14 17:14:35,778 [INFO] position du cursseur :8
+2022-07-14 17:14:35,778 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - \leftarrow 
+2022-07-14 17:14:36,813 [INFO] press :<KeyPress event send_event=True keysym=BackSpace keycode=8 char='\x08' x=387 y=184>
+2022-07-14 17:14:36,841 [INFO] elements dans la piles :[]
+2022-07-14 17:14:36,842 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>, <latex.mathSymbol object at 0x000001B9D362E140>]
+2022-07-14 17:14:36,843 [INFO] position du cursseur :7
+2022-07-14 17:14:36,843 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - 
+2022-07-14 17:14:37,859 [INFO] press :<KeyPress event send_event=True keysym=f keycode=70 char='f' x=387 y=184>
+2022-07-14 17:14:37,902 [INFO] elements dans la piles :[]
+2022-07-14 17:14:37,902 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>, <latex.mathSymbol object at 0x000001B9D362E140>, <latex.mathSymbol object at 0x000001B9D1329090>]
+2022-07-14 17:14:37,904 [INFO] position du cursseur :8
+2022-07-14 17:14:37,904 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - f
+2022-07-14 17:14:37,983 [INFO] press :<KeyPress event send_event=True keysym=f keycode=70 char='f' x=387 y=184>
+2022-07-14 17:14:38,018 [INFO] elements dans la piles :[]
+2022-07-14 17:14:38,019 [INFO] elements dans le niveau :[<latex.sqrt object at 0x000001B9D13FCCD0>, <latex.mathSymbol object at 0x000001B9D351E800>, <latex.frac object at 0x000001B9CDAC7EB0>, <latex.mathSymbol object at 0x000001B9D352AEC0>, <latex.mathSymbol object at 0x000001B9D352B9D0>, <latex.parenthese object at 0x000001B9D35C6710>, <latex.mathSymbol object at 0x000001B9D362E140>, <latex.mathSymbol object at 0x000001B9D13FE5F0>]
+2022-07-14 17:14:38,019 [INFO] position du cursseur :8
+2022-07-14 17:14:38,020 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - g
+2022-07-14 17:14:39,259 [INFO] press :<KeyPress event send_event=True keysym=parenleft keycode=53 char='(' x=387 y=184>
+2022-07-14 17:14:39,304 [INFO] elements dans la piles :[<latex.parenthese object at 0x000001B9D132B580>]
+2022-07-14 17:14:39,304 [INFO] elements dans le niveau :[]
+2022-07-14 17:14:39,304 [INFO] position du cursseur :0
+2022-07-14 17:14:39,304 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - g \left(æ \right) 
+2022-07-14 17:14:39,390 [INFO] press :<KeyPress event send_event=True keysym=x keycode=88 char='x' x=387 y=184>
+2022-07-14 17:14:39,424 [INFO] elements dans la piles :[<latex.parenthese object at 0x000001B9D132B580>]
+2022-07-14 17:14:39,425 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D35CF1C0>]
+2022-07-14 17:14:39,425 [INFO] position du cursseur :1
+2022-07-14 17:14:39,425 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - g \left(x \right) 
+2022-07-14 17:14:44,856 [INFO] press :<KeyPress event send_event=True state=0x40000 keysym=Win_L keycode=91 x=454 y=173>
+2022-07-14 17:14:44,887 [INFO] elements dans la piles :[<latex.parenthese object at 0x000001B9D132B580>]
+2022-07-14 17:14:44,888 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D35CF1C0>, <latex.mathSymbol object at 0x000001B9D34D1270>]
+2022-07-14 17:14:44,889 [INFO] position du cursseur :2
+2022-07-14 17:14:44,889 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - g \left(x \right) 
+2022-07-14 17:14:45,112 [INFO] press :<KeyPress event send_event=True keysym=Shift_L keycode=16 x=454 y=173>
+2022-07-14 17:14:45,135 [INFO] elements dans la piles :[<latex.parenthese object at 0x000001B9D132B580>]
+2022-07-14 17:14:45,136 [INFO] elements dans le niveau :[<latex.mathSymbol object at 0x000001B9D35CF1C0>, <latex.mathSymbol object at 0x000001B9D34D1270>]
+2022-07-14 17:14:45,136 [INFO] position du cursseur :2
+2022-07-14 17:14:45,136 [INFO] code Latex :\sqrt{a+ b} - \frac{z}{x}+ f \left(x \right) - g \left(x \right) 
