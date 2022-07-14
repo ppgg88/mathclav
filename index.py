@@ -18,7 +18,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("mathclav.log"),
+        logging.FileHandler("log\mathclav.log"),
         logging.StreamHandler(sys.stdout)
     ]
 )
