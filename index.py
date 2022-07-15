@@ -24,7 +24,9 @@ logging.basicConfig(
 )
 
 class mainWindow(tk.Frame):
+
     def __init__(self, master=None):
+        '''initialisation de toute les variable et de la fenetre principale'''
         self.master = master
         self.master.bind("<KeyPress>", self.action)
         self.master.bind("<Button-1>",self.copy_to_clipboard)
@@ -50,7 +52,7 @@ class mainWindow(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
-
+        '''creation de tout les widget sur la page principale'''
         self.label = tk.Label(self)
         self.label.bind("<Button-1>",self.copy_to_clipboard)
 
@@ -109,6 +111,7 @@ class mainWindow(tk.Frame):
         self.btn.pack()
 
     def clear(self):
+        '''efface le texte precedement ecris'''
         self.result = [mathObject()]
         self.elements = []
         self.precedent = [mathSymbol('')]
@@ -130,6 +133,7 @@ class mainWindow(tk.Frame):
             self.result[self.rg].destroy(self.cursor+1)
 
     def engine(self, temp = None):
+        '''change le moteur de rendue latex'''
         if self.cobobox1.get() == "Intern Engine":
             self.engine_use = 0
         else:
@@ -139,11 +143,13 @@ class mainWindow(tk.Frame):
         self.result[self.rg].destroy(self.cursor+1)
 
     def latex_display(self):
+        '''affiche le texte au format latex'''
         # Get the Entry Input
         tmptext = self.result[0].str().replace('\\newline', chr(10))
         self.label.configure(text=tmptext, font=("Arial", 11))
 
     def change_size(self, temp):
+        '''change la taille du texte'''
         self.size = int(self.cobobox.get())
         self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
         self.graph()
@@ -151,8 +157,10 @@ class mainWindow(tk.Frame):
         logging.info("set text sizes : " + str(self.size))
 
     def action(self, touche):
+        '''action sur les touches'''
         logging.info("press :" +  str(touche))
 
+        # tableau de corespondance entre lettres normal, grec et signe mathématique
         corespondance = [
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
             [mathSymbol('A'), mathSymbol('B'), mathSymbol('\\Gamma '), mathSymbol('\\Delta '), mathSymbol('E'), mathSymbol('Z'), mathSymbol('H'), mathSymbol('\\Theta '), mathSymbol('I'), mathSymbol('K'), mathSymbol('\\Lambda '), mathSymbol('M'), mathSymbol('N'), mathSymbol('\\Xi '), mathSymbol('O'), mathSymbol('\\Pi '), mathSymbol('P'), mathSymbol('\\Sigma '), mathSymbol('T'), mathSymbol('Y'), mathSymbol('\\Phi '), mathSymbol('X'), mathSymbol('\\Psi '), mathSymbol('\\Omega ')],
@@ -187,7 +195,7 @@ class mainWindow(tk.Frame):
         ]
 
         key = touche.keycode
-        # Si on appuie sur une touche de controle : ctrl : grec ou alt : math
+        # Si on appuie sur une touche de controle : ctrl : grec
         if touche.keysym=='Control_L': #ctrl
             self.mode_prev = int(self.grec)+10*int(self.math)
             self.ctrl_l = True
@@ -198,6 +206,7 @@ class mainWindow(tk.Frame):
             else:
                 self.indication.configure(text="Lettre Usuelle",fg='#000066')
 
+        # gestion du bug de la touche 'alt gr'
         elif touche.keysym=='Alt_R': 
             if self.ctrl_l:
 
@@ -216,10 +225,12 @@ class mainWindow(tk.Frame):
         
         else :
             self.ctrl_l = False
-
-        if touche.keysym=='Control_L' or touche.keysym=='Alt_L':
+        
+        ## touche sans actions
+        if touche.keysym=='Control_L' or touche.keysym=='Alt_L' or key in [16, 20] or (self.math and touche.char=='^'):
             pass
-        elif key == 222: #²nde
+
+        elif key == 222: #²nde (mode math)
             self.grec = False
             self.math = not(self.math)
             if self.math:
@@ -227,7 +238,7 @@ class mainWindow(tk.Frame):
             else:
                 self.indication.configure(text="Lettre Usuelle",fg='#000066')
 
-        elif key == 39: # ->
+        elif key == 39: # fleche droite ->
             self.precedent.append(mathSymbol(''))
             if len(self.result[self.rg].content) > self.cursor:
                 self.cursor += 1
@@ -244,7 +255,7 @@ class mainWindow(tk.Frame):
                     if self.rg < 0:
                         self.rg = 0
 
-        elif key == 37: # <-
+        elif key == 37: # fleche gauche <-
             self.precedent.append(mathSymbol(''))
             if(self.cursor >= 1 and type(self.result[self.rg].content[self.cursor-1]).__name__ != "mathSymbol"):
                 self.i.append(self.result[self.rg].content[self.cursor-1].imax)
@@ -289,10 +300,7 @@ class mainWindow(tk.Frame):
 
                 self.cursor = len(self.result[self.rg].content)
 
-        ## touche sans actions
-        elif key in [16, 20] or (self.math and touche.char=='^'):
-            pass
-        
+        ## touche qui ne depend pas du mode selectioner
         elif key==13:
             self.multiple_choice([mathSymbol('\\newline')])
             self.pos-=0.11
@@ -316,8 +324,10 @@ class mainWindow(tk.Frame):
             self.multiple_choice([mathSymbol("<"), mathSymbol(">"), mathSymbol("\leq "), mathSymbol("\geq "), mathSymbol("\ll "), mathSymbol("\gg ")])
         elif touche.char=='"':
             self.multiple_choice([texte()])
+        elif key == 32: #space
+            self.multiple_choice([mathSymbol("\: ")])
 
-        ## letre grec
+        ## lettre grec (utiliser si le mode grec est activé)
         elif self.grec:
             if key >= 65 and key <88: 
                 if touche.char.isupper():
@@ -331,10 +341,10 @@ class mainWindow(tk.Frame):
                 self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
                 self.cursor+=1
         
-        ## symbole math
+        ## symbole math (utiliser si le mode math est activé)
         elif self.math:
             valid = True
-            if key >= 65 and key <=90: #fonction associer à une letre
+            if key >= 65 and key <= 90: #fonction associer à une letre
                 t = corespondance.copy()
                 temp = t[3][key-65]
                 if type(temp[0]) != str: 
@@ -408,12 +418,8 @@ class mainWindow(tk.Frame):
             if valid: #si le caractere est valide -> ajout dans la liste
                 self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
                 self.cursor+=1
-
-        elif key == 32: #space
-            self.precedent.append(mathSymbol("\: "))
-            self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
-            self.cursor+=1
-        ## lettre normale
+        
+        ## lettre normale (utiliser si aucun mode n'est activé)
         else:
             if touche.char != None:
                 tmp = mathSymbol(str(touche.char))
@@ -439,12 +445,16 @@ class mainWindow(tk.Frame):
         self.graph()
         self.result[self.rg].destroy(self.cursor+1)
         self.latex_display()
+
+        #Save log
         logging.info("elements dans la piles :" + str(self.elements))
         logging.info("elements dans le niveau :" + str(self.result[self.rg].content))
         logging.info("position du cursseur :" + str(self.cursor))
         logging.info("code Latex :" + self.result[0].str())
 
+
     def multiple_choice(self, temp):
+        '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         a = True
         for i in range(0, len(temp)):
             if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__():
@@ -466,6 +476,7 @@ class mainWindow(tk.Frame):
         self.cursor+=1
 
     def graph(self):
+        '''permet de gerer le graphique et l'affichage des Math'''
         # Get the Entry Input
         tmptext = self.result[0].str()
         tmptext = tmptext.replace(r"\newline", "$ \n $")
@@ -497,8 +508,11 @@ class mainWindow(tk.Frame):
             self.canvas.draw()
 
     def copy_to_clipboard(self, temp):
+        '''permet de copier le texte laTex dans le presse-papier'''
         tmptext = self.result[0].str().replace(r"\newline", chr(10))
         pyperclip.copy(tmptext)
+
+
 
 if __name__ == '__main__':
     root = tk.Tk()
