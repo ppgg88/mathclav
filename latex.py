@@ -2,6 +2,7 @@
 class mathObject():
     def __init__(self) -> None:
         self.content = []
+        self.name = "mathObject"
     def str(self) -> str:
         tmp = ""
         for i in self.content:

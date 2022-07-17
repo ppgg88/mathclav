@@ -47,7 +47,7 @@ class mainWindow(tk.Frame):
         self.dpi = 100
         self.pos = 0.9
         try :
-            self.result = [pickle.load(open("last.pkl", "rb"))]
+            self.result = [pickle.load(open(r"historique\last.pkl", "rb"))]
         except:
             self.result = [mathObject()]
         self.precedent = [mathSymbol('')]
@@ -55,6 +55,9 @@ class mainWindow(tk.Frame):
         self.grec = False
         self.math = False
         self.createWidgets()
+        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
+        self.graph()
+        self.result[self.rg].destroy(self.cursor+1)
 
     def createWidgets(self):
         '''creation de tout les widget sur la page principale'''
@@ -350,7 +353,7 @@ class mainWindow(tk.Frame):
         elif self.math:
             valid = True
             if touche.char == 'h':
-                h = historique(self.result[0])
+                h = historique(self.result[0], self)
             elif key >= 65 and key <= 90: #fonction associer à une letre
                 t = corespondance.copy()
                 temp = t[3][key-65]
@@ -521,15 +524,27 @@ class mainWindow(tk.Frame):
 
     def quiter(self):
         '''permet de quitter le programme'''
-        with open('last.pkl', 'wb') as f1:
+        with open(r'historique\last.pkl', 'wb') as f1:
             pickle.dump(self.result[0], f1)
         self.quit()
+
+    def ajout(self, input):
+        '''permet d'ajouter un element dans la pile'''
+        for data in input.content:
+            self.result[self.rg].content.append(data)
+            self.cursor += 1
+        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
+        self.graph()
+        self.result[self.rg].destroy(self.cursor+1)
+        self.latex_display()
+        
+
 
 
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
-    root.geometry("00x300")
+    root.geometry("800x300")
     root.iconbitmap('favicon.ico')
     app = mainWindow(root)
     app.mainloop()
