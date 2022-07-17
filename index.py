@@ -47,7 +47,7 @@ class mainWindow(tk.Frame):
         self.dpi = 100
         self.pos = 0.9
         try :
-            self.result = [pickle.load(open("result.pkl", "rb"))]
+            self.result = [pickle.load(open("last.pkl", "rb"))]
         except:
             self.result = [mathObject()]
         self.precedent = [mathSymbol('')]
@@ -350,7 +350,7 @@ class mainWindow(tk.Frame):
         elif self.math:
             valid = True
             if touche.char == 'h':
-                h = historique(self.result[0].str())
+                h = historique(self.result[0])
             elif key >= 65 and key <= 90: #fonction associer à une letre
                 t = corespondance.copy()
                 temp = t[3][key-65]
@@ -521,7 +521,7 @@ class mainWindow(tk.Frame):
 
     def quiter(self):
         '''permet de quitter le programme'''
-        with open('result.pkl', 'wb') as f1:
+        with open('last.pkl', 'wb') as f1:
             pickle.dump(self.result[0], f1)
         self.quit()
 
@@ -529,6 +529,7 @@ class mainWindow(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
+    root.geometry("00x300")
     root.iconbitmap('favicon.ico')
     app = mainWindow(root)
     app.mainloop()
