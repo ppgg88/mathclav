@@ -1,2 +1,6 @@
 output/
-mathclav.log
+./*.pkl
+./*.log
+log/*.log
+historique/*.pkl
+__pycache__/
