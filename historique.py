@@ -76,7 +76,8 @@ class historique(tk.Frame):
                 self.result_.append(pickle.load(f1))
             self.label_historique_name.append(tk.Label(self, text=self.result_[i-1].name))
             self.label_historique_name[len(self.label_historique_name)-1].grid(row=i, column=0)
-            
+            self.label_historique_name[len(self.label_historique_name)-1].bind("<Button-1>", lambda event, i=i: self.parent.ajout(self.result_[i-1]))
+
             tmptext = self.result_[len(self.result_)-1].str()
             tmptext = tmptext.replace(r"\newline", "$ \n $")
             tmptext = tmptext.replace(r"æ", "a")
@@ -92,7 +93,6 @@ class historique(tk.Frame):
             self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
             self.canvas_[len(self.canvas_)-1].draw()
 
-            #self.canvas[len(self.fig_)-1].bind("<Button-1>", lambda event, i=i: self.parent.ajout(self.result_[i-1]))
             self.button_supr.append(tk.Button(self, text="Suprimer", command=(lambda i=i:self.supr(i-1))))
             self.button_supr[len(self.button_supr)-1].grid(row=i, column=2)
 
