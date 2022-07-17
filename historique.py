@@ -106,12 +106,17 @@ class historique(tk.Frame):
         self.afficher()
     
     def supr(self, i):
-        os.remove(r'historique\hist_'+str(self.nb_historique)+'.pkl')
+        os.remove(r'historique\hist_'+str(i+1)+'.pkl')
+        self.result_.pop(i)
         self.nb_historique -= 1
+        for k in range(i+2, self.nb_historique+2):
+            os.rename(r'historique\hist_'+str(k)+'.pkl', r'historique\hist_'+str(k-1)+'.pkl')
+        self.master.destroy()
         with open(r'historique\nb.pkl', 'wb') as f1:
             pickle.dump(self.nb_historique, f1)
         h = historique(self.result, self.parent)
-        self.master.destroy()
+        
+        
 
 if __name__ == '__main__':
     h = historique(mathObject())
