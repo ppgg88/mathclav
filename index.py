@@ -7,6 +7,8 @@ from latex import *
 import logging
 import sys
 import pyperclip
+import pickle
+from historique import *
 
 matplotlib.use('TkAgg')
 #matplotlib.rcParams['font.size'] = 20
@@ -44,7 +46,10 @@ class mainWindow(tk.Frame):
         self.size = 11
         self.dpi = 100
         self.pos = 0.9
-        self.result = [mathObject()]
+        try :
+            self.result = [pickle.load(open("result.pkl", "rb"))]
+        except:
+            self.result = [mathObject()]
         self.precedent = [mathSymbol('')]
         self.elements = []
         self.grec = False
@@ -105,7 +110,7 @@ class mainWindow(tk.Frame):
         #self.clearButton.pack()
         self.clearButton.grid(row=1, column=2)
 
-        self.quitButton = tk.Button(self.btn, text='Quit', width="20", command=self.quit,  font=("Arial", 11))
+        self.quitButton = tk.Button(self.btn, text='Quit', width="20", command=self.quiter,  font=("Arial", 11))
         self.quitButton.grid(row=1, column=3)
         #self.quitButton.pack()
         self.btn.pack()
@@ -172,10 +177,10 @@ class mainWindow(tk.Frame):
                 [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
                 [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
                 [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
-                [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
+                [mathSymbol('h')],
                 [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
                 [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
-                ['k'],
+                [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
                 [ln(), log(), e(), exp()],
                 [lim1(), lim()],
                 ['n'],
@@ -344,7 +349,9 @@ class mainWindow(tk.Frame):
         ## symbole math (utiliser si le mode math est activé)
         elif self.math:
             valid = True
-            if key >= 65 and key <= 90: #fonction associer à une letre
+            if touche.char == 'h':
+                h = historique(self.result[0].str())
+            elif key >= 65 and key <= 90: #fonction associer à une letre
                 t = corespondance.copy()
                 temp = t[3][key-65]
                 if type(temp[0]) != str: 
@@ -512,6 +519,11 @@ class mainWindow(tk.Frame):
         tmptext = self.result[0].str().replace(r"\newline", chr(10))
         pyperclip.copy(tmptext)
 
+    def quiter(self):
+        '''permet de quitter le programme'''
+        with open('result.pkl', 'wb') as f1:
+            pickle.dump(self.result[0], f1)
+        self.quit()
 
 
 if __name__ == '__main__':
