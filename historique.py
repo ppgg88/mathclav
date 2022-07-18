@@ -36,7 +36,8 @@ class historique(tk.Frame):
         tmptext = self.result.str()
         tmptext = tmptext.replace(r"\newline", "$ \n $")
         tmptext = tmptext.replace(r"æ", "a")
-
+        if tmptext == "":
+            tmptext = "Vide"
         self.fig_=[]
         self.canvas_=[]
         self.wx_=[]
@@ -82,6 +83,8 @@ class historique(tk.Frame):
             tmptext = self.result_[len(self.result_)-1].str()
             tmptext = tmptext.replace(r"\newline", "$ \n $")
             tmptext = tmptext.replace(r"æ", "a")
+            if tmptext == "":
+                tmptext = "Vide"
             self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
             self.wx = self.fig_[len(self.fig_)-1].add_subplot(111)
             self.wx.get_xaxis().set_visible(False)
