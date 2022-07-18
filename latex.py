@@ -726,3 +726,19 @@ class norme():
     def destroy(self) -> None:
         self.latex = r""
         return self
+
+class norme2():
+    def __init__(self) -> None:
+        self.content = [mathObject()]
+        self.imax = 0
+        self.latex = r'\left\Vert ░ \right\Vert'
+    def __add__(self, other) -> None:
+        self.content += other
+        return self
+    def __str__(self) -> str:
+        if self.content[0].content == []:
+            return self.latex
+        return self.latex.replace('░', str(self.content[0].str()))
+    def destroy(self) -> None:
+        self.latex = r""
+        return self

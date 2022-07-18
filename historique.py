@@ -29,7 +29,8 @@ class historique(tk.Frame):
         self.result_= []
         self.label_historique = []
         master = tk.Tk()
-        master.title("MathClav_Historique")
+        master.title("MathClav - Historique")
+        master.iconbitmap('favicon.ico')
         tk.Frame.__init__(self, master)
 
         tmptext = self.result.str()
@@ -76,7 +77,7 @@ class historique(tk.Frame):
                 self.result_.append(pickle.load(f1))
             self.label_historique_name.append(tk.Label(self, text=self.result_[i-1].name))
             self.label_historique_name[len(self.label_historique_name)-1].grid(row=i, column=0)
-            self.label_historique_name[len(self.label_historique_name)-1].bind("<Button-1>", lambda event, i=i: self.parent.ajout(self.result_[i-1]))
+            self.label_historique_name[len(self.label_historique_name)-1].bind("<Button-1>", lambda event, i=i: self.ajouter(i))
 
             tmptext = self.result_[len(self.result_)-1].str()
             tmptext = tmptext.replace(r"\newline", "$ \n $")
@@ -116,7 +117,9 @@ class historique(tk.Frame):
             pickle.dump(self.nb_historique, f1)
         h = historique(self.result, self.parent)
         
-        
+    def ajouter(self, i):
+        self.parent.ajout(self.result_[i-1])
+        self.master.destroy()
 
 if __name__ == '__main__':
     import index

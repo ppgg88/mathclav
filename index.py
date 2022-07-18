@@ -173,7 +173,7 @@ class mainWindow(tk.Frame):
         corespondance = [
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
             [mathSymbol('A'), mathSymbol('B'), mathSymbol('\\Gamma '), mathSymbol('\\Delta '), mathSymbol('E'), mathSymbol('Z'), mathSymbol('H'), mathSymbol('\\Theta '), mathSymbol('I'), mathSymbol('K'), mathSymbol('\\Lambda '), mathSymbol('M'), mathSymbol('N'), mathSymbol('\\Xi '), mathSymbol('O'), mathSymbol('\\Pi '), mathSymbol('P'), mathSymbol('\\Sigma '), mathSymbol('T'), mathSymbol('Y'), mathSymbol('\\Phi '), mathSymbol('X'), mathSymbol('\\Psi '), mathSymbol('\\Omega ')],
-            [mathSymbol('\\alpha '), mathSymbol('\\beta '), mathSymbol('\\gamma '), mathSymbol('\\delta '), mathSymbol('\\epsilon '), mathSymbol('\\zeta '), mathSymbol('\\eta '), mathSymbol('\\theta '), mathSymbol('\\iota '), mathSymbol('\\kappa '), mathSymbol('\\lambda '), mathSymbol('\\mu '), mathSymbol('\\nu '), mathSymbol('\\xi '), mathSymbol('\\omicron '), mathSymbol('\\pi '), mathSymbol('\\rho '), mathSymbol('\\sigma '), mathSymbol('\\tau '), mathSymbol('\\upsilon '), mathSymbol('\\phi '), mathSymbol('\\chi '), mathSymbol('\\psi '), mathSymbol('\\omega ')],
+            [mathSymbol('\\alpha '), mathSymbol('\\beta '), mathSymbol('\\gamma '), mathSymbol('\\delta '), mathSymbol('\\epsilon '), mathSymbol('\\zeta '), mathSymbol('\\eta '), mathSymbol('\\theta '), mathSymbol('\\iota '), mathSymbol('\\kappa '), mathSymbol('\\lambda '), mathSymbol('\\mu '), mathSymbol('\\nu '), mathSymbol('\\xi '), mathSymbol('\\omicron '), mathSymbol('\\pi '), mathSymbol('\\rho '), mathSymbol('\\sigma '), mathSymbol('\\tau '), mathSymbol('\\upsilon '), mathSymbol('\\varphi '), mathSymbol('\\chi '), mathSymbol('\\psi '), mathSymbol('\\omega ')],
             [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
                 [binom()],
                 [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
@@ -393,17 +393,17 @@ class mainWindow(tk.Frame):
             elif touche.char == ')':
                 self.multiple_choice([parenthese_carre()])
             elif touche.char == '|':
-                self.multiple_choice([norme()])
+                self.multiple_choice([norme(), norme2()])
             elif touche.char == '_':
                 self.multiple_choice([indice()])
             elif touche.char != None: #sinon caractere normal
-                self.multiple_choice([mathSymbol(touche.char)])
+                self.multiple_choice([mathSymbol(touche.char.replace('^',''))])
 
         
         ## lettre normale (utiliser si aucun mode n'est activé)
         else:
-            if touche.char != None:
-                tmp = mathSymbol(str(touche.char))
+            if touche.char != None and touche.char != '^':
+                tmp = mathSymbol(str(touche.char).replace('^', ''))
                 self.result[self.rg].add(tmp, self.cursor)
                 self.precedent.append(tmp)
                 self.cursor+=1
