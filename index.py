@@ -316,6 +316,10 @@ class mainWindow(tk.Frame):
             if self.cursor != len(self.result[self.rg].content):
                 self.result[self.rg].destroy(self.cursor+1)
 
+        elif touche.char == "\x03": #ctrl-c
+            self.copy_to_clipboard()
+            tk.messagebox.showinfo("Copie", "le code Latex à été copié dans votre presse-papier")
+            
         ## touche qui ne depend pas du mode selectioner
         elif key==13:
             self.multiple_choice([mathSymbol('\\newline')])
@@ -488,7 +492,7 @@ class mainWindow(tk.Frame):
             self.wx.axis('off')
             self.canvas.draw()
 
-    def copy_to_clipboard(self, temp):
+    def copy_to_clipboard(self, temp = None):
         '''permet de copier le texte laTex dans le presse-papier'''
         tmptext = self.result[0].str().replace(r"\newline", chr(10))
         pyperclip.copy(tmptext)
