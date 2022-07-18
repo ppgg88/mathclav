@@ -312,6 +312,9 @@ class mainWindow(tk.Frame):
         elif key == 27: #escape
             self.quiter()
         
+        elif key == 46: #suppr -->
+            if self.cursor != len(self.result[self.rg].content):
+                self.result[self.rg].destroy(self.cursor+1)
 
         ## touche qui ne depend pas du mode selectioner
         elif key==13:
