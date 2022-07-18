@@ -119,5 +119,6 @@ class historique(tk.Frame):
         
 
 if __name__ == '__main__':
-    h = historique(mathObject())
+    import index
+    index.main()
     

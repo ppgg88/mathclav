@@ -50,6 +50,7 @@ class mainWindow(tk.Frame):
             self.result = [pickle.load(open(r"historique\last.pkl", "rb"))]
         except:
             self.result = [mathObject()]
+        self.cursor=len(self.result[0].content)
         self.precedent = [mathSymbol('')]
         self.elements = []
         self.grec = False
@@ -235,7 +236,7 @@ class mainWindow(tk.Frame):
             self.ctrl_l = False
         
         ## touche sans actions
-        if touche.keysym=='Control_L' or touche.keysym=='Alt_L' or key in [16, 20] or (self.math and touche.char=='^'):
+        if touche.keysym=='Control_L' or touche.keysym=='Alt_L'  or touche.keysym=='Alt_R' or key in [16, 20] or (self.math and touche.char=='^') or touche.char== "\\" :
             pass
 
         elif key == 222: #²nde (mode math)
