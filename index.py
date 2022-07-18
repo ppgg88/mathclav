@@ -172,8 +172,60 @@ class mainWindow(tk.Frame):
         # tableau de corespondance entre lettres normal, grec et signe mathématique
         corespondance = [
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-            [mathSymbol('A'), mathSymbol('B'), mathSymbol('\\Gamma '), mathSymbol('\\Delta '), mathSymbol('E'), mathSymbol('Z'), mathSymbol('H'), mathSymbol('\\Theta '), mathSymbol('I'), mathSymbol('K'), mathSymbol('\\Lambda '), mathSymbol('M'), mathSymbol('N'), mathSymbol('\\Xi '), mathSymbol('O'), mathSymbol('\\Pi '), mathSymbol('P'), mathSymbol('\\Sigma '), mathSymbol('T'), mathSymbol('Y'), mathSymbol('\\Phi '), mathSymbol('X'), mathSymbol('\\Psi '), mathSymbol('\\Omega ')],
-            [mathSymbol('\\alpha '), mathSymbol('\\beta '), mathSymbol('\\gamma '), mathSymbol('\\delta '), mathSymbol('\\epsilon '), mathSymbol('\\zeta '), mathSymbol('\\eta '), mathSymbol('\\theta '), mathSymbol('\\iota '), mathSymbol('\\kappa '), mathSymbol('\\lambda '), mathSymbol('\\mu '), mathSymbol('\\nu '), mathSymbol('\\xi '), mathSymbol('\\omicron '), mathSymbol('\\pi '), mathSymbol('\\rho '), mathSymbol('\\sigma '), mathSymbol('\\tau '), mathSymbol('\\upsilon '), mathSymbol('\\varphi '), mathSymbol('\\chi '), mathSymbol('\\psi '), mathSymbol('\\omega ')],
+            [   mathSymbol('A'), 
+                mathSymbol('B'), 
+                mathSymbol('\\Theta '), 
+                mathSymbol('\\Delta '),  
+                mathSymbol('E'),
+                mathSymbol('\\Phi '),  
+                mathSymbol('\\Gamma '),
+                mathSymbol('H'), 
+                mathSymbol('I'), 
+                mathSymbol('\\Omega '),
+                mathSymbol('K'), 
+                mathSymbol('\\Lambda '), 
+                mathSymbol('M'), 
+                mathSymbol('N'), 
+                mathSymbol('O'), 
+                mathSymbol('\\Pi '), 
+                mathSymbol('Q'),
+                mathSymbol('P'),
+                mathSymbol('\\Sigma '), 
+                mathSymbol('T'),
+                mathSymbol('U'),
+                mathSymbol('X'),
+                mathSymbol('\\Psi '), 
+                mathSymbol('\\Xi '),
+                mathSymbol('Y'), 
+                mathSymbol('Z'), 
+            ],
+            [   mathSymbol('\\alpha '), #a
+                mathSymbol('\\beta '), #b
+                mathSymbol('\\theta '),#c
+                mathSymbol('\\delta '), #d
+                mathSymbol('\\epsilon '), #e
+                mathSymbol('\\varphi '), #f
+                mathSymbol('\\gamma '), #g  
+                mathSymbol('\\eta '), #h 
+                mathSymbol('\\iota '), #i
+                mathSymbol('\\omega '), #j 
+                mathSymbol('\\kappa '), #k
+                mathSymbol('\\lambda '), #l
+                mathSymbol('\\mu '), #m
+                mathSymbol('\\nu '), #n  
+                mathSymbol('\\omicron '), #o 
+                mathSymbol('\\pi '), #p
+                mathSymbol('q'), #q
+                mathSymbol('\\rho '), #r 
+                mathSymbol('\\sigma '),#s
+                mathSymbol('\\tau '), #t 
+                mathSymbol('u'), #u
+                mathSymbol('\\chi '), #v
+                mathSymbol('\\psi '), #w
+                mathSymbol('\\xi '), #x
+                mathSymbol('\\upsilon '), #y
+                mathSymbol('\\zeta '),#z
+            ],
             [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
                 [binom()],
                 [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
@@ -351,7 +403,7 @@ class mainWindow(tk.Frame):
 
         ## lettre grec (utiliser si le mode grec est activé)
         elif self.grec:
-            if key >= 65 and key <88: 
+            if key >= 65 and key <91: 
                 if touche.char.isupper():
                     self.precedent.append(corespondance[1][key-65])
                 else:
