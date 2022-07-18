@@ -236,7 +236,7 @@ class mainWindow(tk.Frame):
             self.ctrl_l = False
         
         ## touche sans actions
-        if touche.keysym=='Control_L' or touche.keysym=='Alt_L'  or touche.keysym=='Alt_R' or key in [16, 20] or (self.math and touche.char=='^') or touche.char== "\\" :
+        if touche.keysym=='Control_L' or touche.keysym=='Alt_L'  or touche.keysym=='Alt_R' or key in [16, 20, 38, 40, 17, 19, 145, 35, 36, 120, 91, 179, 175,174,173] or (self.math and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
             pass
 
         elif key == 222: #²nde (mode math)
@@ -289,18 +289,18 @@ class mainWindow(tk.Frame):
                 self.rg = self.rg-1
 
         elif key == 8: #suppr <--
+            print(self.i[len(self.i)-1])
             if self.cursor != 0:
                 self.precedent.append(mathSymbol(''))
                 self.result[self.rg].destroy(self.cursor)
                 self.cursor -= 1
             elif self.rg>0 and self.i[len(self.i)-1]==0:
-                self.precedent.append(mathSymbol(''))
-                self.cursor = self.cursor_prev
+                #self.precedent.append(mathSymbol(''))
+                self.cursor = self.result[self.rg-1].content.index(self.elements[self.rg-1])
                 self.result.pop(self.rg)
                 self.elements.pop(self.rg-1)
                 self.rg -= 1
-                self.result[self.rg].destroy(self.cursor)
-                self.cursor -= 1
+                self.result[self.rg].destroy(self.cursor+1)
             elif self.rg>0 :
                 self.precedent.append(mathSymbol(''))
                 self.result.pop(self.rg)
@@ -308,6 +308,10 @@ class mainWindow(tk.Frame):
                 self.result.append(self.elements[self.rg-1].content[self.i[len(self.i)-1]])
 
                 self.cursor = len(self.result[self.rg].content)
+
+        elif key == 27: #escape
+            self.quiter()
+        
 
         ## touche qui ne depend pas du mode selectioner
         elif key==13:
@@ -335,6 +339,8 @@ class mainWindow(tk.Frame):
             self.multiple_choice([texte()])
         elif key == 32: #space
             self.multiple_choice([mathSymbol("\: ")])
+        elif touche.char == '$':
+            self.multiple_choice([mathSymbol("\$")])
 
         ## lettre grec (utiliser si le mode grec est activé)
         elif self.grec:
@@ -352,33 +358,15 @@ class mainWindow(tk.Frame):
         
         ## symbole math (utiliser si le mode math est activé)
         elif self.math:
-            valid = True
             if touche.char == 'h':
                 h = historique(self.result[0], self)
             elif key >= 65 and key <= 90: #fonction associer à une letre
                 t = corespondance.copy()
                 temp = t[3][key-65]
                 if type(temp[0]) != str: 
-                    a = True
-                    for i in range(0, len(temp)):
-                        if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__():
-                            if self.rg != self.rg_prev:
-                                self.result.pop(self.rg)
-                                self.elements.pop(self.rg-1)
-                                self.rg=self.rg_prev
-                                self.cursor = self.cursor_prev
-                            self.result[self.rg].destroy(self.cursor)
-                            self.cursor -= 1
-                            l = i+1
-                            if l>=len(temp): l = 0
-                            self.precedent[len(self.precedent)-1] = temp[l]
-                            a = False
-                            break
-                    if a:
-                        self.precedent.append(temp[0])
+                    self.multiple_choice(temp)
                 else : 
                     logging.info("fonction Math non enregistrer sur la touche : " + str(key))
-                    valid = False
             elif key == 191: #fraction touche '/'
                 temp = self.result[self.rg].content[self.cursor-1]
                 self.result[self.rg].destroy(self.cursor)
@@ -391,44 +379,23 @@ class mainWindow(tk.Frame):
                 self.cursor=1
                 self.result[self.rg].add(temp, self.cursor-1)
                 self.precedent.append(mathSymbol(''))
-                valid = False
                 self.result[self.rg] = self.elements[len(self.elements)-1].content[self.i[len(self.i)-1]+1]
                 self.i[len(self.i)-1] += 1
                 self.cursor = 0
             elif key == 221: #puissance touche '^'
                 temp = [power(), indice()]
-                a = True
-                for i in range(0, len(temp)):
-                    if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__():
-                        if self.rg != self.rg_prev:
-                            self.result.pop(self.rg)
-                            self.elements.pop(self.rg-1)
-                            self.rg=self.rg_prev
-                            self.cursor = self.cursor_prev
-                        self.result[self.rg].destroy(self.cursor)
-                        self.cursor -= 1
-                        l = i+1
-                        if l>=len(temp): l = 0
-                        self.precedent[len(self.precedent)-1] = temp[l]
-                        a = False
-                        break
-                if a:
-                    self.precedent.append(temp[0])
+                self.multiple_choice(temp)
             elif touche.char == '(':
-                self.precedent.append(parenthese())
+                self.multiple_choice([parenthese()])
             elif touche.char == ')':
-                self.precedent.append(parenthese_carre())
+                self.multiple_choice([parenthese_carre()])
             elif touche.char == '|':
-                self.precedent.append(norme())
+                self.multiple_choice([norme()])
             elif touche.char == '_':
-                self.precedent.append(indice())
-            elif touche.char != None: #sinon caractere normaux
-                self.precedent.append(mathSymbol(str(touche.char)))
+                self.multiple_choice([indice()])
+            elif touche.char != None: #sinon caractere normal
+                self.multiple_choice([mathSymbol(touche.char)])
 
-            else : valid = False
-            if valid: #si le caractere est valide -> ajout dans la liste
-                self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
-                self.cursor+=1
         
         ## lettre normale (utiliser si aucun mode n'est activé)
         else:
