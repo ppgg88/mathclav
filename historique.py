@@ -10,6 +10,13 @@ import sys
 import os
 import pickle
 
+data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
+
+if not(os.path.exists(data_path)):
+    os.makedirs(data_path)
+    os.makedirs(data_path+"\historique")
+    os.makedirs(data_path+"\log")
+
 matplotlib.use('TkAgg')
 
 class historique(tk.Frame):
@@ -19,10 +26,10 @@ class historique(tk.Frame):
         self.button_supr = []
         self.label_historique_name = []
         try :
-            with open(r'historique\nb.pkl', 'rb') as f1:
+            with open(data_path+r'\historique\nb.pkl', 'rb') as f1:
                 self.nb_historique = pickle.load(f1)
         except FileNotFoundError:
-            with open(r'historique\nb.pkl', 'wb') as f1:
+            with open(data_path+r'\historique\nb.pkl', 'wb') as f1:
                 pickle.dump(self.nb_historique, f1)
         print(self.nb_historique)
         self.result = result
@@ -74,7 +81,7 @@ class historique(tk.Frame):
         self.label_historique = []
         self.button_supr = []
         for i in range(1,self.nb_historique+1):
-            with open(r'historique\hist_'+str(i)+'.pkl', 'rb') as f1:
+            with open(data_path+r'\historique\hist_'+str(i)+'.pkl', 'rb') as f1:
                 self.result_.append(pickle.load(f1))
             self.label_historique_name.append(tk.Label(self, text=self.result_[i-1].name))
             self.label_historique_name[len(self.label_historique_name)-1].grid(row=i, column=0)
@@ -102,10 +109,10 @@ class historique(tk.Frame):
 
     def save(self):
         self.result.name = self.nom_actuel.get()
-        with open(r'historique\hist_'+str(self.nb_historique+1)+'.pkl', 'wb') as f1:
+        with open(data_path+r'\historique\hist_'+str(self.nb_historique+1)+'.pkl', 'wb') as f1:
             pickle.dump(self.result, f1)
         self.nb_historique += 1
-        with open(r'historique\nb.pkl', 'wb') as f1:
+        with open(data_path+r'\historique\nb.pkl', 'wb') as f1:
             pickle.dump(self.nb_historique, f1)
         self.afficher()
     
@@ -114,9 +121,9 @@ class historique(tk.Frame):
         self.result_.pop(i)
         self.nb_historique -= 1
         for k in range(i+2, self.nb_historique+2):
-            os.rename(r'historique\hist_'+str(k)+'.pkl', r'historique\hist_'+str(k-1)+'.pkl')
+            os.rename(data_path+r'\historique\hist_'+str(k)+'.pkl', data_path+r'\historique\hist_'+str(k-1)+'.pkl')
         self.master.destroy()
-        with open(r'historique\nb.pkl', 'wb') as f1:
+        with open(data_path+r'\historique\nb.pkl', 'wb') as f1:
             pickle.dump(self.nb_historique, f1)
         h = historique(self.result, self.parent)
         

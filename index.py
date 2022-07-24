@@ -9,6 +9,15 @@ import sys
 import pyperclip
 import pickle
 from historique import *
+import os
+
+data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
+
+if not(os.path.exists(data_path)):
+    os.makedirs(data_path)
+    os.makedirs(data_path+"\historique")
+    os.makedirs(data_path+"\log")
+
 
 matplotlib.use('TkAgg')
 #matplotlib.rcParams['font.size'] = 20
@@ -20,7 +29,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("log\mathclav.log"),
+        logging.FileHandler(data_path+"\log\mathclav.log"),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -47,7 +56,7 @@ class mainWindow(tk.Frame):
         self.dpi = 100
         self.pos = 0.9
         try :
-            self.result = [pickle.load(open(r"historique\last.pkl", "rb"))]
+            self.result = [pickle.load(open(data_path+r"\historique\last.pkl", "rb"))]
         except:
             self.result = [mathObject()]
         self.cursor=len(self.result[0].content)
@@ -552,7 +561,7 @@ class mainWindow(tk.Frame):
 
     def quiter(self):
         '''permet de quitter le programme'''
-        with open(r'historique\last.pkl', 'wb') as f1:
+        with open(data_path+r'\historique\last.pkl', 'wb') as f1:
             pickle.dump(self.result[0], f1)
         self.quit()
 
