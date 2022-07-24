@@ -537,22 +537,25 @@ class mainWindow(tk.Frame):
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         
         a = True
-        for i in range(0, len(temp)):
-            if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-600):
-                if self.rg != self.rg_prev:
-                    self.result.pop(self.rg)
-                    self.elements.pop(self.rg-1)
-                    self.rg=self.rg_prev
-                    self.cursor = self.cursor_prev
-                self.result[self.rg].destroy(self.cursor)
-                self.cursor -= 1
-                l = i+1
-                if l>=len(temp): l = 0
-                self.precedent[len(self.precedent)-1] = temp[l]
-                a = False
-                break
-        if a:
+        if len(temp) == 1:
             self.precedent.append(temp[0])
+        else:
+            for i in range(0, len(temp)):
+                if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-600):
+                    if self.rg != self.rg_prev:
+                        self.result.pop(self.rg)
+                        self.elements.pop(self.rg-1)
+                        self.rg=self.rg_prev
+                        self.cursor = self.cursor_prev
+                    self.result[self.rg].destroy(self.cursor)
+                    self.cursor -= 1
+                    l = i+1
+                    if l>=len(temp): l = 0
+                    self.precedent[len(self.precedent)-1] = temp[l]
+                    a = False
+                    break
+            if a:
+                self.precedent.append(temp[0])
         self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
         self.cursor+=1
         self.prev_time = millis()
