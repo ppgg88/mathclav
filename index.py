@@ -569,7 +569,9 @@ class mainWindow(tk.Frame):
         '''permet de quitter le programme'''
         with open(data_path+r'\historique\last.pkl', 'wb') as f1:
             pickle.dump(self.result[0], f1)
+        a=True
         self.quit()
+        root.destroy()
 
     def ajout(self, input):
         '''permet d'ajouter un element dans la pile'''
