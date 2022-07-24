@@ -10,6 +10,9 @@ import pyperclip
 import pickle
 from historique import *
 import os
+import time
+
+millis = lambda: int(round(time.time() * 1000))
 
 data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
 
@@ -63,6 +66,7 @@ class mainWindow(tk.Frame):
         self.precedent = [mathSymbol('')]
         self.elements = []
         self.grec = False
+        self.prev_time = 0
         self.math = False
         self.createWidgets()
         self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
@@ -502,9 +506,10 @@ class mainWindow(tk.Frame):
 
     def multiple_choice(self, temp):
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
+        
         a = True
         for i in range(0, len(temp)):
-            if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__():
+            if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-600):
                 if self.rg != self.rg_prev:
                     self.result.pop(self.rg)
                     self.elements.pop(self.rg-1)
@@ -521,6 +526,7 @@ class mainWindow(tk.Frame):
             self.precedent.append(temp[0])
         self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
         self.cursor+=1
+        self.prev_time = millis()
 
     def graph(self):
         '''permet de gerer le graphique et l'affichage des Math'''
