@@ -5,8 +5,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from latex import *
-import logging
-import sys
 import os
 import pickle
 
