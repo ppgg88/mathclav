@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from turtle import bgcolor
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -11,16 +12,23 @@ import pickle
 from historique import *
 import os
 import time
+import pyglet
+import sv_ttk
+import json
 
 #constantes :
-bg = '#121212'
+
+whith = '#f0f0f0'
+bg = '#1e1e1e'
 bgMath = '#3A3A3A'
 bg_buton = '#2e2e2e'
-blue = '#b3d0ff'
-red = '#ffa1c3'
-green = '#c9ffc9'
-whith = '#f0f0f0'
+bg_white = '#FFFFFF'
+blue = '#4188fd'
+red = '#ea4646'
+green = '#5cc25c'
 
+#imports a new font
+pyglet.font.add_file("Lato-Regular.ttf")
 
 millis = lambda: int(round(time.time() * 1000))
 
@@ -28,8 +36,10 @@ data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
 
 if not(os.path.exists(data_path)):
     os.makedirs(data_path)
+    os.makedirs(data_path+"\settings")
     os.makedirs(data_path+"\historique")
     os.makedirs(data_path+"\log")
+
 
 
 matplotlib.use('TkAgg')
@@ -91,7 +101,7 @@ class mainWindow(tk.Frame):
         self.label['fg'] = whith
         self.label.pack()
 
-        self.indication = tk.Label(self, text="Lettre Usuelle", font=("Arial", 12), fg=blue, bg=bg)
+        self.indication = ttk.Label(self, text="Lettre Usuelle", font=("Lato Regular", 12),foreground=blue)
         self.indication.pack()
         self.indication.bind("<Button-1>",self.copy_to_clipboard)
 
@@ -119,7 +129,7 @@ class mainWindow(tk.Frame):
         for i in range(1, 30):
             liste.append(i)
 
-        s1 = tk.Label(self.btn, text="Moteur LaTex :", font=("Arial", 10), fg=whith, bg=bg)
+        s1 = ttk.Label(self.btn, text="Moteur LaTex :", font=("Lato Regular", 10))
         s1.grid(row=0, column=0)
 
         self.cobobox1 = ttk.Combobox(self.btn, values=["Intern Engine (MatPlot)", "Extern Engine"], state="readonly")
@@ -128,34 +138,25 @@ class mainWindow(tk.Frame):
         self.cobobox1.grid(row=1, column=0, padx=10)
 
 
-        s = tk.Label(self.btn, text="Taille :", font=("Arial", 10), fg=whith, bg=bg)
+        s = ttk.Label(self.btn, text="Taille :", font=("Lato Regular", 10))
         s.grid(row=0, column=1)
-
-        combostyle = ttk.Style()
-        combostyle.theme_create('combostyle', parent='alt',
-                         settings = {'TCombobox':
-                                     {'configure':
-                                      {'selectbackground': 'blue',
-                                       'fieldbackground': bg_buton,
-                                       'background': whith,
-                                       'foreground': whith,
-                                       'font': ('Arial', 11),
-                                       'relief': 'flat',
-                                       }}}
-                         )
-        combostyle.theme_use('combostyle') 
 
         
         self.cobobox = ttk.Combobox(self.btn, values=liste, state="readonly")
         self.cobobox.bind("<<ComboboxSelected>>", self.change_size)
         self.cobobox.current(self.size-1)
         self.cobobox.grid(row=1, column=1, padx=10)
-        
-        self.clearButton = tk.Button(self.btn, text='Effacer',width="20", command=self.clear,  font=("Arial", 11), foreground=whith, background=bg_buton)
+
+
+        self.themeButton = ttk.Button(self.btn, text="Thème clair", width="20", command=self.changeTheme)
+        #self.themeButton.pack()
+        self.themeButton.grid(row=0, column=3, padx=10)
+
+        self.clearButton = ttk.Button(self.btn, text='Effacer',width="20", command=self.clear)
         #self.clearButton.pack()
         self.clearButton.grid(row=1, column=2, padx=10)
 
-        self.quitButton = tk.Button(self.btn, text='Quit', width="20", command=self.quiter,  font=("Arial", 11), foreground=whith, background=bg_buton)
+        self.quitButton = ttk.Button(self.btn, text='Quitter', width="20", command=self.quiter)
         self.quitButton.grid(row=1, column=3, padx=10)
         #self.quitButton.pack()
         self.btn.pack(padx=10, pady=20)
@@ -171,7 +172,7 @@ class mainWindow(tk.Frame):
         self.cursor_prev = 0
         self.i = [0]
         self.pos = 0.9
-
+        self.latex_display()
         self.wx.clear()
         try : 
             self.result[self.rg].add(mathSymbol("|"), self.cursor)
@@ -196,7 +197,10 @@ class mainWindow(tk.Frame):
         '''affiche le texte au format latex'''
         # Get the Entry Input
         tmptext = self.result[0].str().replace('\\newline', chr(10))
-        self.label.configure(text=tmptext, font=("Arial", 11))
+        if sv_ttk.get_theme()=="dark" :
+            self.label.configure(text=tmptext, font=("Lato Regular", 11),fg='white')
+        else :
+            self.label.configure(text=tmptext, font=("Lato Regular", 11),fg='black')
 
     def change_size(self, temp):
         '''change la taille du texte'''
@@ -304,9 +308,9 @@ class mainWindow(tk.Frame):
             self.grec = not(self.grec)
             self.math = False
             if self.grec:
-                self.indication.configure(text="Lettre Grec", fg=green)
+                self.indication.configure(text="Lettre Grecque", foreground=green)
             else:
-                self.indication.configure(text="Lettre Usuelle",fg=blue)
+                self.indication.configure(text="Lettre Usuelle",foreground=blue)
 
         # gestion du bug de la touche 'alt gr'
         elif touche.keysym=='Alt_R': 
@@ -318,12 +322,14 @@ class mainWindow(tk.Frame):
                 else : self.grec = False
 
                 if self.math:
-                    self.indication.configure(text="Mode Math", fg=red)
+                    self.indication.configure(text="Mode Math", foreground=red)
                 elif self.grec:
-                    self.indication.configure(text="Lettre Grec", fg=green)
+                    self.indication.configure(text="Lettre Grecque", foreground=green)
                 else:
-                    self.indication.configure(text="Lettre Usuelle",fg=blue)
+                    self.indication.configure(text="Lettre Usuelle",foreground=blue)
+
                 self.ctrl_l = True
+
         
         else :
             self.ctrl_l = False
@@ -336,9 +342,9 @@ class mainWindow(tk.Frame):
             self.grec = False
             self.math = not(self.math)
             if self.math:
-                self.indication.configure(text="Mode Math", fg=red)
+                self.indication.configure(text="Mode Math", foreground=red)
             else:
-                self.indication.configure(text="Lettre Usuelle",fg=blue)
+                self.indication.configure(text="Lettre Usuelle",foreground=blue)
 
         elif key == 39: # fleche droite ->
             self.precedent.append(mathSymbol(''))
@@ -466,7 +472,7 @@ class mainWindow(tk.Frame):
                 if type(temp[0]) != str: 
                     self.multiple_choice(temp)
                 else : 
-                    logging.info("fonction Math non enregistrer sur la touche : " + str(key))
+                    logging.info("Fonction Math non enregistrée sur la touche : " + str(key))
             elif key == 191: #fraction touche '/'
                 temp = self.result[self.rg].content[self.cursor-1]
                 self.result[self.rg].destroy(self.cursor)
@@ -536,25 +542,22 @@ class mainWindow(tk.Frame):
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         
         a = True
-        if len(temp) == 1:
+        for i in range(0, len(temp)):
+            if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-600):
+                if self.rg != self.rg_prev:
+                    self.result.pop(self.rg)
+                    self.elements.pop(self.rg-1)
+                    self.rg=self.rg_prev
+                    self.cursor = self.cursor_prev
+                self.result[self.rg].destroy(self.cursor)
+                self.cursor -= 1
+                l = i+1
+                if l>=len(temp): l = 0
+                self.precedent[len(self.precedent)-1] = temp[l]
+                a = False
+                break
+        if a:
             self.precedent.append(temp[0])
-        else:
-            for i in range(0, len(temp)):
-                if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-600):
-                    if self.rg != self.rg_prev:
-                        self.result.pop(self.rg)
-                        self.elements.pop(self.rg-1)
-                        self.rg=self.rg_prev
-                        self.cursor = self.cursor_prev
-                    self.result[self.rg].destroy(self.cursor)
-                    self.cursor -= 1
-                    l = i+1
-                    if l>=len(temp): l = 0
-                    self.precedent[len(self.precedent)-1] = temp[l]
-                    a = False
-                    break
-            if a:
-                self.precedent.append(temp[0])
         self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
         self.cursor+=1
         self.prev_time = millis()
@@ -614,15 +617,51 @@ class mainWindow(tk.Frame):
         self.result[self.rg].destroy(self.cursor+1)
         self.latex_display()
         
+    def changeTheme(self) :
+        '''change le thème de l'application'''
+        sv_ttk.toggle_theme()
+        with open (data_path+'\settings\settings.json',"r+") as f :
+            settings = json.load(f)
+
+            if sv_ttk.get_theme() == "dark" :
+                self.btn['bg'] = bg
+                self.label['bg'] = bg
+                app['bg'] = bg
+                self.latex_display()
+                self.themeButton['text']="Thème clair"
+                settings['settings']['theme']="dark"
+                
+            else :
+                self.btn['bg'] = bg_white
+                self.label['bg'] = bg_white
+                app['bg'] = bg_white
+                self.latex_display()
+                self.themeButton['text']="Thème sombre"
+                settings['settings']['theme']="light"
+            
+            f.seek(0)
+            f.write(json.dumps(settings))
+            f.truncate()         
+        
+          
+
 
 
 
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
-    root.geometry("800x340")
+    root.geometry("800x380")
     root.iconbitmap('favicon.ico')
+    sv_ttk.set_theme("dark")
     app = mainWindow(root)
     app['bg'] = bg
+    try :
+        settings = json.load(open(data_path+'\settings\settings.json'))
+        if settings['settings']['theme'] == "light" :
+            app.changeTheme()
+    except :
+        with open (data_path+'\settings\settings.json',"w") as f :
+            f.write('{"settings": {"theme": "dark"}}')
     app.mainloop()
 

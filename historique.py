@@ -23,6 +23,7 @@ if not(os.path.exists(data_path)):
     os.makedirs(data_path)
     os.makedirs(data_path+"\historique")
     os.makedirs(data_path+"\log")
+    os.makedirs(data_path+"\settings")
 
 matplotlib.use('TkAgg')
 
@@ -73,7 +74,7 @@ class historique(tk.Frame):
         self.nom_actuel = tk.Entry(self)
         self.nom_actuel.grid(row=0, column=1)
 
-        self.button_save = tk.Button(self, text="Save", command=self.save, bg=bg_buton, fg=whith)
+        self.button_save = tk.Button(self, text="Sauvegarder", command=self.save, bg=bg_buton, fg=whith)
         self.button_save.grid(row=0, column=2)
 
         self.afficher()
@@ -114,7 +115,7 @@ class historique(tk.Frame):
             self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
             self.canvas_[len(self.canvas_)-1].draw()
 
-            self.button_supr.append(tk.Button(self, text="Suprimer", command=(lambda i=i:self.supr(i-1)), bg=bg_buton, fg=whith))
+            self.button_supr.append(tk.Button(self, text="Supprimer", command=(lambda i=i:self.supr(i-1)), bg=bg_buton, fg=whith))
             self.button_supr[len(self.button_supr)-1].grid(row=i, column=2)
 
     def save(self):
