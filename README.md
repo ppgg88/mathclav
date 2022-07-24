@@ -10,6 +10,8 @@ n'oublier pas de verifier l'instalation des librairie essentiel :
 - matplotlib
 - logging
 - pyperclip
+- pyglet
+- sv_ttk
 
 le fichier latex.py contient tout les objet mathematique rencontrer
 le fichier index.py contient l'affichage et le programe principal (la methode action de la classe mainWindow contien tout le traitement en fonction de la touche qui est apuiller)
