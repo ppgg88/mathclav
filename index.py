@@ -483,6 +483,7 @@ class mainWindow(tk.Frame):
         self.result[self.rg].destroy(self.cursor+1)
         self.latex_display()
 
+        self.copy_to_clipboard()
         #Save log
         logging.info("elements dans la piles :" + str(self.elements))
         logging.info("elements dans le niveau :" + str(self.result[self.rg].content))
