@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from turtle import bgcolor
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -11,6 +12,16 @@ import pickle
 from historique import *
 import os
 import time
+
+#constantes :
+bg = '#121212'
+bgMath = '#3A3A3A'
+bg_buton = '#2e2e2e'
+blue = '#b3d0ff'
+red = '#ffa1c3'
+green = '#c9ffc9'
+whith = '#f0f0f0'
+
 
 millis = lambda: int(round(time.time() * 1000))
 
@@ -77,10 +88,11 @@ class mainWindow(tk.Frame):
         '''creation de tout les widget sur la page principale'''
         self.label = tk.Label(self)
         self.label.bind("<Button-1>",self.copy_to_clipboard)
-
+        self.label['bg'] = bg
+        self.label['fg'] = whith
         self.label.pack()
 
-        self.indication = tk.Label(self, text="Lettre Usuelle", font=("Arial", 12), fg='#000066')
+        self.indication = tk.Label(self, text="Lettre Usuelle", font=("Arial", 12), fg=blue, bg=bg)
         self.indication.pack()
         self.indication.bind("<Button-1>",self.copy_to_clipboard)
 
@@ -94,6 +106,8 @@ class mainWindow(tk.Frame):
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
+        fig.patch.set_facecolor(bgMath)
+        
         self.canvas = FigureCanvasTkAgg(fig, master=label)
         self.canvas.get_tk_widget().pack(expand=1, fill=tk.BOTH, side=tk.TOP)
         #self.graph()
@@ -101,37 +115,52 @@ class mainWindow(tk.Frame):
 
 
         self.btn = tk.Frame(self)
-
+        self.btn['bg'] = bg
         liste = []
         for i in range(1, 30):
             liste.append(i)
 
-        s1 = tk.Label(self.btn, text="Moteur LaTex :", font=("Arial", 10))
+        s1 = tk.Label(self.btn, text="Moteur LaTex :", font=("Arial", 10), fg=whith, bg=bg)
         s1.grid(row=0, column=0)
 
         self.cobobox1 = ttk.Combobox(self.btn, values=["Intern Engine (MatPlot)", "Extern Engine"], state="readonly")
         self.cobobox1.bind("<<ComboboxSelected>>", self.engine)
         self.cobobox1.current(0)
-        self.cobobox1.grid(row=1, column=0)
+        self.cobobox1.grid(row=1, column=0, padx=10)
 
 
-        s = tk.Label(self.btn, text="Taille :", font=("Arial", 10))
+        s = tk.Label(self.btn, text="Taille :", font=("Arial", 10), fg=whith, bg=bg)
         s.grid(row=0, column=1)
 
+        combostyle = ttk.Style()
+        combostyle.theme_create('combostyle', parent='alt',
+                         settings = {'TCombobox':
+                                     {'configure':
+                                      {'selectbackground': 'blue',
+                                       'fieldbackground': bg_buton,
+                                       'background': whith,
+                                       'foreground': whith,
+                                       'font': ('Arial', 11),
+                                       'relief': 'flat',
+                                       }}}
+                         )
+        combostyle.theme_use('combostyle') 
+
+        
         self.cobobox = ttk.Combobox(self.btn, values=liste, state="readonly")
         self.cobobox.bind("<<ComboboxSelected>>", self.change_size)
         self.cobobox.current(self.size-1)
-        self.cobobox.grid(row=1, column=1)
+        self.cobobox.grid(row=1, column=1, padx=10)
         
-        self.clearButton = tk.Button(self.btn, text='Effacer',width="20", command=self.clear,  font=("Arial", 11))
+        self.clearButton = tk.Button(self.btn, text='Effacer',width="20", command=self.clear,  font=("Arial", 11), foreground=whith, background=bg_buton)
         #self.clearButton.pack()
-        self.clearButton.grid(row=1, column=2)
+        self.clearButton.grid(row=1, column=2, padx=10)
 
-        self.quitButton = tk.Button(self.btn, text='Quit', width="20", command=self.quiter,  font=("Arial", 11))
-        self.quitButton.grid(row=1, column=3)
+        self.quitButton = tk.Button(self.btn, text='Quit', width="20", command=self.quiter,  font=("Arial", 11), foreground=whith, background=bg_buton)
+        self.quitButton.grid(row=1, column=3, padx=10)
         #self.quitButton.pack()
-        self.btn.pack()
-
+        self.btn.pack(padx=10, pady=20)
+        
     def clear(self):
         '''efface le texte precedement ecris'''
         self.result = [mathObject()]
@@ -276,9 +305,9 @@ class mainWindow(tk.Frame):
             self.grec = not(self.grec)
             self.math = False
             if self.grec:
-                self.indication.configure(text="Lettre Grec", fg='#339933')
+                self.indication.configure(text="Lettre Grec", fg=green)
             else:
-                self.indication.configure(text="Lettre Usuelle",fg='#000066')
+                self.indication.configure(text="Lettre Usuelle",fg=blue)
 
         # gestion du bug de la touche 'alt gr'
         elif touche.keysym=='Alt_R': 
@@ -290,11 +319,11 @@ class mainWindow(tk.Frame):
                 else : self.grec = False
 
                 if self.math:
-                    self.indication.configure(text="Mode Math", fg='#990033')
+                    self.indication.configure(text="Mode Math", fg=red)
                 elif self.grec:
-                    self.indication.configure(text="Lettre Grec", fg='#339933')
+                    self.indication.configure(text="Lettre Grec", fg=green)
                 else:
-                    self.indication.configure(text="Lettre Usuelle",fg='#000066')
+                    self.indication.configure(text="Lettre Usuelle",fg=blue)
                 self.ctrl_l = True
         
         else :
@@ -308,9 +337,9 @@ class mainWindow(tk.Frame):
             self.grec = False
             self.math = not(self.math)
             if self.math:
-                self.indication.configure(text="Mode Math", fg='#990033')
+                self.indication.configure(text="Mode Math", fg=red)
             else:
-                self.indication.configure(text="Lettre Usuelle",fg='#000066')
+                self.indication.configure(text="Lettre Usuelle",fg=blue)
 
         elif key == 39: # fleche droite ->
             self.precedent.append(mathSymbol(''))
@@ -539,7 +568,7 @@ class mainWindow(tk.Frame):
             try : 
                 matplotlib.rcParams['text.usetex'] = False
                 self.wx.clear()
-                self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size)
+                self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = whith)
                 self.wx.patch.set_visible(False)
                 self.wx.axis('off')
                 self.canvas.draw()
@@ -589,8 +618,9 @@ class mainWindow(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
-    root.geometry("800x300")
+    root.geometry("800x340")
     root.iconbitmap('favicon.ico')
     app = mainWindow(root)
+    app['bg'] = bg
     app.mainloop()
 
