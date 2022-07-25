@@ -1,6 +1,17 @@
+# MathClav v0.2  
+# by : Team SchnakyX & apparentés (TS&a)
+#
+# Licence (CC BY-NC-SA 4.0) 2022 - MathClav
+# This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+# International License. To view a copy of this license, visit 
+# http://creativecommons.org/licenses/by-nc-sa/4.0/ 
+# or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+#
+# This program is distributed in the hope that it will be useful,
+# for any question, please contact us at paul.giroux87@gmail.com
+
 import tkinter as tk
 from tkinter import ttk
-from turtle import bgcolor
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -16,7 +27,7 @@ import pyglet
 import sv_ttk
 import json
 
-#constantes :
+#constantes couleurs :
 
 whith = '#f0f0f0'
 bg = '#1e1e1e'
@@ -40,7 +51,9 @@ if not(os.path.exists(data_path)):
     os.makedirs(data_path+"\historique")
     os.makedirs(data_path+"\log")
 
-
+# for user they alredy have download verssion 0.1 of MathClav
+if not(os.path.exists(data_path+"\settings")):
+    os.makedirs(data_path+"\settings")
 
 matplotlib.use('TkAgg')
 #matplotlib.rcParams['font.size'] = 20
