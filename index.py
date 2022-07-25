@@ -298,7 +298,7 @@ class mainWindow(tk.Frame):
                 [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
                 [ln(), log(), e(), exp()],
                 [lim1(), lim()],
-                ['n'],
+                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
                 [sum(), sum1(), mathSymbol('\sum ')],
                 [prod(), prod1(), mathSymbol('\prod ')],
                 [frac()],
