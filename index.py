@@ -610,7 +610,7 @@ class mainWindow(tk.Frame):
         '''permet de copier le texte laTex dans le presse-papier'''
         tmptext = self.result[0].str().replace(r"\newline", chr(10))
         pyperclip.copy(tmptext)
-        tk.messagebox.showinfo("Copie", "le code Latex à été copié dans votre presse-papier")
+        tk.messagebox.showinfo("Copie", "Le code Latex à été copié dans votre presse-papier")
 
     def quiter(self):
         '''permet de quitter le programme'''
