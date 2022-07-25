@@ -12,17 +12,22 @@
 
 
 import tkinter as tk
+from tkinter import ttk
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from latex import *
 import os
 import pickle
+import sv_ttk
+import json
 
 #constantes couleurs:
-bg = '#121212'
+bg = '#1e1e1e'
 bgMath = '#3A3A3A'
 bg_buton = '#2e2e2e'
+bg_white = '#FFFFFF'
+bgMath_white = '#edf2fb'
 blue = '#b3d0ff'
 red = '#ffa1c3'
 green = '#c9ffc9'
@@ -58,9 +63,12 @@ class historique(tk.Frame):
         self.result = result
         self.result_= []
         self.label_historique = []
-        master = tk.Tk()
+        master = tk.Toplevel()
         master.title("MathClav - Historique")
         master.iconbitmap('favicon.ico')
+
+        master.tk.call(sv_ttk.set_theme("dark"))
+
         tk.Frame.__init__(self, master)
 
         tmptext = self.result.str()
@@ -72,29 +80,43 @@ class historique(tk.Frame):
         self.canvas_=[]
         self.wx_=[]
 
+        self['bg'] = bg
+
+        settings = json.load(open(data_path+'\settings\settings.json'))
+        if settings['settings']['theme'] == "light" :
+            master.tk.call(sv_ttk.toggle_theme())
+            self.change_theme()
+
         self.fig = plt.Figure(figsize=(4, 0.5), dpi=100)
         self.wx = self.fig.add_subplot(111)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
-        self.fig.patch.set_facecolor(bgMath)
+        if sv_ttk.get_theme() == "dark" :
+            self.fig.patch.set_facecolor(bgMath)
+        else :
+            self.fig.patch.set_facecolor(bgMath_white)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self)
         self.canvas.get_tk_widget()
-        self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color = whith)
+        if sv_ttk.get_theme()=="dark" :
+
+            self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color = whith)
+        else :
+            self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color = 'black')
         self.canvas.get_tk_widget().grid(row=0, column=0)
         self.canvas.draw()
 
 
-        self.nom_actuel = tk.Entry(self)
+        self.nom_actuel = ttk.Entry(self)
         self.nom_actuel.grid(row=0, column=1)
 
-        self.button_save = tk.Button(self, text="Sauvegarder", command=self.save, bg=bg_buton, fg=whith)
-        self.button_save.grid(row=0, column=2)
+        self.button_save = ttk.Button(self, text="Sauvegarder", command=self.save,)
+        self.button_save.grid(row=0, column=2,padx=5)
 
         self.afficher()
         self.pack()
-        self['bg'] = bg
+  
         self.mainloop()
     
     def afficher(self):
@@ -108,7 +130,7 @@ class historique(tk.Frame):
         for i in range(1,self.nb_historique+1):
             with open(data_path+r'\historique\hist_'+str(i)+'.pkl', 'rb') as f1:
                 self.result_.append(pickle.load(f1))
-            self.label_historique_name.append(tk.Label(self, text=self.result_[i-1].name, bg=bg, fg=whith))
+            self.label_historique_name.append(ttk.Label(self, text=self.result_[i-1].name))
             self.label_historique_name[len(self.label_historique_name)-1].grid(row=i, column=0)
             self.label_historique_name[len(self.label_historique_name)-1].bind("<Button-1>", lambda event, i=i: self.ajouter(i))
 
@@ -119,19 +141,25 @@ class historique(tk.Frame):
                 tmptext = "Vide"
             self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
             self.wx = self.fig_[len(self.fig_)-1].add_subplot(111)
-            self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
+            if sv_ttk.get_theme()=="dark" :
+                self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
+            else :
+                self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath_white)
             self.wx.get_xaxis().set_visible(False)
             self.wx.get_yaxis().set_visible(False)
             self.wx.patch.set_visible(False)
             self.wx.axis('off')
             self.canvas_.append(FigureCanvasTkAgg( self.fig_[len(self.fig_)-1], master=self))
             self.canvas_[len(self.canvas_)-1].get_tk_widget()
-            self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color=whith)
+            if sv_ttk.get_theme()=="dark" :
+                self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color=whith)
+            else :
+                self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color='black')
             self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
             self.canvas_[len(self.canvas_)-1].draw()
 
-            self.button_supr.append(tk.Button(self, text="Supprimer", command=(lambda i=i:self.supr(i-1)), bg=bg_buton, fg=whith))
-            self.button_supr[len(self.button_supr)-1].grid(row=i, column=2)
+            self.button_supr.append(ttk.Button(self, text="Supprimer", command=(lambda i=i:self.supr(i-1))))
+            self.button_supr[len(self.button_supr)-1].grid(row=i, column=2,pady=5)
 
     def save(self):
         self.result.name = self.nom_actuel.get()
@@ -157,4 +185,5 @@ class historique(tk.Frame):
         self.parent.ajout(self.result_[i-1])
         self.master.destroy()
 
-    
+    def change_theme(self) :
+        self['bg']=bg_white

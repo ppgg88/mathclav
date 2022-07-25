@@ -24,6 +24,7 @@ import json
 bg = '#121212'
 bgMath = '#3A3A3A'
 bg_buton = '#2e2e2e'
+bgMath_white = '#edf2fb'
 blue = '#b3d0ff'
 red = '#ffa1c3'
 green = '#c9ffc9'
@@ -55,7 +56,10 @@ class credit(tk.Frame):
             master.tk.call(sv_ttk.toggle_theme())
         tk.Frame.__init__(self, master)
 
-        l = tk.Label(master, text="MathClav V0.2 \nBy : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Contact us : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=bgMath, fg=whith)
+        if sv_ttk.get_theme()=="dark" :
+            l = tk.Label(master, text="MathClav V0.2 \nPar : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Nous contacter : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=bgMath, fg=whith)
+        else :
+            l = tk.Label(master, text="MathClav V0.2 \nPar : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Nous contacter : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=bgMath_white, fg='black')
         l.pack(ipady=15)
         
         self.btn = tk.Frame(self)
