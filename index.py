@@ -77,7 +77,6 @@ class mainWindow(tk.Frame):
         '''initialisation de toute les variable et de la fenetre principale'''
         self.master = master
         self.master.bind("<KeyPress>", self.action)
-        self.master.bind("<Button-1>",self.copy_to_clipboard)
         tk.Frame.__init__(self, master)
         self.pack()
         self.rg = 0
@@ -117,7 +116,6 @@ class mainWindow(tk.Frame):
 
         self.indication = ttk.Label(self, text="Lettre Usuelle", font=("Lato Regular", 12),foreground=blue)
         self.indication.pack()
-        self.indication.bind("<Button-1>",self.copy_to_clipboard)
 
         label = tk.Frame(self)
         label.pack()
@@ -161,18 +159,17 @@ class mainWindow(tk.Frame):
         self.cobobox.current(self.size-1)
         self.cobobox.grid(row=1, column=1, padx=10)
 
+        self.copyButton = ttk.Button(self.btn, text="Copier le LaTex", width="20", command=self.copy_to_clipboard)
+        self.copyButton.grid(row=0, column=2, padx=10,pady=8)
 
         self.themeButton = ttk.Button(self.btn, text="Thème clair", width="20", command=self.changeTheme)
-        #self.themeButton.pack()
-        self.themeButton.grid(row=0, column=3, padx=10)
+        self.themeButton.grid(row=0, column=3, padx=10,pady=8)
 
         self.clearButton = ttk.Button(self.btn, text='Effacer',width="20", command=self.clear)
-        #self.clearButton.pack()
         self.clearButton.grid(row=1, column=2, padx=10)
 
         self.quitButton = ttk.Button(self.btn, text='Quitter', width="20", command=self.quiter)
         self.quitButton.grid(row=1, column=3, padx=10)
-        #self.quitButton.pack()
         self.btn.pack(padx=10, pady=20)
         
     def clear(self):
@@ -431,7 +428,6 @@ class mainWindow(tk.Frame):
 
         elif touche.char == "\x03": #ctrl-c
             self.copy_to_clipboard()
-            tk.messagebox.showinfo("Copie", "le code Latex à été copié dans votre presse-papier")
         
         elif key == 120: #F9
             c = credit()
@@ -547,7 +543,6 @@ class mainWindow(tk.Frame):
         self.result[self.rg].destroy(self.cursor+1)
         self.latex_display()
 
-        self.copy_to_clipboard()
         #Save log
         logging.info("elements dans la piles :" + str(self.elements))
         logging.info("elements dans le niveau :" + str(self.result[self.rg].content))
@@ -615,6 +610,7 @@ class mainWindow(tk.Frame):
         '''permet de copier le texte laTex dans le presse-papier'''
         tmptext = self.result[0].str().replace(r"\newline", chr(10))
         pyperclip.copy(tmptext)
+        tk.messagebox.showinfo("Copie", "le code Latex à été copié dans votre presse-papier")
 
     def quiter(self):
         '''permet de quitter le programme'''
