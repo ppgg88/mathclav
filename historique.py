@@ -109,7 +109,7 @@ class historique(tk.Frame):
 
 
         self.nom_actuel = ttk.Entry(self)
-        self.nom_actuel.grid(row=0, column=1)
+        self.nom_actuel.grid(row=0, column=1,padx=5)
 
         self.button_save = ttk.Button(self, text="Sauvegarder", command=self.save,)
         self.button_save.grid(row=0, column=2,padx=5)
@@ -159,7 +159,7 @@ class historique(tk.Frame):
             self.canvas_[len(self.canvas_)-1].draw()
 
             self.button_supr.append(ttk.Button(self, text="Supprimer", command=(lambda i=i:self.supr(i-1))))
-            self.button_supr[len(self.button_supr)-1].grid(row=i, column=2,pady=5)
+            self.button_supr[len(self.button_supr)-1].grid(row=i, column=2,padx=5)
 
     def save(self):
         self.result.name = self.nom_actuel.get()
