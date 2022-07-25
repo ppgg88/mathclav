@@ -21,6 +21,7 @@ import sys
 import pyperclip
 import pickle
 from historique import *
+from credit import *
 import os
 import time
 import pyglet
@@ -348,7 +349,7 @@ class mainWindow(tk.Frame):
             self.ctrl_l = False
         
         ## touche sans actions
-        if touche.keysym=='Control_L' or touche.keysym=='Alt_L'  or touche.keysym=='Alt_R' or key in [16, 20, 38, 40, 17, 19, 145, 35, 36, 120, 91, 179, 175,174,173] or (self.math and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
+        if touche.keysym=='Control_L' or touche.keysym=='Alt_L'  or touche.keysym=='Alt_R' or key in [16, 20, 38, 40, 17, 19, 145, 35, 36, 91, 179, 175,174,173] or (self.math and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
             pass
 
         elif key == 222: #²nde (mode math)
@@ -431,6 +432,9 @@ class mainWindow(tk.Frame):
         elif touche.char == "\x03": #ctrl-c
             self.copy_to_clipboard()
             tk.messagebox.showinfo("Copie", "le code Latex à été copié dans votre presse-papier")
+        
+        elif key == 120: #F9
+            c = credit()
             
         ## touche qui ne depend pas du mode selectioner
         elif key==13:
