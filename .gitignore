@@ -4,3 +4,4 @@ output/
 log/*.log
 historique/*.pkl
 __pycache__/
+*.pyc
