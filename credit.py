@@ -17,6 +17,7 @@ from matplotlib.pyplot import margins
 import pyglet
 import sv_ttk
 import webbrowser as wb
+from PIL import ImageTk, Image
 import os
 import json
 
@@ -84,6 +85,36 @@ class credit(tk.Frame):
     def doc(self):
         wb.open("https://sourceforge.net/p/mathclav/")
 
+
+
+class raptor(tk.Frame):
+    def __init__(self):
+        master = tk.Toplevel()
+        master.title("MathClav - Credit")
+        master.iconbitmap('favicon.ico')
+
+        master.tk.call(sv_ttk.set_theme("dark"))
+
+        settings = json.load(open(data_path+'\settings\settings.json'))
+        if settings['settings']['theme'] == "light" :
+            master.tk.call(sv_ttk.toggle_theme())
+        tk.Frame.__init__(self, master)
+
+        img = ImageTk.PhotoImage(Image.open('raptor.jpg').resize((300,300), Image.ANTIALIAS))
+        panel = tk.Label(self, image = img)
+        panel.pack(side = "bottom", fill = "both", expand = "yes")
+        
+        self.btn = tk.Frame(self)
+
+        self.quitButton = ttk.Button(self.btn, text='Quitter', width="15", command=master.destroy)
+        self.quitButton.grid(row=0, column=0, padx=10, pady=10)
+        
+        self.btn.pack()
+        self.pack()
+
+        self.mainloop()
+
 if __name__ == '__main__':
-    c = credit()
+    #c = credit()
+    v = raptor()
 

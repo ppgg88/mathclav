@@ -12,6 +12,7 @@
 
 import tkinter as tk
 from tkinter import ttk
+#import pyi_splash
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -105,6 +106,7 @@ class mainWindow(tk.Frame):
         self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
         self.graph()
         self.result[self.rg].destroy(self.cursor+1)
+        #pyi_splash.close()
 
     def createWidgets(self):
         '''creation de tout les widget sur la page principale'''
@@ -431,7 +433,9 @@ class mainWindow(tk.Frame):
         
         elif key == 120: #F9
             c = credit()
-            
+        
+        elif touche.char == "=" and self.result[0].str() == "raptor":
+            v = raptor()
         ## touche qui ne depend pas du mode selectioner
         elif key==13:
             self.multiple_choice([mathSymbol('\\newline')])

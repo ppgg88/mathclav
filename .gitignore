@@ -1,7 +1,8 @@
-output/
+**/output/
+**/__pycache__/
 ./*.pkl
 ./*.log
 log/*.log
 historique/*.pkl
-__pycache__/
 *.pyc
+*.cpython-310.pyc
