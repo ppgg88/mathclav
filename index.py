@@ -90,7 +90,14 @@ class mainWindow(tk.Frame):
         self.n = 0
         self.ctrl_l = False
         self.mode_prev = 0
-        self.size = 11
+        try :
+            settings = json.load(open(data_path+'\settings\settings.json'))
+            self.size = settings['settings']['font_size']
+            print(settings['settings']['font_size'])
+        except :
+            with open (data_path+'\settings\settings.json',"w") as f :
+                f.write('{"settings": {"theme" : "%s","font_size" : 11}}'%sv_ttk.get_theme())
+                self.size = 11
         self.dpi = 100
         self.pos = 0.9
         try :
@@ -223,6 +230,14 @@ class mainWindow(tk.Frame):
         self.graph()
         self.result[self.rg].destroy(self.cursor+1)
         logging.info("set text sizes : " + str(self.size))
+        with open (data_path+'\settings\settings.json',"r+") as f :
+            settings = json.load(f)
+
+            settings['settings']['font_size']=self.size
+            
+            f.seek(0)
+            f.write(json.dumps(settings))
+            f.truncate()       
 
     def action(self, touche):
         '''action sur les touches'''
@@ -690,6 +705,6 @@ if __name__ == '__main__':
             app.changeTheme()
     except :
         with open (data_path+'\settings\settings.json',"w") as f :
-            f.write('{"settings": {"theme": "dark"}}')
+            f.write('{"settings": {"theme" : "dark","font_size" : 11}}')
     app.mainloop()
 
