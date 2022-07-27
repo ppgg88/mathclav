@@ -28,6 +28,7 @@ import time
 import pyglet
 import sv_ttk
 import json
+from help import *
 from multitouche import *
 #constantes couleurs :
 
@@ -170,7 +171,7 @@ class mainWindow(tk.Frame):
         self.clearButton = ttk.Button(self.btn, text='Effacer',width="20", command=self.clear)
         self.clearButton.grid(row=1, column=2, padx=10)
 
-        self.quitButton = ttk.Button(self.btn, text='Quitter', width="20", command=self.quiter)
+        self.quitButton = ttk.Button(self.btn, text='Aide ?', width="20", command=self.openHelp)
         self.quitButton.grid(row=1, column=3, padx=10)
         self.btn.pack(padx=10, pady=20)
         
@@ -668,7 +669,9 @@ class mainWindow(tk.Frame):
             f.write(json.dumps(settings))
             f.truncate()         
         
-          
+    def openHelp(self) :
+        '''ouvre la fenêtre d'aide'''
+        self.help = help()
 
 
 
