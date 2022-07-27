@@ -31,6 +31,11 @@ class mathObject():
         else:
             self.content.pop(i-1)
         return self
+    def graphStr(self) -> str:
+        tmp = ""
+        for i in self.content:
+            tmp += str(i.graphStr())
+        return tmp
     
 class mathSymbol():
     def __init__(self, char) -> None:
@@ -42,12 +47,15 @@ class mathSymbol():
     def destroy(self) -> None:
         self.content = [""]
         return self
+    def graphStr(self) -> str:
+        return self.content[0].replace(r'\ast' , '*').replace(r'\times' , '*').replace(r'\div' , '/')
 
 class sqrt():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\sqrt{░} '
+        self.math = "mt.sqrt(a)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -58,12 +66,16 @@ class sqrt():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('a', str(self.content[0].graphStr()))
 
 class power():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = len(self.content)-1
         self.latex = r'^{░}'
+        self.math="**a"
     def __add__(self, other):
         self.content += other
         return self
@@ -74,6 +86,8 @@ class power():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        return self.math.replace('a', str(self.content[0].graphStr()))
 
 class indice():
     def __init__(self) -> None:
@@ -131,6 +145,7 @@ class frac():
         self.content = [self.content_num, self.content_den]
         self.imax = len(self.content)-1
         self.latex = r'\frac{æ1}{æ2}'
+        self.math = "frac(a,b)"
     def add_num(self, other):
         self.content_num += other
         return self
