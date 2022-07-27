@@ -162,16 +162,16 @@ class mainWindow(tk.Frame):
         self.cobobox.current(self.size-1)
         self.cobobox.grid(row=1, column=1, padx=10)
 
-        self.copyButton = ttk.Button(self.btn, text="Copier le LaTex", width="20", command=self.copy_to_clipboard)
+        self.copyButton = ttk.Button(self.btn, text="Copier le LaTex", width="20", command=self.copy_to_clipboard, takefocus=False)
         self.copyButton.grid(row=0, column=2, padx=10,pady=8)
 
-        self.themeButton = ttk.Button(self.btn, text="Thème clair", width="20", command=self.changeTheme)
+        self.themeButton = ttk.Button(self.btn, text="Thème clair", width="20", command=self.changeTheme, takefocus=False)
         self.themeButton.grid(row=0, column=3, padx=10,pady=8)
 
-        self.clearButton = ttk.Button(self.btn, text='Effacer',width="20", command=self.clear)
+        self.clearButton = ttk.Button(self.btn, text='Effacer',width="20", command=self.clear, takefocus=False)
         self.clearButton.grid(row=1, column=2, padx=10)
 
-        self.quitButton = ttk.Button(self.btn, text='Aide ?', width="20", command=self.openHelp)
+        self.quitButton = ttk.Button(self.btn, text='Aide ?', width="20", command=self.openHelp, takefocus=False)
         self.quitButton.grid(row=1, column=3, padx=10)
         self.btn.pack(padx=10, pady=20)
         
