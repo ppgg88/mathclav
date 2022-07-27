@@ -57,8 +57,10 @@ class help(tk.Frame):
         if settings['settings']['theme'] == "light" :
             master.tk.call(sv_ttk.toggle_theme())
         tk.Frame.__init__(self, master)
-
-        img = ImageTk.PhotoImage(Image.open('clavier.png').resize((1000,400), Image.ANTIALIAS))
+        if settings['settings']['theme'] == "light" :
+            img = ImageTk.PhotoImage(Image.open('clavier.png').resize((1000,400), Image.ANTIALIAS))
+        else :
+            img = ImageTk.PhotoImage(Image.open('clavier_dark.png').resize((1000,400), Image.ANTIALIAS))
         panel = tk.Label(self, image = img)
         panel.pack(side = "bottom", fill = "both", expand = "yes")
         
