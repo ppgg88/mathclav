@@ -123,7 +123,7 @@ class mainWindow(tk.Frame):
         self.label['bg'] = bg
         self.label['fg'] = whith
         self.label.pack()
-
+        
         self.indication = ttk.Label(self, text="Lettre Usuelle", font=("Lato Regular", 12),foreground=blue)
         self.indication.pack()
 
@@ -131,15 +131,15 @@ class mainWindow(tk.Frame):
         label.pack()
 
         # Define the figure size and plot the figure
-        fig = plt.Figure(figsize=(200, 2), dpi=self.dpi)
-        self.wx = fig.add_subplot(111)
+        self.fig = plt.Figure(figsize=(200, 2), dpi=self.dpi)
+        self.wx = self.fig.add_subplot(111)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
-        fig.patch.set_facecolor(bgMath)
+        self.fig.patch.set_facecolor(bgMath)
         
-        self.canvas = FigureCanvasTkAgg(fig, master=label)
+        self.canvas = FigureCanvasTkAgg(self.fig, master=label)
         self.canvas.get_tk_widget().pack(expand=1, fill=tk.BOTH, side=tk.TOP)
         #self.graph()
         self.latex_display()
@@ -613,7 +613,10 @@ class mainWindow(tk.Frame):
             try : 
                 matplotlib.rcParams['text.usetex'] = False
                 self.wx.clear()
-                self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = whith)
+                if sv_ttk.get_theme() == "dark" :
+                    self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = whith)
+                else :
+                    self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = 'black')
                 self.wx.patch.set_visible(False)
                 self.wx.axis('off')
                 self.canvas.draw()
@@ -671,6 +674,8 @@ class mainWindow(tk.Frame):
                 self.latex_display()
                 self.themeButton['text']="Thème clair"
                 settings['settings']['theme']="dark"
+                self.fig.patch.set_facecolor(bgMath)
+                self.canvas.draw()
                 
             else :
                 self.btn['bg'] = bg_white
@@ -679,6 +684,8 @@ class mainWindow(tk.Frame):
                 self.latex_display()
                 self.themeButton['text']="Thème sombre"
                 settings['settings']['theme']="light"
+                self.fig.patch.set_facecolor(bgMath_white)
+                self.canvas.draw()
             
             f.seek(0)
             f.write(json.dumps(settings))
