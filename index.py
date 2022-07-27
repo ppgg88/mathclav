@@ -28,7 +28,7 @@ import time
 import pyglet
 import sv_ttk
 import json
-
+from multitouche import *
 #constantes couleurs :
 
 whith = '#f0f0f0'
@@ -559,7 +559,7 @@ class mainWindow(tk.Frame):
         
         a = True
         for i in range(0, len(temp)):
-            if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-600):
+            if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-900):
                 if self.rg != self.rg_prev:
                     self.result.pop(self.rg)
                     self.elements.pop(self.rg-1)
@@ -574,6 +574,14 @@ class mainWindow(tk.Frame):
                 break
         if a:
             self.precedent.append(temp[0])
+            l=0
+            try:
+                self.multi.master.destroy()
+            except:
+                pass
+            self.multi = multi(self, root, temp, l)
+        else:
+            self.multi.modifie(l, temp)
         self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
         self.cursor+=1
         self.prev_time = millis()
