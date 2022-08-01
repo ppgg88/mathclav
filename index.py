@@ -30,6 +30,8 @@ import sv_ttk
 import json
 from help import *
 from multitouche import *
+from graph import *
+
 #constantes couleurs :
 
 whith = '#f0f0f0'
@@ -137,11 +139,13 @@ class mainWindow(tk.Frame):
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
-        self.fig.patch.set_facecolor(bgMath)
+        if sv_ttk.get_theme() == 'dark':
+            self.fig.patch.set_facecolor(bgMath)
+        else:
+            self.fig.patch.set_facecolor(bgMath_white)
         
         self.canvas = FigureCanvasTkAgg(self.fig, master=label)
         self.canvas.get_tk_widget().pack(expand=1, fill=tk.BOTH, side=tk.TOP)
-        #self.graph()
         self.latex_display()
 
 
@@ -366,7 +370,10 @@ class mainWindow(tk.Frame):
         ## touche sans actions
         if touche.keysym=='Control_L' or touche.keysym=='Alt_L'  or touche.keysym=='Alt_R' or key in [16, 20, 38, 40, 17, 19, 145, 35, 36, 91, 179, 175,174,173] or (self.math and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
             pass
-
+        
+        elif key == 121: # touche F10
+                graphScreen(self.result[0])
+                
         elif key == 222: #²nde (mode math)
             self.grec = False
             self.math = not(self.math)

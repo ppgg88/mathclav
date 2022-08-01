@@ -145,7 +145,7 @@ class frac():
         self.content = [self.content_num, self.content_den]
         self.imax = len(self.content)-1
         self.latex = r'\frac{æ1}{æ2}'
-        self.math = "frac(a,b)"
+        self.math = "(æ1)/(æ2)"
     def add_num(self, other):
         self.content_num += other
         return self
@@ -163,6 +163,9 @@ class frac():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr())).replace('æ2', str(self.content[1].graphStr()))
 
 class integral():
     def __init__(self) -> None:
