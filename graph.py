@@ -99,6 +99,7 @@ class graphScreen(tk.Frame):
 
 def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable):
     func = Mathobj.graphStr().replace(variable, 'æ')
+    erreur = False
     x = []
     y = []
     a = int((xmax-xmin)/xstep)
@@ -112,9 +113,14 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
                 func = func[:t+1]+ "*" + func[t+1:]
         try:
             y.append(eval(func))
+            erreur = False
         except:
-            print("Ereur dans la fonction : ", func)
-            return(False)
+            if erreur:
+                print("Ereur dans la fonction : ", func)
+                return(False)
+            else:
+                erreur = True
+                x.pop(len(x)-1)
     plt.plot(x, y)
     plt.axis([xmin, xmax, ymin, ymax])
     if grille == 1:
