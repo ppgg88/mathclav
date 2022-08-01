@@ -288,6 +288,7 @@ class parenthese():
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r' \left(æ \right) '
+        self.math = '(æ1)'
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -298,6 +299,9 @@ class parenthese():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class parenthese_carre():
     def __init__(self) -> None:
@@ -448,6 +452,7 @@ class ln():
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\ln{\left(░\right)} '
+        self.math = "mt.ln(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -458,6 +463,9 @@ class ln():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class log():
     def __init__(self) -> None:
@@ -484,6 +492,7 @@ class exp():
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\exp{\left(░\right)} '
+        self.math = "mt.exp(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -494,12 +503,16 @@ class exp():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class e():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'e^{░} '
+        self.math = "mt.exp(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -510,12 +523,16 @@ class e():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class cos():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\cos{\left(░\right)} '
+        self.math = "mt.cos(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -526,12 +543,16 @@ class cos():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class sin():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\sin{\left(░\right)} '
+        self.math = "mt.sin(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -542,12 +563,16 @@ class sin():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class tan():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\tan{\left(░\right)} '
+        self.math = "mt.tan(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -558,12 +583,16 @@ class tan():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class arccos():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\arccos{\left(░\right)} '
+        self.math = "mt.acos(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -574,12 +603,16 @@ class arccos():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class arcsin():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\arcsin{\left(░\right)} '
+        self.math = "mt.asin(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -590,12 +623,16 @@ class arcsin():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class arctan():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\arctan{\left(░\right)} '
+        self.math = "mt.atan(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -606,6 +643,9 @@ class arctan():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class vect():
     def __init__(self) -> None:
@@ -739,12 +779,15 @@ class binom():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    
+    
 
 class norme():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\left\| ░ \right\|'
+        self.math = "abs(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -755,12 +798,16 @@ class norme():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
 
 class norme2():
     def __init__(self) -> None:
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\left\Vert ░ \right\Vert'
+        self.math = "abs(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
@@ -771,3 +818,6 @@ class norme2():
     def destroy(self) -> None:
         self.latex = r""
         return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
