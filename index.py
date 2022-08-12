@@ -16,6 +16,7 @@ from tkinter import ttk
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from numpy import insert
 from latex import *
 import logging
 import sys
@@ -31,6 +32,7 @@ import json
 from help import *
 from multitouche import *
 from graph import *
+import copy
 
 #constantes couleurs :
 
@@ -80,17 +82,19 @@ class mainWindow(tk.Frame):
     def __init__(self, master=None):
         '''initialisation de toute les variable et de la fenetre principale'''
         self.master = master
-        self.master.bind("<KeyPress>", self.action)
+        self.master.bind("<KeyPress>", self.newaction)
         tk.Frame.__init__(self, master)
         self.pack()
         self.rg = 0
-        self.rg_prev = 0
-        self.cursor = 0
-        self.cursor_prev = 0
+        self.rg_prev = []
+        self.cursor = [0]
+        self.result_prev = []
         self.engine_use = 0
         self.i = [0]
+        self.i_prev = []
         self.n = 0
-        self.ctrl_l = False
+        self.ctrl_l = 0
+        self.mode = 0
         self.mode_prev = 0
         try :
             settings = json.load(open(data_path+'\settings\settings.json'))
@@ -101,21 +105,22 @@ class mainWindow(tk.Frame):
                 f.write('{"settings": {"theme" : "%s","font_size" : 11}}'%sv_ttk.get_theme())
                 self.size = 11
         self.dpi = 100
-        self.pos = 0.9
+        self.pos = (0.8*11/(self.size*0.9))
+        
         try :
             self.result = [pickle.load(open(data_path+r"\historique\last.pkl", "rb"))]
         except:
             self.result = [mathObject()]
-        self.cursor=len(self.result[0].content)
+        self.cursor=[len(self.result[0].content)]
+        self.cursor_prev =[]
         self.precedent = [mathSymbol('')]
         self.elements = []
         self.grec = False
         self.prev_time = 0
         self.math = False
+        
         self.createWidgets()
-        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
         self.graph()
-        self.result[self.rg].destroy(self.cursor+1)
         #pyi_splash.close()
 
     def createWidgets(self):
@@ -188,25 +193,17 @@ class mainWindow(tk.Frame):
         
     def clear(self):
         '''efface le texte precedement ecris'''
+        self.historique()
         self.result = [mathObject()]
         self.elements = []
         self.precedent = [mathSymbol('')]
-        self.cursor = 0
+        self.cursor = [0]
         self.rg = 0
-        self.rg_prev = 0
-        self.cursor_prev = 0
         self.i = [0]
-        self.pos = 0.9
+        self.pos = (0.8*11/(self.size*0.9))
         self.latex_display()
         self.wx.clear()
-        try : 
-            self.result[self.rg].add(mathSymbol("|"), self.cursor)
-            self.graph()
-            self.result[self.rg].destroy(self.cursor+1)
-        except :
-            self.result[self.rg].add(mathSymbol("|"), self.cursor)
-            self.graph()
-            self.result[self.rg].destroy(self.cursor+1)
+        self.graph()
 
     def engine(self, temp = None):
         '''change le moteur de rendue latex'''
@@ -214,9 +211,7 @@ class mainWindow(tk.Frame):
             self.engine_use = 0
         else:
             self.engine_use = 1
-        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
         self.graph()
-        self.result[self.rg].destroy(self.cursor+1)
 
     def latex_display(self):
         '''affiche le texte au format latex'''
@@ -230,9 +225,8 @@ class mainWindow(tk.Frame):
     def change_size(self, temp):
         '''change la taille du texte'''
         self.size = int(self.cobobox.get())
-        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
+        self.pos = (0.8*11/(self.size*0.9))
         self.graph()
-        self.result[self.rg].destroy(self.cursor+1)
         logging.info("set text sizes : " + str(self.size))
         with open (data_path+'\settings\settings.json',"r+") as f :
             settings = json.load(f)
@@ -243,6 +237,328 @@ class mainWindow(tk.Frame):
             f.write(json.dumps(settings))
             f.truncate()       
 
+    def historique(self):
+        self.result_prev.append(copy.deepcopy(self.result))
+        self.i_prev.append(copy.deepcopy(self.i))
+        self.cursor_prev.append(copy.deepcopy(self.cursor))
+        self.rg_prev.append(self.rg)
+
+    def newaction(self, touche):
+        '''action sur les touches'''
+        logging.info("press :" +  str(touche))
+        char = touche.char
+        key = touche.keycode
+        keyname = touche.keysym
+        
+        #GREC MAJ
+        #GREC min
+        #MATH
+        corespondance = [
+            [   mathSymbol('A'), 
+                mathSymbol('B'), 
+                mathSymbol('\\Theta '), 
+                mathSymbol('\\Delta '),  
+                mathSymbol('E'),
+                mathSymbol('\\Phi '),  
+                mathSymbol('\\Gamma '),
+                mathSymbol('H'), 
+                mathSymbol('I'), 
+                mathSymbol('\\Omega '),
+                mathSymbol('K'), 
+                mathSymbol('\\Lambda '), 
+                mathSymbol('M'), 
+                mathSymbol('N'), 
+                mathSymbol('O'), 
+                mathSymbol('\\Pi '), 
+                mathSymbol('Q'),
+                mathSymbol('P'),
+                mathSymbol('\\Sigma '), 
+                mathSymbol('T'),
+                mathSymbol('U'),
+                mathSymbol('X'),
+                mathSymbol('\\Psi '), 
+                mathSymbol('\\Xi '),
+                mathSymbol('Y'), 
+                mathSymbol('Z'), 
+            ],
+            [   mathSymbol('\\alpha '), #a
+                mathSymbol('\\beta '), #b
+                mathSymbol('\\theta '),#c
+                mathSymbol('\\delta '), #d
+                mathSymbol('\\epsilon '), #e
+                mathSymbol('\\varphi '), #f
+                mathSymbol('\\gamma '), #g  
+                mathSymbol('\\eta '), #h 
+                mathSymbol('\\iota '), #i
+                mathSymbol('\\omega '), #j 
+                mathSymbol('\\kappa '), #k
+                mathSymbol('\\lambda '), #l
+                mathSymbol('\\mu '), #m
+                mathSymbol('\\nu '), #n  
+                mathSymbol('\\omicron '), #o 
+                mathSymbol('\\pi '), #p
+                mathSymbol('q'), #q
+                mathSymbol('\\rho '), #r 
+                mathSymbol('\\sigma '),#s
+                mathSymbol('\\tau '), #t 
+                mathSymbol('u'), #u
+                mathSymbol('\\chi '), #v
+                mathSymbol('\\psi '), #w
+                mathSymbol('\\xi '), #x
+                mathSymbol('\\upsilon '), #y
+                mathSymbol('\\zeta '),#z
+            ],
+            [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
+                [binom()],
+                [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
+                [e(), exp(), ln(), log()],
+                [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
+                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
+                [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
+                [mathSymbol('h')],
+                [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
+                [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
+                [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
+                [ln(), log(), e(), exp()],
+                [lim1(), lim()],
+                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
+                [sum(), sum1(), mathSymbol('\sum ')],
+                [prod(), prod1(), mathSymbol('\prod ')],
+                [frac()],
+                [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
+                [sqrt(), sqrt_n()],
+                [cos(), sin(), tan()],
+                [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
+                [vect()],
+                [mathSymbol('\\forall '), mathSymbol('\\exists ')],
+                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
+                [arccos(), arcsin(), arctan()],
+                [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
+            ]
+        ]
+        
+        # Si on appuie sur une touche de controle : ctrl : grec
+        if keyname == 'Control_L':
+            self.mode_prev = self.mode
+            if self.mode != 2:
+                self.mode = 2
+                self.indication.configure(text="Lettre Grecque", foreground=green)
+            else :
+                self.mode = 0
+                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+            self.ctrl_l = millis()
+            return 1
+        elif keyname in ['Alt_R', 'c', 'C', 'z', 'Z'] and millis()-self.ctrl_l < 1000: # corection du bug pour les touche en mode CTRL + ... 
+            self.mode = self.mode_prev
+            if self.mode == 0 : 
+                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+            elif self.mode == 1:
+                self.indication.configure(text="Mode Math", foreground=red)
+            elif self.mode == 2:
+                self.indication.configure(text="Lettre Grecque", foreground=green)
+            else : #juste en cas de bug ailleur mais aucune reel utilité
+                self.mode = 0
+                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+            
+        if keyname == 'twosuperior':
+            self.mode_prev = self.mode
+            if self.mode != 1:
+                self.mode = 1
+                self.indication.configure(text="Mode Math", foreground=red)
+            else :
+                self.mode = 0
+                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+            return 1
+        
+        #touche sans action dans le logiciel
+        if keyname =='Control_L' or keyname =='Alt_L' or keyname =='Alt_R' or key in [16, 20, 38, 40, 17, 19, 145, 35, 36, 91, 179, 175,174,173] or (self.mode == 1 and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
+            return 1
+    
+        if keyname == 'F10': # touche F10
+            graphScreen(self.result[0])
+            return 1
+        
+        if key == 39: #fleche droite ->
+            if len(self.result[self.rg].content)>self.cursor[self.rg]:
+                self.cursor[self.rg] += 1
+            elif self.rg > 0 and self.i[self.rg] == self.result[self.rg-1].content[self.cursor[self.rg-1]-1].imax:
+                self.cursor.pop(self.rg)
+                self.result.pop(self.rg)
+                self.i.pop(self.rg)
+                self.rg -= 1
+            elif self.rg > 0 :
+                self.i[self.rg] += 1
+                self.cursor[self.rg] = 0
+                self.result.pop(self.rg)
+                self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+            self.graph()
+            return(1)
+        
+        if key == 37: #fleche gauche <-
+            if self.cursor[self.rg] > 0:
+                if self.result[self.rg].content[self.cursor[self.rg]-1].imax >= 0:
+                    self.i.append(self.result[self.rg].content[self.cursor[self.rg]-1].imax)
+                    self.result.append(self.result[self.rg].content[self.cursor[self.rg]-1].content[self.i[self.rg]])
+                    self.cursor.append(len(self.result[self.rg+1].content))
+                    self.rg += 1
+                else:
+                    self.cursor[self.rg] -= 1
+            elif self.rg > 0 and self.i[self.rg] == 0 :
+                self.cursor.pop(self.rg)
+                self.result.pop(self.rg)
+                self.i.pop(self.rg)
+                self.rg -= 1
+                self.cursor[self.rg] -= 1 
+            elif self.rg > 0:
+                self.i[self.rg] -= 1
+                self.cursor[self.rg] = 0
+                self.result.pop(self.rg)
+                self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+            self.graph()
+            return(1)
+        
+        if key == 8: #suppr <--
+            self.historique()
+            if self.cursor[self.rg] == 0 and self.rg > 0:
+                self.result.pop(self.rg)
+                self.i.pop(self.rg)
+                self.cursor.pop(self.rg)
+                self.rg -= 1
+                self.result[self.rg].content.pop(self.cursor[self.rg]-1)
+                self.cursor[self.rg] -= 1
+            else:
+                self.result[self.rg].content.pop(self.cursor[self.rg]-1)
+                self.cursor[self.rg] -= 1
+            self.graph()
+            return(1)
+        
+        if key == 46: #suppr -->
+            self.historique()
+            try:
+                self.result[self.rg].content.pop(self.cursor[self.rg])
+            except:
+                pass
+            self.graph()
+            return(1)
+        
+        if key == 27: #escape
+            self.quiter()
+            return(1)
+        
+        if touche.char == "\x03": #ctrl-c
+            self.copy_to_clipboard()
+            return(1)
+        
+        if touche.char == "\x1a": #ctrl+z
+            self.result = copy.deepcopy(self.result_prev[len(self.result_prev)-1])
+            self.i = copy.deepcopy(self.i_prev[len(self.i_prev)-1])
+            self.cursor = copy.deepcopy(self.cursor_prev[len(self.cursor_prev)-1])
+            self.rg = self.rg_prev[len(self.rg_prev)-1]
+            
+            self.result_prev.pop(len(self.result_prev)-1)
+            self.i_prev.pop(len(self.i_prev)-1)
+            self.cursor_prev.pop(len(self.cursor_prev)-1)
+            self.rg_prev.pop(len(self.rg_prev)-1)
+            
+            self.graph()
+            return(1)
+            
+        if key == 120: #F9
+            c = credit()
+            return(1)
+        
+        if touche.char == "=" and self.result[0].str() == "raptor":
+            v = raptor()
+            return(1)
+        
+        ## touche qui ne depend pas du mode selectioner
+        if key==13:
+            self.multiple_choice([mathSymbol('\\newline')])
+            self.pos-=0.11
+            return(1)
+        elif touche.char=='=':
+            self.multiple_choice([mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")])
+            return(1)
+        elif touche.char=='*':
+            self.multiple_choice([mathSymbol("\\times "), mathSymbol("\\cdot "), mathSymbol("\\wedge "),mathSymbol("\\ast "), mathSymbol("\\odot "), mathSymbol("\\otimes ")])
+            return(1)
+        elif touche.char=='+':
+            self.multiple_choice([mathSymbol("+ "), mathSymbol("\\pm "),mathSymbol("\\mp "),mathSymbol("\\oplus ")])
+            return(1)
+        elif touche.char=='-':
+            self.multiple_choice([mathSymbol("- "), mathSymbol("\\mp "),mathSymbol("\\pm "),mathSymbol("\\ominus ")])
+            return(1)
+        elif touche.char=='!':
+            self.multiple_choice([mathSymbol("! "), mathSymbol("\\neg "),mathSymbol("\\not ")])
+            return(1)
+        elif touche.char=='{':
+            self.multiple_choice([ crochet()])
+            return(1)
+        elif touche.char=='}':
+            self.multiple_choice([crochet()])
+            return(1)
+        elif touche.char=='&':
+            self.multiple_choice([ mathSymbol("\\wedge "),mathSymbol("\\vee "),mathSymbol("& ")])
+            return(1)
+        elif keyname == 'less': #inf <
+            self.multiple_choice([mathSymbol("<"), mathSymbol(">"), mathSymbol("\leq "), mathSymbol("\geq "), mathSymbol("\ll "), mathSymbol("\gg ")])
+            return(1)
+        elif keyname == 'greater': #sup >
+            self.multiple_choice([ mathSymbol(">"),mathSymbol("<"), mathSymbol("\geq "),mathSymbol("\leq "), mathSymbol("\gg "),  mathSymbol("\ll ")])
+            return(1)
+        elif touche.char=='"':
+            self.multiple_choice([texte()])
+            return(1)
+        elif key == 32: #space
+            self.multiple_choice([mathSymbol("\: ")])
+            return(1)
+        elif touche.char == '$':
+            self.multiple_choice([mathSymbol("\$")])
+            return(1)
+        
+        if self.mode == 0: #mode standard
+            try:
+                self.multiple_choice([mathSymbol(touche.char)])
+            except:
+                pass
+            return(1)
+        
+        if self.mode == 1: #mode math
+            if char == 'h' or char == 'H':
+                historique()
+            elif key >= 65 and key <= 90 :
+                self.multiple_choice(corespondance[2][key-65])
+  
+            elif key == 191: #fraction touche '/'
+                #####/#/#/#/#/######
+                pass
+            elif key == 221: #puissance touche '^'
+                self.multiple_choice([power(), indice()])
+            elif touche.char == '(':
+                self.multiple_choice([parenthese()])
+            elif touche.char == ')':
+                self.multiple_choice([parenthese_carre()])
+            elif touche.char == '|':
+                self.multiple_choice([norme(), norme2()])
+            elif touche.char == '_':
+                self.multiple_choice([indice()])
+            elif touche.char != None: #sinon caractere normal
+                self.multiple_choice([mathSymbol(touche.char.replace('^',''))])
+            else :
+                print('touche inconue en mode math')
+            return(1)
+        
+        if self.mode == 2: #mode Grec
+            if key >= 65 and key <= 90: 
+                if char.isupper():
+                    self.multiple_choice([corespondance[0][key-65]])
+                else : 
+                    self.multiple_choice([corespondance[1][key-65]])
+            else :
+                print("lettre inconue en Mode Grec")
+            return(1)
+    
+    
     def action(self, touche):
         '''action sur les touches'''
         logging.info("press :" +  str(touche))
@@ -383,21 +699,27 @@ class mainWindow(tk.Frame):
                 self.indication.configure(text="Lettre Usuelle",foreground=blue)
 
         elif key == 39: # fleche droite ->
-            self.precedent.append(mathSymbol(''))
             if len(self.result[self.rg].content) > self.cursor:
                 self.cursor += 1
             else :
-                try :
-                    self.result[self.rg] = self.elements[len(self.elements)-1].content[self.i[len(self.i)-1]+1]
-                    self.i[len(self.i)-1] += 1
-                    self.cursor = 0
-                except :
-                    self.cursor = self.result[self.rg-1].content.index(self.elements[self.rg-1])+1
-                    self.elements.pop(self.rg-1)
-                    self.result.pop(self.rg)
-                    self.rg = self.rg-1
-                    if self.rg < 0:
-                        self.rg = 0
+                print(self.i)
+                if self.i[len(self.i)-1] >= self.elements[len(self.elements)-1].imax-1:
+                    self.rg -= 1
+                    self.result.pop(self.rg + 1)
+                    self.elements.pop(len(self.elements)-1)
+                    self.i.pop(len(self.i)-1)
+                else :
+                    try :
+                        self.result[self.rg] = self.elements[len(self.elements)-1].content[self.i[len(self.i)-1]+1]
+                        self.i[len(self.i)-1] += 1
+                        self.cursor = 0
+                    except :
+                        self.cursor = self.result[self.rg-1].content.index(self.elements[self.rg-1])+1
+                        self.elements.pop(self.rg-1)
+                        self.result.pop(self.rg)
+                        self.rg = self.rg-1
+                        if self.rg < 0:
+                            self.rg = 0
 
         elif key == 37: # fleche gauche <-
             self.precedent.append(mathSymbol(''))
@@ -441,7 +763,6 @@ class mainWindow(tk.Frame):
                 self.result.pop(self.rg)
                 self.i[len(self.i)-1] -= 1
                 self.result.append(self.elements[self.rg-1].content[self.i[len(self.i)-1]])
-
                 self.cursor = len(self.result[self.rg].content)
 
         elif key == 27: #escape
@@ -450,6 +771,7 @@ class mainWindow(tk.Frame):
         elif key == 46: #suppr -->
             if self.cursor != len(self.result[self.rg].content):
                 self.result[self.rg].destroy(self.cursor+1)
+                self.historique()
 
         elif touche.char == "\x03": #ctrl-c
             self.copy_to_clipboard()
@@ -576,24 +898,26 @@ class mainWindow(tk.Frame):
         logging.info("position du cursseur :" + str(self.cursor))
         logging.info("code Latex :" + self.result[0].str())
 
-
     def multiple_choice(self, temp):
+        self.historique()
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         if len(temp) == 1:
-            self.result[self.rg].add(temp[0], self.cursor)
+            self.result[self.rg].add(temp[0], self.cursor[self.rg])
             self.precedent.append(temp[0])
-            self.cursor+=1
+            self.cursor[self.rg]+=1
+            inser = temp[0]
         else:
             a = True
             for i in range(0, len(temp)):
                 if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-900):
+                    inser = temp[i]
                     if self.rg != self.rg_prev:
                         self.result.pop(self.rg)
                         self.elements.pop(self.rg-1)
                         self.rg=self.rg_prev
-                        self.cursor = self.cursor_prev
-                    self.result[self.rg].destroy(self.cursor)
-                    self.cursor -= 1
+                        self.cursor[self.rg] = self.cursor_prev
+                    self.result[self.rg].destroy(self.cursor[self.rg])
+                    self.cursor[self.rg] -= 1
                     l = i+1
                     if l>=len(temp): l = 0
                     self.precedent[len(self.precedent)-1] = temp[l]
@@ -601,6 +925,7 @@ class mainWindow(tk.Frame):
                     break
             if a:
                 self.precedent.append(temp[0])
+                inser = temp[0]
                 l=0
                 try:
                     self.multi.master.destroy()
@@ -609,14 +934,32 @@ class mainWindow(tk.Frame):
                 self.multi = multi(self, root, temp, l)
             else:
                 self.multi.modifie(l, temp)
-            self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor)
-            self.cursor+=1
+            self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor[self.rg])
+            self.cursor[self.rg]+=1
             self.prev_time = millis()
 
+        if inser.imax>=0:
+            print(self.i[self.rg-1])
+            self.rg += 1
+            self.i.append(0)
+            self.cursor.append(0)
+            self.result.append(inser.content[self.i[self.rg-1]])
+            
+        self.graph()
+
+        
     def graph(self):
         '''permet de gerer le graphique et l'affichage des Math'''
+        self.latex_display()
+        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor[self.rg])
+        if self.rg != 0:
+            self.result[0].add(mathSymbol(r'\:\:░'), len(self.result[0].content))
+            tmptext = self.result[0].str()
+            self.result[0].content.pop(len(self.result[0].content)-1)
+        else:
+            tmptext = self.result[0].str()
+        self.result[self.rg].content.pop(self.cursor[self.rg])
         # Get the Entry Input
-        tmptext = self.result[0].str()
         tmptext = tmptext.replace(r"\newline", "$ \n $")
         tmptext = tmptext.replace(r"æ", "a")
         # Clear any previous Syntax from the figure

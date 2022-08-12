@@ -40,6 +40,7 @@ class mathObject():
 class mathSymbol():
     def __init__(self, char) -> None:
         self.content = [str(char)]
+        self.imax = -1
     def __str__(self) -> str:
         return self.content[0]
     def set(self, char)-> None:
@@ -169,20 +170,31 @@ class frac():
 
 class integral():
     def __init__(self) -> None:
-        self.content = [mathObject(), mathObject()]
+        self.content = [mathObject(), mathObject(), mathObject(), mathObject()]
         self.imax = len(self.content)-1
-        self.latex = r'\int_{a}^{b}'
+        self.latex = r'\int_{æ1}^{æ2} æ3 \: d æ4'
     def __add__(self, other):
         self.content += other
         return self
     def __str__(self) -> str:
-        if self.content[0].content == [] and self.content[1].content != []:
-            return self.latex.replace('b', str(self.content[1].str()))
-        elif self.content[0].content != [] and self.content[1].content == []:
-            return self.latex.replace('a', str(self.content[0].str()))
-        elif len(self.content[0].content)==0 and len(self.content[1].content)==0:
-            return self.latex
-        return self.latex.replace('b', str(self.content[1].str())).replace('a', str(self.content[0].str()))
+        x = self.latex
+        if self.content[0].content == []:
+            x = x.replace('æ1', '░')
+        else:
+            x = x.replace('æ1', str(self.content[0].str()))
+        if self.content[1].content == []:
+            x = x.replace('æ2', '░')
+        else:
+            x = x.replace('æ2', str(self.content[1].str()))
+        if self.content[2].content == []:
+            x = x.replace('æ3', '░')
+        else:
+            x = x.replace('æ3', str(self.content[2].str()))
+        if self.content[3].content == []:
+            x = x.replace('æ4', '░')
+        else:
+            x = x.replace('æ4', str(self.content[3].str()))
+        return x
     def destroy(self) -> None:
         self.latex = r""
         return self
