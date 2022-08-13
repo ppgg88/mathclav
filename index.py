@@ -184,7 +184,7 @@ class mainWindow(tk.Frame):
         self.themeButton = ttk.Button(self.btn, text="Thème clair", width="20", command=self.changeTheme, takefocus=False)
         self.themeButton.grid(row=0, column=3, padx=10,pady=8)
 
-        self.clearButton = ttk.Button(self.btn, text='Effacer',width="20", command=self.clear, takefocus=False)
+        self.clearButton = ttk.Button(self.btn, text='Effacer Tout',width="20", command=self.clear, takefocus=False)
         self.clearButton.grid(row=1, column=2, padx=10)
 
         self.quitButton = ttk.Button(self.btn, text='Aide ?', width="20", command=self.openHelp, takefocus=False)
