@@ -531,7 +531,17 @@ class mainWindow(tk.Frame):
   
             elif key == 191: #fraction touche '/'
                 #####/#/#/#/#/######
-                pass
+                temp = self.result[self.rg].content[self.cursor[self.rg]-1]
+                self.result[self.rg].content.pop(self.cursor[self.rg]-1)
+                self.cursor[self.rg] -= 1
+                self.multiple_choice([frac()])
+                self.multiple_choice([temp])
+                self.i[self.rg] += 1
+                self.cursor[self.rg] = 0
+                self.result.pop(self.rg)
+                self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+                self.graph()
+                
             elif key == 221: #puissance touche '^'
                 self.multiple_choice([power(), indice()])
             elif touche.char == '(':
@@ -1043,7 +1053,8 @@ class mainWindow(tk.Frame):
             
             f.seek(0)
             f.write(json.dumps(settings))
-            f.truncate()         
+            f.truncate()
+            self.graph()      
         
     def openHelp(self) :
         '''ouvre la fenêtre d'aide'''
