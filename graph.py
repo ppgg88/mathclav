@@ -110,19 +110,23 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
     erreur = False
     x = []
     y = []
-    ax = [0]
-    ay = [0]
+    ax = []
+    ay = []
     virgule = 0
 
     a = 0
     virgule = 0
     for i in range(0, len(xaxym)):
+        if  i==0 :
+            ax.append(0)
         if xaxym[i] == ';':
             ax.append(0)
             a +=1
             virgule = 0
         elif xaxym[i] == ' ':
             pass
+        elif xaxym[i] == '-':
+            ax[a] = -ax[a]
         elif xaxym[i] == ',' or xaxym[i] == '.':
             virgule+=1
         else :
@@ -140,9 +144,13 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
     a=0
     virgule = 0
     for i in range(0, len(yasym)):
+        if  i==0 :
+            ay.append(0)
         if yasym[i] == ';':
             ay.append(0)
             a +=1
+        elif yasym[i] == '-':
+            ay[a] = -ay[a]
         elif yasym[i] == ' ':
             pass
         elif yasym[i] == ',' or yasym[i] == '.':
@@ -179,12 +187,12 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
             else:
                 erreur = True
                 x.pop(len(x)-1)
-    plt.plot(x, y)
+    plt.plot(x, y, color='blue', linewidth=1.5)
     
     for t in ax:
-        plt.plot([t, t], [ymin, ymax], color='black', linewidth=0.5) 
+        plt.plot([t, t], [ymin, ymax], color='red', linewidth=0.5) 
     for t in ay:
-        plt.plot([xmin, xmax], [t, t], color='black', linewidth=0.5) 
+        plt.plot([xmin, xmax], [t, t], color='red', linewidth=0.5) 
         
     plt.axis([xmin, xmax, ymin, ymax])
     if grille == 1:

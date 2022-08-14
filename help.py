@@ -135,9 +135,59 @@ class help_2(tk.Frame):
         container.bind("<MouseWheel>", OnMouseWheel)
         self.bind("<MouseWheel>", OnMouseWheel)
         
+        ttk.Label(scrollable_frame, text=("          "+"²" + " -> "), font=('Helvetica', 14, 'bold')).grid(row=0, column=0, padx=10, pady=10)
+        
+        self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
+        self.wx = self.fig_.add_subplot(111)
+        if sv_ttk.get_theme()=="dark" :
+            self.fig_.patch.set_facecolor(bgMath)
+        else :
+            self.fig_.patch.set_facecolor(bgMath_white)
+        self.wx.get_xaxis().set_visible(False)
+        self.wx.get_yaxis().set_visible(False)
+        self.wx.patch.set_visible(False)
+        self.wx.axis('off')
+        self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
+        self.canvas_.get_tk_widget()
+        tmptext = ' Mode\:\:Math'
+        if sv_ttk.get_theme()=="dark" :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+        else :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+        
+        self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
+        self.canvas_.get_tk_widget().grid(row=0, column=1)
+        self.canvas_.draw()
+        
+        ttk.Label(scrollable_frame, text=("       "+"CTRL" + " -> "), font=('Helvetica', 14, 'bold')).grid(row=1, column=0, padx=10, pady=10)
+    
+        self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
+        self.wx = self.fig_.add_subplot(111)
+        if sv_ttk.get_theme()=="dark" :
+            self.fig_.patch.set_facecolor(bgMath)
+        else :
+            self.fig_.patch.set_facecolor(bgMath_white)
+        self.wx.get_xaxis().set_visible(False)
+        self.wx.get_yaxis().set_visible(False)
+        self.wx.patch.set_visible(False)
+        self.wx.axis('off')
+        self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
+        self.canvas_.get_tk_widget()
+        tmptext = ' Mode\:\:Grec'
+        if sv_ttk.get_theme()=="dark" :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+        else :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+        
+        self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
+        self.canvas_.get_tk_widget().grid(row=1, column=1)
+        self.canvas_.draw()
+        
+        
+        
         for i in range(26):
             #ttk.Label(scrollable_frame, text="Sample scrolling label").pack()
-            ttk.Label(scrollable_frame, text=("          "+corespondance[3][i] + " -> "), font=('Helvetica', 14, 'bold')).grid(row=i, column=0, padx=10, pady=10)
+            ttk.Label(scrollable_frame, text=("          "+corespondance[3][i] + " -> "), font=('Helvetica', 14, 'bold')).grid(row=i+2, column=0, padx=10, pady=10)
             
             self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
             self.wx = self.fig_.add_subplot(111)
@@ -161,9 +211,9 @@ class help_2(tk.Frame):
                 self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
             
             self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
-            self.canvas_.get_tk_widget().grid(row=i, column=1)
+            self.canvas_.get_tk_widget().grid(row=i+2, column=1)
             self.canvas_.draw()
-            
+        
             
         container.pack(fill="both", expand=True)
         canvas.pack(side="left", fill="both", expand=True)

@@ -87,6 +87,7 @@ class mainWindow(tk.Frame):
         self.pack()
         self.rg = 0
         self.rg_prev = []
+        self.rg_prev_ = 0
         self.cursor = [0]
         self.result_prev = []
         self.engine_use = 0
@@ -112,7 +113,8 @@ class mainWindow(tk.Frame):
         except:
             self.result = [mathObject()]
         self.cursor=[len(self.result[0].content)]
-        self.cursor_prev =[]
+        self.cursor_prev_ =[]
+        self.cursor_prev = 0
         self.precedent = [mathSymbol('')]
         self.elements = []
         self.grec = False
@@ -240,7 +242,7 @@ class mainWindow(tk.Frame):
     def historique(self):
         self.result_prev.append(copy.deepcopy(self.result))
         self.i_prev.append(copy.deepcopy(self.i))
-        self.cursor_prev.append(copy.deepcopy(self.cursor))
+        self.cursor_prev_.append(copy.deepcopy(self.cursor))
         self.rg_prev.append(self.rg)
 
     def action(self, touche):
@@ -453,12 +455,12 @@ class mainWindow(tk.Frame):
         if touche.char == "\x1a": #ctrl+z
             self.result = copy.deepcopy(self.result_prev[len(self.result_prev)-1])
             self.i = copy.deepcopy(self.i_prev[len(self.i_prev)-1])
-            self.cursor = copy.deepcopy(self.cursor_prev[len(self.cursor_prev)-1])
+            self.cursor = copy.deepcopy(self.cursor_prev_[len(self.cursor_prev_)-1])
             self.rg = self.rg_prev[len(self.rg_prev)-1]
             
             self.result_prev.pop(len(self.result_prev)-1)
             self.i_prev.pop(len(self.i_prev)-1)
-            self.cursor_prev.pop(len(self.cursor_prev)-1)
+            self.cursor_prev_.pop(len(self.cursor_prev_)-1)
             self.rg_prev.pop(len(self.rg_prev)-1)
             
             self.graph()
@@ -573,6 +575,7 @@ class mainWindow(tk.Frame):
         self.historique()
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         if len(temp) == 1:
+
             self.result[self.rg].add(temp[0], self.cursor[self.rg])
             self.precedent.append(temp[0])
             self.cursor[self.rg]+=1
@@ -580,13 +583,13 @@ class mainWindow(tk.Frame):
         else:
             a = True
             for i in range(0, len(temp)):
-                if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-900):
+                if temp[i].__str__() == self.precedent[len(self.precedent)-1].__str__() and self.prev_time > (millis()-1500):
                     inser = temp[i]
-                    if self.rg != self.rg_prev:
+                    if self.rg != self.rg_prev_:
                         self.result.pop(self.rg)
-                        self.elements.pop(self.rg-1)
-                        self.rg=self.rg_prev
+                        self.rg=self.rg_prev_
                         self.cursor[self.rg] = self.cursor_prev
+                    print( self.cursor[self.rg])
                     self.result[self.rg].destroy(self.cursor[self.rg])
                     self.cursor[self.rg] -= 1
                     l = i+1
@@ -595,6 +598,7 @@ class mainWindow(tk.Frame):
                     a = False
                     break
             if a:
+                self.rg_prev_ = self.rg
                 self.precedent.append(temp[0])
                 inser = temp[0]
                 l=0
@@ -610,11 +614,12 @@ class mainWindow(tk.Frame):
             self.prev_time = millis()
 
         if inser.imax>=0:
-            print(self.i[self.rg-1])
+            print(self.rg)
+            self.rg_prev_ = self.rg
             self.rg += 1
             self.i.append(0)
             self.cursor.append(0)
-            self.result.append(inser.content[self.i[self.rg-1]])
+            self.result.append(inser.content[self.i[self.rg]])
             
         self.graph()
 
