@@ -334,7 +334,8 @@ class mainWindow(tk.Frame):
                 [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
                 [arccos(), arcsin(), arctan()],
                 [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
-            ]
+            ],
+            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
         ]
         
         # Si on appuie sur une touche de controle : ctrl : grec
@@ -718,7 +719,92 @@ class mainWindow(tk.Frame):
         
     def openHelp(self) :
         '''ouvre la fenêtre d'aide'''
-        self.help = help()
+        corespondance = [
+            [   mathSymbol('A'), 
+                mathSymbol('B'), 
+                mathSymbol('\\Theta '), 
+                mathSymbol('\\Delta '),  
+                mathSymbol('E'),
+                mathSymbol('\\Phi '),  
+                mathSymbol('\\Gamma '),
+                mathSymbol('H'), 
+                mathSymbol('I'), 
+                mathSymbol('\\Omega '),
+                mathSymbol('K'), 
+                mathSymbol('\\Lambda '), 
+                mathSymbol('M'), 
+                mathSymbol('N'), 
+                mathSymbol('O'), 
+                mathSymbol('\\Pi '), 
+                mathSymbol('Q'),
+                mathSymbol('P'),
+                mathSymbol('\\Sigma '), 
+                mathSymbol('T'),
+                mathSymbol('U'),
+                mathSymbol('X'),
+                mathSymbol('\\Psi '), 
+                mathSymbol('\\Xi '),
+                mathSymbol('Y'), 
+                mathSymbol('Z'), 
+            ],
+            [   mathSymbol('\\alpha '), #a
+                mathSymbol('\\beta '), #b
+                mathSymbol('\\theta '),#c
+                mathSymbol('\\delta '), #d
+                mathSymbol('\\epsilon '), #e
+                mathSymbol('\\varphi '), #f
+                mathSymbol('\\gamma '), #g  
+                mathSymbol('\\eta '), #h 
+                mathSymbol('\\iota '), #i
+                mathSymbol('\\omega '), #j 
+                mathSymbol('\\kappa '), #k
+                mathSymbol('\\lambda '), #l
+                mathSymbol('\\mu '), #m
+                mathSymbol('\\nu '), #n  
+                mathSymbol('\\omicron '), #o 
+                mathSymbol('\\pi '), #p
+                mathSymbol('q'), #q
+                mathSymbol('\\rho '), #r 
+                mathSymbol('\\sigma '),#s
+                mathSymbol('\\tau '), #t 
+                mathSymbol('u'), #u
+                mathSymbol('\\chi '), #v
+                mathSymbol('\\psi '), #w
+                mathSymbol('\\xi '), #x
+                mathSymbol('\\upsilon '), #y
+                mathSymbol('\\zeta '),#z
+            ],
+            [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
+                [binom()],
+                [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
+                [e(), exp(), ln(), log()],
+                [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
+                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
+                [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
+                [mathSymbol('h')],
+                [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
+                [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
+                [mathSymbol('\: ')],##
+                [ln(), log(), e(), exp()],
+                [lim1(), lim()],
+                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
+                [sum(), sum1(), mathSymbol('\sum ')],
+                [prod(), prod1(), mathSymbol('\prod ')],
+                [frac()],
+                [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
+                [sqrt(), sqrt_n()],
+                [cos(), sin(), tan()],
+                [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
+                [vect()],
+                [mathSymbol('\\forall '), mathSymbol('\\exists ')],
+                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
+                [arccos(), arcsin(), arctan()],
+                [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
+            ],
+            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+        ]
+        self.help = help(corespondance)
+        #self.help_2 = help_2(corespondance)
 
 
 

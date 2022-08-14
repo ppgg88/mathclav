@@ -21,6 +21,11 @@ from PIL import ImageTk, Image
 import tkinter.font as font
 import os
 import json
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+matplotlib.use('TkAgg')
 
 #constantes couleurs:
 bg = '#121212'
@@ -46,7 +51,8 @@ if not(os.path.exists(data_path+"\settings")):
     os.makedirs(data_path+"\settings")
 
 class help(tk.Frame):
-    def __init__(self):
+    def __init__(self, corespondance):
+        self.corespondance = corespondance
         master = tk.Toplevel()
         master.title("MathClav - Aide")
         master.iconbitmap('favicon.ico')
@@ -68,15 +74,112 @@ class help(tk.Frame):
         
         s = ttk.Style()
         s.configure('my.TButton', font=('Helvetica', 14, 'bold'))
-        self.quitButton = ttk.Button(self.btn, text='Quitter', width="80", command=master.destroy, style='my.TButton')
+        self.quitButton = ttk.Button(self.btn, text='Quitter', width="40", command=master.destroy, style='my.TButton')
         self.quitButton.grid(row=0, column=0, padx=10, pady=10)
-        
+        self.helpButton = ttk.Button(self.btn, text='Vue Liste', width="40", command=self.vuelist, style='my.TButton')
+        self.helpButton.grid(row=0, column=1, padx=10, pady=10)
         
         self.btn.pack()
         self.pack()
 
         self.mainloop()
+    
+    def vuelist(self):
+        self.master.destroy()
+        help_2(self.corespondance)
 
+class help_2(tk.Frame):
+    def __init__(self, corespondance):
+        self.corespondance = corespondance
+        master = tk.Toplevel()
+
+        master.title("MathClav - Aide")
+        master.iconbitmap('favicon.ico')
+
+        master.tk.call(sv_ttk.set_theme("dark"))
+
+        settings = json.load(open(data_path+'\settings\settings.json'))
+        if settings['settings']['theme'] == "light" :
+            master.tk.call(sv_ttk.toggle_theme())
+        tk.Frame.__init__(self, master)
+        
+        self.btn = tk.Frame(self)
+        s = ttk.Style()
+        s.configure('my.TButton', font=('Helvetica', 14, 'bold'))
+        self.quitButton = ttk.Button(self.btn, text='Quitter', width="30", command=master.destroy, style='my.TButton')
+        self.quitButton.grid(row=0, column=0, padx=10, pady=10)
+        self.helpButton = ttk.Button(self.btn, text='Vue Clavier', width="30", command=self.vueclavier, style='my.TButton')
+        self.helpButton.grid(row=0, column=1, padx=10, pady=10)
+        self.btn.pack()
+        
+        container = ttk.Frame(self)
+        canvas = tk.Canvas(container)
+        scrollbar = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
+        scrollable_frame = ttk.Frame(canvas)
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        
+        canvas.configure(yscrollcommand=scrollbar.set, width=700, height=400, selectborderwidth = 0, highlightthickness = 0)
+        
+        def OnMouseWheel(event):
+            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+            return "break" 
+        canvas.bind("<MouseWheel>", OnMouseWheel)
+        container.bind("<MouseWheel>", OnMouseWheel)
+        self.bind("<MouseWheel>", OnMouseWheel)
+        
+        for i in range(26):
+            #ttk.Label(scrollable_frame, text="Sample scrolling label").pack()
+            ttk.Label(scrollable_frame, text=("          "+corespondance[3][i] + " -> "), font=('Helvetica', 14, 'bold')).grid(row=i, column=0, padx=10, pady=10)
+            
+            self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
+            self.wx = self.fig_.add_subplot(111)
+            if sv_ttk.get_theme()=="dark" :
+                self.fig_.patch.set_facecolor(bgMath)
+            else :
+                self.fig_.patch.set_facecolor(bgMath_white)
+            self.wx.get_xaxis().set_visible(False)
+            self.wx.get_yaxis().set_visible(False)
+            self.wx.patch.set_visible(False)
+            self.wx.axis('off')
+            self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
+            self.canvas_.get_tk_widget()
+            tmptext = ''
+            for x in corespondance[2][i]:
+                tmptext += x.__str__()
+                tmptext += '\:\:'
+            if sv_ttk.get_theme()=="dark" :
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+            else :
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   14, color='black')
+            
+            self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
+            self.canvas_.get_tk_widget().grid(row=i, column=1)
+            self.canvas_.draw()
+            
+            
+        container.pack(fill="both", expand=True)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        #for i in range(0, 26):
+        #    ttk.Label(self.main, text=corespondance[3][i], font=('Helvetica', 14, 'bold')).grid(row=i, column=0, padx=10, pady=10)
+        
+        self.pack()
+
+        self.mainloop()
+    
+    def vueclavier(self):
+        self.master.destroy()
+        help(self.corespondance)
+        
 if __name__ == '__main__':
     #c = credit()
     v = help()
