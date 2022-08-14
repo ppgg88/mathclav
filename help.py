@@ -158,7 +158,7 @@ class help_2(tk.Frame):
             if sv_ttk.get_theme()=="dark" :
                 self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
             else :
-                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   14, color='black')
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
             
             self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
             self.canvas_.get_tk_widget().grid(row=i, column=1)
