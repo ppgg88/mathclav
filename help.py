@@ -166,6 +166,28 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget().grid(row=0, column=1)
         self.canvas_.draw()
         
+        self.fig_= plt.Figure(figsize=(2, 0.5), dpi=100)
+        self.wx = self.fig_.add_subplot(111)
+        if sv_ttk.get_theme()=="dark" :
+            self.fig_.patch.set_facecolor(bgMath)
+        else :
+            self.fig_.patch.set_facecolor(bgMath_white)
+        self.wx.get_xaxis().set_visible(False)
+        self.wx.get_yaxis().set_visible(False)
+        self.wx.patch.set_visible(False)
+        self.wx.axis('off')
+        self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
+        self.canvas_.get_tk_widget()
+        tmptext = "\:\:"
+        if sv_ttk.get_theme()=="dark" :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+        else :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+        
+        self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
+        self.canvas_.get_tk_widget().grid(row=0, column=2)
+        self.canvas_.draw()
+        
         ttk.Label(scrollable_frame, text=("       "+"CTRL" + " -> "), font=('Helvetica', 14, 'bold')).grid(row=1, column=0, padx=10, pady=10)
     
         self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
@@ -180,7 +202,7 @@ class help_2(tk.Frame):
         self.wx.axis('off')
         self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
         self.canvas_.get_tk_widget()
-        tmptext = ' Mode\:\:Grec'
+        tmptext = '\:\:'
         if sv_ttk.get_theme()=="dark" :
             self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
         else :
@@ -188,6 +210,28 @@ class help_2(tk.Frame):
         
         self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
         self.canvas_.get_tk_widget().grid(row=1, column=1)
+        self.canvas_.draw()
+        
+        self.fig_= plt.Figure(figsize=(2, 0.5), dpi=100)
+        self.wx = self.fig_.add_subplot(111)
+        if sv_ttk.get_theme()=="dark" :
+            self.fig_.patch.set_facecolor(bgMath)
+        else :
+            self.fig_.patch.set_facecolor(bgMath_white)
+        self.wx.get_xaxis().set_visible(False)
+        self.wx.get_yaxis().set_visible(False)
+        self.wx.patch.set_visible(False)
+        self.wx.axis('off')
+        self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
+        self.canvas_.get_tk_widget()
+        tmptext = "Mode\:\:Grec"
+        if sv_ttk.get_theme()=="dark" :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+        else :
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+        
+        self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
+        self.canvas_.get_tk_widget().grid(row=1, column=2)
         self.canvas_.draw()
         
         
@@ -221,6 +265,27 @@ class help_2(tk.Frame):
             self.canvas_.get_tk_widget().grid(row=i+2, column=1)
             self.canvas_.draw()
         
+            self.fig_= plt.Figure(figsize=(2, 0.5), dpi=100)
+            self.wx = self.fig_.add_subplot(111)
+            if sv_ttk.get_theme()=="dark" :
+                self.fig_.patch.set_facecolor(bgMath)
+            else :
+                self.fig_.patch.set_facecolor(bgMath_white)
+            self.wx.get_xaxis().set_visible(False)
+            self.wx.get_yaxis().set_visible(False)
+            self.wx.patch.set_visible(False)
+            self.wx.axis('off')
+            self.canvas_ = FigureCanvasTkAgg( self.fig_, master=scrollable_frame)
+            self.canvas_.get_tk_widget()
+            tmptext = corespondance[1][i].__str__() + "  -  " + corespondance[0][i].__str__()
+            if sv_ttk.get_theme()=="dark" :
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+            else :
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+            
+            self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
+            self.canvas_.get_tk_widget().grid(row=i+2, column=2)
+            self.canvas_.draw()
             
         container.pack(fill="both", expand=True)
         canvas.pack(side="left", fill="both", expand=True)

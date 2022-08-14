@@ -766,7 +766,7 @@ class mainWindow(tk.Frame):
                 mathSymbol('\\lambda '), #l
                 mathSymbol('\\mu '), #m
                 mathSymbol('\\nu '), #n  
-                mathSymbol('\\omicron '), #o 
+                mathSymbol('o '), #o 
                 mathSymbol('\\pi '), #p
                 mathSymbol('q'), #q
                 mathSymbol('\\rho '), #r 
