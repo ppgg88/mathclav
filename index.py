@@ -82,7 +82,7 @@ class mainWindow(tk.Frame):
     def __init__(self, master=None):
         '''initialisation de toute les variable et de la fenetre principale'''
         self.master = master
-        self.master.bind("<KeyPress>", self.newaction)
+        self.master.bind("<KeyPress>", self.action)
         tk.Frame.__init__(self, master)
         self.pack()
         self.rg = 0
@@ -243,7 +243,7 @@ class mainWindow(tk.Frame):
         self.cursor_prev.append(copy.deepcopy(self.cursor))
         self.rg_prev.append(self.rg)
 
-    def newaction(self, touche):
+    def action(self, touche):
         '''action sur les touches'''
         logging.info("press :" +  str(touche))
         char = touche.char

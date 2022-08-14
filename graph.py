@@ -63,45 +63,101 @@ class graphScreen(tk.Frame):
         self.ymax.insert(0, "10")
         self.ymax.grid(row=4, column=1, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="label sur l'axe x :", font=('Calibri 10')).grid(row=5, column=0, padx = 10)
+        tk.Label(self, text="Label sur l'axe x :", font=('Calibri 10')).grid(row=5, column=0, padx = 10)
         self.xlabel=ttk.Entry(self, width=35)
         self.xlabel.grid(row=6, column=0, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="label sur l'axe y:", font=('Calibri 10')).grid(row=5, column=1, padx = 10)
+        tk.Label(self, text="Label sur l'axe y:", font=('Calibri 10')).grid(row=5, column=1, padx = 10)
         self.ylabel=ttk.Entry(self, width=35)
         self.ylabel.grid(row=6, column=1, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="pas de la trace :", font=('Calibri 10')).grid(row=7, column=0, padx = 10)
+        tk.Label(self, text="Asymptote horizontal :", font=('Calibri 10')).grid(row=7, column=0, padx = 10)
+        self.xasym=ttk.Entry(self, width=35)
+        self.xasym.grid(row=8, column=0, padx = 10, pady=(0, 10))
+        
+        tk.Label(self, text="Asymptote Vertical :", font=('Calibri 10')).grid(row=7, column=1, padx = 10)
+        self.yasym=ttk.Entry(self, width=35)
+        self.yasym.grid(row=8, column=1, padx = 10, pady=(0, 10))
+        
+        tk.Label(self, text="Pas de la trace :", font=('Calibri 10')).grid(row=9, column=0, padx = 10)
         self.pas=ttk.Entry(self, width=35)
         self.pas.insert(0, "0.01")
-        self.pas.grid(row=8, column=0, padx = 10, pady=(0, 10))
+        self.pas.grid(row=10, column=0, padx = 10, pady=(0, 10))
         
         self.grilleActive = tk.IntVar()
         self.grille = ttk.Checkbutton(self, text="Grille", variable=self.grilleActive)
-        self.grille.grid(row=8, column=1, padx = 10, pady=(0, 10))
+        self.grille.grid(row=10, column=1, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="Variable de tracer :", font=('Calibri 10')).grid(row=9, column=0, padx = 10)
+        tk.Label(self, text="Variable de tracer :", font=('Calibri 10')).grid(row=11, column=0, padx = 10)
         self.var=ttk.Entry(self, width=35)
         self.var.insert(0, "x")
-        self.var.grid(row=10, column=0, padx = 10, pady=(0, 10))
+        self.var.grid(row=12, column=0, padx = 10, pady=(0, 10))
         
         self.graphButton = ttk.Button(self, text='Graph', width="15", command=self.graph)
-        self.graphButton.grid(row=10, column=1, padx=10)
+        self.graphButton.grid(row=12, column=1, padx=10)
         
         self.pack()
 
         self.mainloop()
     
     def graph(self):
-        if not(graph(self.mathObj, float(self.xmin.get()), float(self.xmax.get()), float(self.ymin.get()), float(self.ymax.get()), float(self.pas.get()), self.grilleActive.get(), self.titre.get(), self.xlabel.get(), self.ylabel.get(), self.var.get())):
+        if not(graph(self.mathObj, float(self.xmin.get()), float(self.xmax.get()), float(self.ymin.get()), float(self.ymax.get()), float(self.pas.get()), self.grilleActive.get(), self.titre.get(), self.xlabel.get(), self.ylabel.get(), self.var.get(), self.xasym.get(), self.yasym.get())):
             tk.messagebox.showinfo("Graph", "La Formule n'est pas une fonction")
 
 
-def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable):
+def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable,  yasym, xaxym):
     func = Mathobj.graphStr().replace(variable, 'æ')
     erreur = False
     x = []
     y = []
+    ax = [0]
+    ay = [0]
+    virgule = 0
+
+    a = 0
+    virgule = 0
+    for i in range(0, len(xaxym)):
+        if xaxym[i] == ';':
+            ax.append(0)
+            a +=1
+            virgule = 0
+        elif xaxym[i] == ' ':
+            pass
+        elif xaxym[i] == ',' or xaxym[i] == '.':
+            virgule+=1
+        else :
+            try :
+                if virgule>0 :
+                    ax[a] = 1/(10**virgule)*int(xaxym[i])+ax[a]
+                    virgule+=1
+                else:
+                    ax[a] = int(xaxym[i])+10*ax[a]
+            except :
+                ax.append(0)
+                virgule = 0
+                a +=1
+    
+    a=0
+    virgule = 0
+    for i in range(0, len(yasym)):
+        if yasym[i] == ';':
+            ay.append(0)
+            a +=1
+        elif yasym[i] == ' ':
+            pass
+        elif yasym[i] == ',' or yasym[i] == '.':
+            virgule+=1
+        else :
+            try :
+                if virgule>0 :
+                    ay[a] = 1/(10**virgule)*int(yasym[i])+ay[a]
+                    virgule+=1
+                else:
+                    ay[a] = int(yasym[i])+10*ay[a]
+            except :
+                ay.append(0)
+                a +=1
+    
     a = int((xmax-xmin)/xstep)
     for i in range(0,a):
         x.append(i*xstep+xmin)
@@ -124,6 +180,12 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
                 erreur = True
                 x.pop(len(x)-1)
     plt.plot(x, y)
+    
+    for t in ax:
+        plt.plot([t, t], [ymin, ymax], color='black', linewidth=0.5) 
+    for t in ay:
+        plt.plot([xmin, xmax], [t, t], color='black', linewidth=0.5) 
+        
     plt.axis([xmin, xmax, ymin, ymax])
     if grille == 1:
         plt.grid()
@@ -131,6 +193,23 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
     plt.title(titre)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
+    
+    xaxisticks = []
+    for i in range(0, 6):
+        xaxisticks.append(xmin +i*(xmax-xmin)/5)
+        for t in ax:
+            if t>(xmin +i*(xmax-xmin)/5) and t<(xmin +(i+1)*(xmax-xmin)/5):
+                xaxisticks.append(t)
+    plt.gca().axes.xaxis.set_ticks(xaxisticks)
+    
+    yaxisticks = []
+    for i in range(0, 6):
+        yaxisticks.append(ymin +i*(ymax-ymin)/5)
+        for t in ay:
+            if t>(ymin +i*(ymax-ymin)/5) and t<(ymin +(i+1)*(ymax-ymin)/5):
+                yaxisticks.append(t)
+    plt.gca().axes.yaxis.set_ticks(yaxisticks)
+    
     filepath = data_path+'\Plot.png'
     plt.savefig(filepath, dpi=300, bbox_inches='tight')
     image = Image.open(filepath)
