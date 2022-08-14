@@ -58,7 +58,6 @@ class help(tk.Frame):
         master.iconbitmap('favicon.ico')
 
         master.tk.call(sv_ttk.set_theme("dark"))
-
         settings = json.load(open(data_path+'\settings\settings.json'))
         if settings['settings']['theme'] == "light" :
             master.tk.call(sv_ttk.toggle_theme())
@@ -75,9 +74,9 @@ class help(tk.Frame):
         s = ttk.Style()
         s.configure('my.TButton', font=('Helvetica', 14, 'bold'))
         self.quitButton = ttk.Button(self.btn, text='Quitter', width="40", command=master.destroy, style='my.TButton')
-        self.quitButton.grid(row=0, column=0, padx=10, pady=10)
+        self.quitButton.grid(row=0, column=1, padx=10, pady=10)
         self.helpButton = ttk.Button(self.btn, text='Vue Liste', width="40", command=self.vuelist, style='my.TButton')
-        self.helpButton.grid(row=0, column=1, padx=10, pady=10)
+        self.helpButton.grid(row=0, column=0, padx=10, pady=10)
         
         self.btn.pack()
         self.pack()
@@ -85,6 +84,14 @@ class help(tk.Frame):
         self.mainloop()
     
     def vuelist(self):
+        with open (data_path+'\settings\settings.json',"r+") as f :
+            settings = json.load(f)
+            settings['settings']['help_mode']="list"
+
+            f.seek(0)
+            f.write(json.dumps(settings))
+            f.truncate()       
+
         self.master.destroy()
         help_2(self.corespondance)
 
@@ -107,9 +114,9 @@ class help_2(tk.Frame):
         s = ttk.Style()
         s.configure('my.TButton', font=('Helvetica', 14, 'bold'))
         self.quitButton = ttk.Button(self.btn, text='Quitter', width="30", command=master.destroy, style='my.TButton')
-        self.quitButton.grid(row=0, column=0, padx=10, pady=10)
+        self.quitButton.grid(row=0, column=1, padx=10, pady=10)
         self.helpButton = ttk.Button(self.btn, text='Vue Clavier', width="30", command=self.vueclavier, style='my.TButton')
-        self.helpButton.grid(row=0, column=1, padx=10, pady=10)
+        self.helpButton.grid(row=0, column=0, padx=10, pady=10)
         self.btn.pack()
         
         container = ttk.Frame(self)
@@ -227,6 +234,14 @@ class help_2(tk.Frame):
         self.mainloop()
     
     def vueclavier(self):
+        with open (data_path+'\settings\settings.json',"r+") as f :
+            settings = json.load(f)
+            settings['settings']['help_mode']="keyboard"
+
+            f.seek(0)
+            f.write(json.dumps(settings))
+            f.truncate()       
+
         self.master.destroy()
         help(self.corespondance)
         

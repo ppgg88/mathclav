@@ -808,7 +808,19 @@ class mainWindow(tk.Frame):
             ],
             ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
         ]
-        self.help = help(corespondance)
+
+        try :
+            settings = json.load(open(data_path+'\settings\settings.json'))
+            if settings['settings']['help_mode'] == "keyboard" :
+                self.help = help(corespondance)
+                print(settings['settings']['help_mode'])
+            else :
+                self.help = help_2(corespondance)
+        except :
+            with open (data_path+'\settings\settings.json',"w") as f :
+                f.write('{"settings": {"theme" : "%s","font_size" : %d,"help_mode" : "keyboard"}}'%(sv_ttk.get_theme(),self.size))
+                f.truncate()  
+                self.help = help(corespondance)
         #self.help_2 = help_2(corespondance)
 
 
@@ -828,6 +840,6 @@ if __name__ == '__main__':
             app.changeTheme()
     except :
         with open (data_path+'\settings\settings.json',"w") as f :
-            f.write('{"settings": {"theme" : "dark","font_size" : 11}}')
+            f.write('{"settings": {"theme" : "dark","font_size" : 11,"help_mode" : "keyboard"}}')
     app.mainloop()
 
