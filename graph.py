@@ -112,21 +112,22 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
     y = []
     ax = []
     ay = []
-    virgule = 0
-
+    sng=1
     a = 0
     virgule = 0
     for i in range(0, len(xaxym)):
         if  i==0 :
             ax.append(0)
         if xaxym[i] == ';':
+            ax[a] = sng*ax[a]
+            sng=1
             ax.append(0)
             a +=1
             virgule = 0
         elif xaxym[i] == ' ':
             pass
         elif xaxym[i] == '-':
-            ax[a] = -ax[a]
+            sng = -1
         elif xaxym[i] == ',' or xaxym[i] == '.':
             virgule+=1
         else :
@@ -137,20 +138,28 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
                 else:
                     ax[a] = int(xaxym[i])+10*ax[a]
             except :
+                ax[a]=sng*ax[a]
                 ax.append(0)
                 virgule = 0
                 a +=1
+                sng=1
+    if ax != []:
+        ax[len(ax)-1] = sng*ax[len(ax)-1]
     
     a=0
     virgule = 0
+    sng=1
     for i in range(0, len(yasym)):
         if  i==0 :
             ay.append(0)
         if yasym[i] == ';':
+            ay[a] = sng*ay[a]
             ay.append(0)
+            virgule = 0
+            sng = 1
             a +=1
         elif yasym[i] == '-':
-            ay[a] = -ay[a]
+            sng = -1
         elif yasym[i] == ' ':
             pass
         elif yasym[i] == ',' or yasym[i] == '.':
@@ -163,9 +172,13 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
                 else:
                     ay[a] = int(yasym[i])+10*ay[a]
             except :
+                ay[a] = sng*ay[a]
                 ay.append(0)
                 a +=1
+                sng = 1
     
+    if ay != []:
+        ay[len(ay)-1] = sng*ay[len(ay)-1]
     a = int((xmax-xmin)/xstep)
     for i in range(0,a):
         x.append(i*xstep+xmin)
