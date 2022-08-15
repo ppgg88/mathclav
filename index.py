@@ -764,6 +764,7 @@ class mainWindow(tk.Frame):
                 mathSymbol(''), #&
                 mathSymbol(''), #!
                 mathSymbol(''), #()
+                mathSymbol(''), #|
             ],
             [   mathSymbol('\\alpha '), #a
                 mathSymbol('\\beta '), #b
@@ -800,6 +801,7 @@ class mainWindow(tk.Frame):
                 mathSymbol(''), #&
                 mathSymbol(''), #!
                 mathSymbol(''), #()
+                mathSymbol(''), #|
             ],
             [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
                 [binom()],
@@ -808,7 +810,7 @@ class mainWindow(tk.Frame):
                 [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
                 [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
                 [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
-                [mathSymbol('h')],
+                [mathSymbol('Historique')],
                 [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
                 [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
                 [mathSymbol('\: ')],##
@@ -836,8 +838,9 @@ class mainWindow(tk.Frame):
                 [ mathSymbol("\\wedge "),mathSymbol("\\vee "),mathSymbol("& ")],
                 [mathSymbol("! "), mathSymbol("\\neg "),mathSymbol("a\\not ")],
                 [parenthese(), parenthese_carre()],
+                [norme(), norme2()]
             ],
-            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "(/)"],
+            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "( / )", "|"],
         ]
 
         try :
