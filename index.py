@@ -548,9 +548,9 @@ class mainWindow(tk.Frame):
             elif key == 221: #puissance touche '^'
                 self.multiple_choice([power(), indice()])
             elif touche.char == '(':
-                self.multiple_choice([parenthese()])
+                self.multiple_choice([parenthese(), parenthese_carre()])
             elif touche.char == ')':
-                self.multiple_choice([parenthese_carre()])
+                self.multiple_choice([parenthese(), parenthese_carre()])
             elif touche.char == '|':
                 self.multiple_choice([norme(), norme2()])
             elif touche.char == '_':
@@ -587,14 +587,16 @@ class mainWindow(tk.Frame):
                     inser = temp[i]
                     if self.rg != self.rg_prev_:
                         self.result.pop(self.rg)
+                        self.i.pop(self.rg)
+                        self.cursor.pop(self.rg)
                         self.rg=self.rg_prev_
                         self.cursor[self.rg] = self.cursor_prev
-                    print( self.cursor[self.rg])
-                    self.result[self.rg].destroy(self.cursor[self.rg])
+                    self.result[self.rg].content.pop(self.cursor[self.rg])
                     self.cursor[self.rg] -= 1
                     l = i+1
                     if l>=len(temp): l = 0
                     self.precedent[len(self.precedent)-1] = temp[l]
+                    inser = temp[l]
                     a = False
                     break
             if a:
@@ -609,17 +611,19 @@ class mainWindow(tk.Frame):
                 self.multi = multi(self, root, temp, l)
             else:
                 self.multi.modifie(l, temp)
-            self.result[self.rg].add(self.precedent[len(self.precedent)-1], self.cursor[self.rg])
+            self.result[self.rg].add(inser, self.cursor[self.rg])
             self.cursor[self.rg]+=1
             self.prev_time = millis()
 
         if inser.imax>=0:
-            print(self.rg)
             self.rg_prev_ = self.rg
             self.rg += 1
             self.i.append(0)
             self.cursor.append(0)
-            self.result.append(inser.content[self.i[self.rg]])
+            self.result.append(inser.content[0])
+        print(self.rg)
+        print(self.result[self.rg].content)
+        print(self.cursor[self.rg])
             
         self.graph()
 
@@ -751,6 +755,15 @@ class mainWindow(tk.Frame):
                 mathSymbol('\\Xi '),
                 mathSymbol('Y'), 
                 mathSymbol('Z'), 
+                mathSymbol(''),
+                mathSymbol(''), #+
+                mathSymbol(''), #-
+                mathSymbol(''), #*
+                mathSymbol(''), #=
+                mathSymbol(''), #<>
+                mathSymbol(''), #&
+                mathSymbol(''), #!
+                mathSymbol(''), #()
             ],
             [   mathSymbol('\\alpha '), #a
                 mathSymbol('\\beta '), #b
@@ -778,6 +791,15 @@ class mainWindow(tk.Frame):
                 mathSymbol('\\xi '), #x
                 mathSymbol('\\upsilon '), #y
                 mathSymbol('\\zeta '),#z
+                mathSymbol(''), #^
+                mathSymbol(''), #+
+                mathSymbol(''), #-
+                mathSymbol(''), #*
+                mathSymbol(''), #=
+                mathSymbol(''), #<>
+                mathSymbol(''), #&
+                mathSymbol(''), #!
+                mathSymbol(''), #()
             ],
             [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
                 [binom()],
@@ -805,8 +827,17 @@ class mainWindow(tk.Frame):
                 [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
                 [arccos(), arcsin(), arctan()],
                 [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
+                [power(view = True), indice(view = True)],
+                [mathSymbol("+ "), mathSymbol("\\pm "),mathSymbol("\\mp "),mathSymbol("\\oplus ")],
+                [mathSymbol("- "), mathSymbol("\\mp "),mathSymbol("\\pm "),mathSymbol("\\ominus ")],
+                [mathSymbol("\\times "), mathSymbol("\\cdot "), mathSymbol("\\wedge "),mathSymbol("\\ast "), mathSymbol("\\odot "), mathSymbol("\\otimes ")],
+                [mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")],
+                [mathSymbol("<"), mathSymbol(">"), mathSymbol("\leq "), mathSymbol("\geq "), mathSymbol("\ll "), mathSymbol("\gg ")],
+                [ mathSymbol("\\wedge "),mathSymbol("\\vee "),mathSymbol("& ")],
+                [mathSymbol("! "), mathSymbol("\\neg "),mathSymbol("a\\not ")],
+                [parenthese(), parenthese_carre()],
             ],
-            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "(/)"],
         ]
 
         try :
