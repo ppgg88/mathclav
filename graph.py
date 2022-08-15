@@ -1,4 +1,15 @@
+# MathClav v0.2  
+# by : Team SchnakyX & apparentés (TS&a)
 #
+# Licence (CC BY-NC-SA 4.0) 2022 - MathClav
+# This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+# International License. To view a copy of this license, visit 
+# http://creativecommons.org/licenses/by-nc-sa/4.0/ 
+# or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+#
+# This program is distributed in the hope that it will be useful,
+# for any question, please contact us at paul.giroux87@gmail.com
+
 
 import tkinter as tk
 from tkinter import ttk
