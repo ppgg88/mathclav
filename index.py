@@ -121,6 +121,238 @@ class mainWindow(tk.Frame):
         self.prev_time = 0
         self.math = False
         
+        self.view_corespondance = [
+            [   mathSymbol('A'), 
+                mathSymbol('B'), 
+                mathSymbol('\\Theta '), 
+                mathSymbol('\\Delta '),  
+                mathSymbol('E'),
+                mathSymbol('\\Phi '),  
+                mathSymbol('\\Gamma '),
+                mathSymbol('H'), 
+                mathSymbol('I'), 
+                mathSymbol('\\Omega '),
+                mathSymbol('K'), 
+                mathSymbol('\\Lambda '), 
+                mathSymbol('M'), 
+                mathSymbol('N'), 
+                mathSymbol('O'), 
+                mathSymbol('\\Pi '), 
+                mathSymbol('Q'),
+                mathSymbol('P'),
+                mathSymbol('\\Sigma '), 
+                mathSymbol('T'),
+                mathSymbol('U'),
+                mathSymbol('X'),
+                mathSymbol('\\Psi '), 
+                mathSymbol('\\Xi '),
+                mathSymbol('Y'), 
+                mathSymbol('Z'), 
+                mathSymbol(''),
+                mathSymbol(''), #+
+                mathSymbol(''), #-
+                mathSymbol(''), #*
+                mathSymbol(''), #=
+                mathSymbol(''), #<>
+                mathSymbol(''), #&
+                mathSymbol(''), #!
+                mathSymbol(''), #()
+                mathSymbol(''), #|
+            ],
+            [   mathSymbol('\\alpha '), #a
+                mathSymbol('\\beta '), #b
+                mathSymbol('\\theta '),#c
+                mathSymbol('\\delta '), #d
+                mathSymbol('\\epsilon '), #e
+                mathSymbol('\\varphi '), #f
+                mathSymbol('\\gamma '), #g  
+                mathSymbol('\\eta '), #h 
+                mathSymbol('\\iota '), #i
+                mathSymbol('\\omega '), #j 
+                mathSymbol('\\kappa '), #k
+                mathSymbol('\\lambda '), #l
+                mathSymbol('\\mu '), #m
+                mathSymbol('\\nu '), #n  
+                mathSymbol('o '), #o 
+                mathSymbol('\\pi '), #p
+                mathSymbol('q'), #q
+                mathSymbol('\\rho '), #r 
+                mathSymbol('\\sigma '),#s
+                mathSymbol('\\tau '), #t 
+                mathSymbol('u'), #u
+                mathSymbol('\\chi '), #v
+                mathSymbol('\\psi '), #w
+                mathSymbol('\\xi '), #x
+                mathSymbol('\\upsilon '), #y
+                mathSymbol('\\zeta '),#z
+                mathSymbol(''), #^
+                mathSymbol(''), #+
+                mathSymbol(''), #-
+                mathSymbol(''), #*
+                mathSymbol(''), #=
+                mathSymbol(''), #<>
+                mathSymbol(''), #&
+                mathSymbol(''), #!
+                mathSymbol(''), #()
+                mathSymbol(''), #|
+            ],
+            [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
+                [binom()],
+                [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
+                [e(), exp(), ln(), log()],
+                [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
+                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
+                [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
+                [mathSymbol('Historique')],
+                [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
+                [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
+                [mathSymbol('\: ')],##
+                [ln(), log(), e(), exp()],
+                [lim1(), lim()],
+                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
+                [sum(), sum1(), mathSymbol('\sum ')],
+                [prod(), prod1(), mathSymbol('\prod ')],
+                [frac()],
+                [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
+                [sqrt(), sqrt_n()],
+                [cos(), sin(), tan()],
+                [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
+                [vect()],
+                [mathSymbol('\\forall '), mathSymbol('\\exists ')],
+                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
+                [arccos(), arcsin(), arctan()],
+                [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
+                [power(view = True), indice(view = True)],
+                [mathSymbol("+ "), mathSymbol("\\pm "),mathSymbol("\\mp "),mathSymbol("\\oplus ")],
+                [mathSymbol("- "), mathSymbol("\\mp "),mathSymbol("\\pm "),mathSymbol("\\ominus ")],
+                [mathSymbol("\\times "), mathSymbol("\\cdot "), mathSymbol("\\wedge "),mathSymbol("\\ast "), mathSymbol("\\odot "), mathSymbol("\\otimes ")],
+                [mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")],
+                [mathSymbol("<"), mathSymbol(">"), mathSymbol("\leq "), mathSymbol("\geq "), mathSymbol("\ll "), mathSymbol("\gg ")],
+                [ mathSymbol("\\wedge "),mathSymbol("\\vee "),mathSymbol("& ")],
+                [mathSymbol("! "), mathSymbol("\\neg "),mathSymbol("a\\not ")],
+                [parenthese(), parenthese_carre()],
+                [norme(), norme2()]
+            ],
+            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "( / )", "|"],
+        ]
+
+        
+        self.corespondance = [
+            [   mathSymbol('A'), 
+                mathSymbol('B'), 
+                mathSymbol('\\Theta '), 
+                mathSymbol('\\Delta '),  
+                mathSymbol('E'),
+                mathSymbol('\\Phi '),  
+                mathSymbol('\\Gamma '),
+                mathSymbol('H'), 
+                mathSymbol('I'), 
+                mathSymbol('\\Omega '),
+                mathSymbol('K'), 
+                mathSymbol('\\Lambda '), 
+                mathSymbol('M'), 
+                mathSymbol('N'), 
+                mathSymbol('O'), 
+                mathSymbol('\\Pi '), 
+                mathSymbol('Q'),
+                mathSymbol('P'),
+                mathSymbol('\\Sigma '), 
+                mathSymbol('T'),
+                mathSymbol('U'),
+                mathSymbol('X'),
+                mathSymbol('\\Psi '), 
+                mathSymbol('\\Xi '),
+                mathSymbol('Y'), 
+                mathSymbol('Z'), 
+                mathSymbol(''),
+                mathSymbol(''), #+
+                mathSymbol(''), #-
+                mathSymbol(''), #*
+                mathSymbol(''), #=
+                mathSymbol(''), #<>
+                mathSymbol(''), #&
+                mathSymbol(''), #!
+                mathSymbol(''), #()
+                mathSymbol(''), #|
+            ],
+            [   mathSymbol('\\alpha '), #a
+                mathSymbol('\\beta '), #b
+                mathSymbol('\\theta '),#c
+                mathSymbol('\\delta '), #d
+                mathSymbol('\\epsilon '), #e
+                mathSymbol('\\varphi '), #f
+                mathSymbol('\\gamma '), #g  
+                mathSymbol('\\eta '), #h 
+                mathSymbol('\\iota '), #i
+                mathSymbol('\\omega '), #j 
+                mathSymbol('\\kappa '), #k
+                mathSymbol('\\lambda '), #l
+                mathSymbol('\\mu '), #m
+                mathSymbol('\\nu '), #n  
+                mathSymbol('o '), #o 
+                mathSymbol('\\pi '), #p
+                mathSymbol('q'), #q
+                mathSymbol('\\rho '), #r 
+                mathSymbol('\\sigma '),#s
+                mathSymbol('\\tau '), #t 
+                mathSymbol('u'), #u
+                mathSymbol('\\chi '), #v
+                mathSymbol('\\psi '), #w
+                mathSymbol('\\xi '), #x
+                mathSymbol('\\upsilon '), #y
+                mathSymbol('\\zeta '),#z
+                mathSymbol(''), #^ 26
+                mathSymbol(''), #+ 27
+                mathSymbol(''), #- 28
+                mathSymbol(''), #* 29
+                mathSymbol(''), #= 30
+                mathSymbol(''), #<> 31
+                mathSymbol(''), #& 32
+                mathSymbol(''), #! 33
+                mathSymbol(''), #()34
+                mathSymbol(''), #| 35
+            ],
+            [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
+                [binom()],
+                [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
+                [e(), exp(), ln(), log()],
+                [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
+                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
+                [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
+                [mathSymbol('Historique')],
+                [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
+                [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
+                [mathSymbol('\: ')],##
+                [ln(), log(), e(), exp()],
+                [lim1(), lim()],
+                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
+                [sum(), sum1(), mathSymbol('\sum ')],
+                [prod(), prod1(), mathSymbol('\prod ')],
+                [frac()],
+                [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
+                [sqrt(), sqrt_n()],
+                [cos(), sin(), tan()],
+                [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
+                [vect()],
+                [mathSymbol('\\forall '), mathSymbol('\\exists ')],
+                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
+                [arccos(), arcsin(), arctan()],
+                [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
+                [power(view=False), indice(view=False)],
+                [mathSymbol("+ "), mathSymbol("\\pm "),mathSymbol("\\mp "),mathSymbol("\\oplus ")],
+                [mathSymbol("- "), mathSymbol("\\mp "),mathSymbol("\\pm "),mathSymbol("\\ominus ")],
+                [mathSymbol("\\times "), mathSymbol("\\cdot "), mathSymbol("\\wedge "),mathSymbol("\\ast "), mathSymbol("\\odot "), mathSymbol("\\otimes ")],
+                [mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")],
+                [mathSymbol("<"), mathSymbol(">"), mathSymbol("\leq "), mathSymbol("\geq "), mathSymbol("\ll "), mathSymbol("\gg ")],
+                [ mathSymbol("\\wedge "),mathSymbol("\\vee "),mathSymbol("& ")],
+                [mathSymbol("! "), mathSymbol("\\neg "),mathSymbol("a\\not ")],
+                [parenthese(), parenthese_carre()],
+                [norme(), norme2()]
+            ],
+            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "( / )", "|"],
+        ]
+        
+        
         self.createWidgets()
         self.graph()
         #pyi_splash.close()
@@ -255,90 +487,7 @@ class mainWindow(tk.Frame):
         #GREC MAJ
         #GREC min
         #MATH
-        corespondance = [
-            [   mathSymbol('A'), 
-                mathSymbol('B'), 
-                mathSymbol('\\Theta '), 
-                mathSymbol('\\Delta '),  
-                mathSymbol('E'),
-                mathSymbol('\\Phi '),  
-                mathSymbol('\\Gamma '),
-                mathSymbol('H'), 
-                mathSymbol('I'), 
-                mathSymbol('\\Omega '),
-                mathSymbol('K'), 
-                mathSymbol('\\Lambda '), 
-                mathSymbol('M'), 
-                mathSymbol('N'), 
-                mathSymbol('O'), 
-                mathSymbol('\\Pi '), 
-                mathSymbol('Q'),
-                mathSymbol('P'),
-                mathSymbol('\\Sigma '), 
-                mathSymbol('T'),
-                mathSymbol('U'),
-                mathSymbol('X'),
-                mathSymbol('\\Psi '), 
-                mathSymbol('\\Xi '),
-                mathSymbol('Y'), 
-                mathSymbol('Z'), 
-            ],
-            [   mathSymbol('\\alpha '), #a
-                mathSymbol('\\beta '), #b
-                mathSymbol('\\theta '),#c
-                mathSymbol('\\delta '), #d
-                mathSymbol('\\epsilon '), #e
-                mathSymbol('\\varphi '), #f
-                mathSymbol('\\gamma '), #g  
-                mathSymbol('\\eta '), #h 
-                mathSymbol('\\iota '), #i
-                mathSymbol('\\omega '), #j 
-                mathSymbol('\\kappa '), #k
-                mathSymbol('\\lambda '), #l
-                mathSymbol('\\mu '), #m
-                mathSymbol('\\nu '), #n  
-                mathSymbol('\\omicron '), #o 
-                mathSymbol('\\pi '), #p
-                mathSymbol('q'), #q
-                mathSymbol('\\rho '), #r 
-                mathSymbol('\\sigma '),#s
-                mathSymbol('\\tau '), #t 
-                mathSymbol('u'), #u
-                mathSymbol('\\chi '), #v
-                mathSymbol('\\psi '), #w
-                mathSymbol('\\xi '), #x
-                mathSymbol('\\upsilon '), #y
-                mathSymbol('\\zeta '),#z
-            ],
-            [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
-                [binom()],
-                [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
-                [e(), exp(), ln(), log()],
-                [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
-                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
-                [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
-                [mathSymbol('h')],
-                [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
-                [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
-                [system(2, 2),system(3, 2),system(4, 2),system(5, 2)],
-                [ln(), log(), e(), exp()],
-                [lim1(), lim()],
-                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
-                [sum(), sum1(), mathSymbol('\sum ')],
-                [prod(), prod1(), mathSymbol('\prod ')],
-                [frac()],
-                [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
-                [sqrt(), sqrt_n()],
-                [cos(), sin(), tan()],
-                [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
-                [vect()],
-                [mathSymbol('\\forall '), mathSymbol('\\exists ')],
-                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
-                [arccos(), arcsin(), arctan()],
-                [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
-            ],
-            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
-        ]
+        corespondance = copy.deepcopy(self.corespondance)
         
         # Si on appuie sur une touche de controle : ctrl : grec
         if keyname == 'Control_L':
@@ -546,7 +695,7 @@ class mainWindow(tk.Frame):
                 self.graph()
                 
             elif key == 221: #puissance touche '^'
-                self.multiple_choice([power(), indice()])
+                self.multiple_choice([power(view=False), indice(view=False)])
             elif touche.char == '(':
                 self.multiple_choice([parenthese(), parenthese_carre()])
             elif touche.char == ')':
@@ -554,7 +703,7 @@ class mainWindow(tk.Frame):
             elif touche.char == '|':
                 self.multiple_choice([norme(), norme2()])
             elif touche.char == '_':
-                self.multiple_choice([indice()])
+                self.multiple_choice([indice(view=False)])
             elif touche.char != None: #sinon caractere normal
                 self.multiple_choice([mathSymbol(touche.char.replace('^',''))])
             else :
@@ -590,9 +739,8 @@ class mainWindow(tk.Frame):
                         self.i.pop(self.rg)
                         self.cursor.pop(self.rg)
                         self.rg=self.rg_prev_
-                        self.cursor[self.rg] = self.cursor_prev
+                    self.cursor[self.rg] = self.cursor_prev
                     self.result[self.rg].content.pop(self.cursor[self.rg])
-                    self.cursor[self.rg] -= 1
                     l = i+1
                     if l>=len(temp): l = 0
                     self.precedent[len(self.precedent)-1] = temp[l]
@@ -612,6 +760,7 @@ class mainWindow(tk.Frame):
             else:
                 self.multi.modifie(l, temp)
             self.result[self.rg].add(inser, self.cursor[self.rg])
+            self.cursor_prev = self.cursor[self.rg]
             self.cursor[self.rg]+=1
             self.prev_time = millis()
 
@@ -626,8 +775,7 @@ class mainWindow(tk.Frame):
         print(self.cursor[self.rg])
             
         self.graph()
-
-        
+       
     def graph(self):
         '''permet de gerer le graphique et l'affichage des Math'''
         self.latex_display()
@@ -728,121 +876,7 @@ class mainWindow(tk.Frame):
         
     def openHelp(self) :
         '''ouvre la fenêtre d'aide'''
-        corespondance = [
-            [   mathSymbol('A'), 
-                mathSymbol('B'), 
-                mathSymbol('\\Theta '), 
-                mathSymbol('\\Delta '),  
-                mathSymbol('E'),
-                mathSymbol('\\Phi '),  
-                mathSymbol('\\Gamma '),
-                mathSymbol('H'), 
-                mathSymbol('I'), 
-                mathSymbol('\\Omega '),
-                mathSymbol('K'), 
-                mathSymbol('\\Lambda '), 
-                mathSymbol('M'), 
-                mathSymbol('N'), 
-                mathSymbol('O'), 
-                mathSymbol('\\Pi '), 
-                mathSymbol('Q'),
-                mathSymbol('P'),
-                mathSymbol('\\Sigma '), 
-                mathSymbol('T'),
-                mathSymbol('U'),
-                mathSymbol('X'),
-                mathSymbol('\\Psi '), 
-                mathSymbol('\\Xi '),
-                mathSymbol('Y'), 
-                mathSymbol('Z'), 
-                mathSymbol(''),
-                mathSymbol(''), #+
-                mathSymbol(''), #-
-                mathSymbol(''), #*
-                mathSymbol(''), #=
-                mathSymbol(''), #<>
-                mathSymbol(''), #&
-                mathSymbol(''), #!
-                mathSymbol(''), #()
-                mathSymbol(''), #|
-            ],
-            [   mathSymbol('\\alpha '), #a
-                mathSymbol('\\beta '), #b
-                mathSymbol('\\theta '),#c
-                mathSymbol('\\delta '), #d
-                mathSymbol('\\epsilon '), #e
-                mathSymbol('\\varphi '), #f
-                mathSymbol('\\gamma '), #g  
-                mathSymbol('\\eta '), #h 
-                mathSymbol('\\iota '), #i
-                mathSymbol('\\omega '), #j 
-                mathSymbol('\\kappa '), #k
-                mathSymbol('\\lambda '), #l
-                mathSymbol('\\mu '), #m
-                mathSymbol('\\nu '), #n  
-                mathSymbol('o '), #o 
-                mathSymbol('\\pi '), #p
-                mathSymbol('q'), #q
-                mathSymbol('\\rho '), #r 
-                mathSymbol('\\sigma '),#s
-                mathSymbol('\\tau '), #t 
-                mathSymbol('u'), #u
-                mathSymbol('\\chi '), #v
-                mathSymbol('\\psi '), #w
-                mathSymbol('\\xi '), #x
-                mathSymbol('\\upsilon '), #y
-                mathSymbol('\\zeta '),#z
-                mathSymbol(''), #^
-                mathSymbol(''), #+
-                mathSymbol(''), #-
-                mathSymbol(''), #*
-                mathSymbol(''), #=
-                mathSymbol(''), #<>
-                mathSymbol(''), #&
-                mathSymbol(''), #!
-                mathSymbol(''), #()
-                mathSymbol(''), #|
-            ],
-            [   [mathSymbol('\Rightarrow '), mathSymbol('\Leftarrow ')],
-                [binom()],
-                [mathSymbol('\in '),mathSymbol('\supset '),mathSymbol('\subset '),mathSymbol('\supseteq '),mathSymbol('\subseteq ')],
-                [e(), exp(), ln(), log()],
-                [mathSymbol('\Longleftrightarrow '),mathSymbol('\Leftrightarrow ')],
-                [mathSymbol('f'),mathSymbol('g'),mathSymbol('h'),mathSymbol('u')],
-                [mathSymbol('\\rightarrow '),mathSymbol('\leftarrow '),mathSymbol('\leftrightarrow ')],
-                [mathSymbol('Historique')],
-                [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
-                [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
-                [mathSymbol('\: ')],##
-                [ln(), log(), e(), exp()],
-                [lim1(), lim()],
-                [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
-                [sum(), sum1(), mathSymbol('\sum ')],
-                [prod(), prod1(), mathSymbol('\prod ')],
-                [frac()],
-                [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
-                [sqrt(), sqrt_n()],
-                [cos(), sin(), tan()],
-                [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
-                [vect()],
-                [mathSymbol('\\forall '), mathSymbol('\\exists ')],
-                [mathSymbol('x'), mathSymbol('y'), mathSymbol('z')],
-                [arccos(), arcsin(), arctan()],
-                [mathSymbol('\infty '), mathSymbol('+\infty '), mathSymbol('-\infty '), mathSymbol('\pm\infty ')],
-                [power(view = True), indice(view = True)],
-                [mathSymbol("+ "), mathSymbol("\\pm "),mathSymbol("\\mp "),mathSymbol("\\oplus ")],
-                [mathSymbol("- "), mathSymbol("\\mp "),mathSymbol("\\pm "),mathSymbol("\\ominus ")],
-                [mathSymbol("\\times "), mathSymbol("\\cdot "), mathSymbol("\\wedge "),mathSymbol("\\ast "), mathSymbol("\\odot "), mathSymbol("\\otimes ")],
-                [mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")],
-                [mathSymbol("<"), mathSymbol(">"), mathSymbol("\leq "), mathSymbol("\geq "), mathSymbol("\ll "), mathSymbol("\gg ")],
-                [ mathSymbol("\\wedge "),mathSymbol("\\vee "),mathSymbol("& ")],
-                [mathSymbol("! "), mathSymbol("\\neg "),mathSymbol("a\\not ")],
-                [parenthese(), parenthese_carre()],
-                [norme(), norme2()]
-            ],
-            ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "( / )", "|"],
-        ]
-
+        corespondance = self.view_corespondance
         try :
             settings = json.load(open(data_path+'\settings\settings.json'))
             if settings['settings']['help_mode'] == "keyboard" :
