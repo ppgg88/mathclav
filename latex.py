@@ -72,11 +72,14 @@ class sqrt():
         return self.math.replace('a', str(self.content[0].graphStr()))
 
 class power():
-    def __init__(self) -> None:
+    def __init__(self, view = False) -> None:
         self.content = [mathObject()]
         self.imax = len(self.content)-1
         self.latex = r'^{░}'
-        self.math="**a"
+        if view:
+            self.latex = r'x^{n}'
+        else:
+            self.math="**a"
     def __add__(self, other):
         self.content += other
         return self
@@ -91,10 +94,13 @@ class power():
         return self.math.replace('a', str(self.content[0].graphStr()))
 
 class indice():
-    def __init__(self) -> None:
+    def __init__(self, view) -> None:
         self.content = [mathObject()]
         self.imax = len(self.content)-1
-        self.latex = r'_{░}'
+        if view:
+            self.latex = r'x_{n}'
+        else:
+            self.latex = r'_{░}'
     def __add__(self, other):
         self.content += other
         return self

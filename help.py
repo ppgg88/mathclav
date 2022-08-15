@@ -34,7 +34,9 @@ bg_buton = '#2e2e2e'
 bgMath_white = '#edf2fb'
 blue = '#b3d0ff'
 red = '#ffa1c3'
+red_dark = '#ff7f7f'
 green = '#c9ffc9'
+green_dark = '#7fff7f'
 whith = '#f0f0f0'
 
 pyglet.font.add_file("Lato-Regular.ttf")
@@ -158,9 +160,9 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget()
         tmptext = ' Mode\:\:Math'
         if sv_ttk.get_theme()=="dark" :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=red)
         else :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=red_dark)
         
         self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
         self.canvas_.get_tk_widget().grid(row=0, column=1)
@@ -226,9 +228,9 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget()
         tmptext = "Mode\:\:Grec"
         if sv_ttk.get_theme()=="dark" :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=green)
         else :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=green_dark)
         
         self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
         self.canvas_.get_tk_widget().grid(row=1, column=2)
@@ -236,7 +238,7 @@ class help_2(tk.Frame):
         
         
         
-        for i in range(26):
+        for i in range(len(self.corespondance[0])):
             #ttk.Label(scrollable_frame, text="Sample scrolling label").pack()
             ttk.Label(scrollable_frame, text=("          "+corespondance[3][i] + " -> "), font=('Helvetica', 14, 'bold')).grid(row=i+2, column=0, padx=10, pady=10)
             
@@ -313,4 +315,3 @@ class help_2(tk.Frame):
 if __name__ == '__main__':
     #c = credit()
     v = help()
-
