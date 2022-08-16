@@ -550,7 +550,7 @@ class mainWindow(tk.Frame):
             if self.cursor[self.rg] > 0:
                 if self.result[self.rg].content[self.cursor[self.rg]-1].imax >= 0:
                     self.i.append(self.result[self.rg].content[self.cursor[self.rg]-1].imax)
-                    self.result.append(self.result[self.rg].content[self.cursor[self.rg]-1].content[self.i[self.rg]])
+                    self.result.append(self.result[self.rg].content[self.cursor[self.rg]-1].content[self.i[self.rg+1]])
                     self.cursor.append(len(self.result[self.rg+1].content))
                     self.rg += 1
                 else:
@@ -781,9 +781,11 @@ class mainWindow(tk.Frame):
         self.latex_display()
         self.result[self.rg].add(mathSymbol(chr(166)), self.cursor[self.rg])
         if self.rg != 0:
-            self.result[0].add(mathSymbol(r'\:\:░'), len(self.result[0].content))
+            #self.result[self.rg-1].add(mathSymbol(r'\:\:░'), len(self.result[self.rg-1].content))
+            self.result[self.rg-1].add(mathSymbol(r'\:\:░'), self.cursor[self.rg-1])
             tmptext = self.result[0].str()
-            self.result[0].content.pop(len(self.result[0].content)-1)
+            #self.result[self.rg-1].content.pop(len(self.result[self.rg-1].content)-1)
+            self.result[self.rg-1].content.pop(self.cursor[self.rg-1])
         else:
             tmptext = self.result[0].str()
         self.result[self.rg].content.pop(self.cursor[self.rg])
