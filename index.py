@@ -322,7 +322,7 @@ class mainWindow(tk.Frame):
                 [mathSymbol('Historique')],
                 [integral(), integral2(),integral2f(), integral_double(), integral_doublef(),  integral_triple(),  integral_triplef()],
                 [mathSymbol('\imath '), mathSymbol('\jmath '), mathSymbol('\Re '),mathSymbol('\Im ')],
-                [mathSymbol('\: ')],##
+                [mathSymbol('k'), mathSymbol('n')],##
                 [ln(), log(), e(), exp()],
                 [lim1(), lim()],
                 [mathSymbol('n'), mathSymbol('k'), mathSymbol('l')],
