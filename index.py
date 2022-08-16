@@ -563,9 +563,9 @@ class mainWindow(tk.Frame):
                 self.cursor[self.rg] -= 1 
             elif self.rg > 0:
                 self.i[self.rg] -= 1
-                self.cursor[self.rg] = 0
                 self.result.pop(self.rg)
                 self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+                self.cursor[self.rg] = len(self.result[self.rg].content)
             self.graph()
             return(1)
         
@@ -677,7 +677,8 @@ class mainWindow(tk.Frame):
         
         if self.mode == 1: #mode math
             if char == 'h' or char == 'H':
-                historique()
+                historique(self.result[0], root)
+                return(1)
             elif key >= 65 and key <= 90 :
                 self.multiple_choice(corespondance[2][key-65])
   
