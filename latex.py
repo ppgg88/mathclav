@@ -178,7 +178,7 @@ class integral():
     def __init__(self) -> None:
         self.content = [mathObject(), mathObject(), mathObject(), mathObject()]
         self.imax = len(self.content)-1
-        self.latex = r'\int_{æ1}^{æ2} æ3 \: d æ4 \:'
+        self.latex = r'\int_{æ1}^{æ2}{ æ3 \: d æ4 \:}'
     def __add__(self, other):
         self.content += other
         return self

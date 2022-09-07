@@ -543,6 +543,10 @@ class mainWindow(tk.Frame):
                 self.cursor[self.rg] = 0
                 self.result.pop(self.rg)
                 self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+            print(self.rg)
+            print(self.cursor)
+            print(self.i)
+            print(self.result)
             self.graph()
             return(1)
         

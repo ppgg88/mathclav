@@ -137,7 +137,11 @@ class multi(tk.Frame):
 
     def supr(self):
         if millis()-self.time >= 1500:
-            self.master.destroy()
+            try:
+                self.destroy()
+                self.master.destroy()
+            except:
+                pass
         
 if __name__=='__main__':
     root = tk.Tk()
