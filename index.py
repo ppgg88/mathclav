@@ -677,7 +677,7 @@ class mainWindow(tk.Frame):
         
         if self.mode == 1: #mode math
             if char == 'h' or char == 'H':
-                historique(self.result[0], root)
+                historique(self.result[0], self)
                 return(1)
             elif key >= 65 and key <= 90 :
                 self.multiple_choice(corespondance[2][key-65])
@@ -840,10 +840,8 @@ class mainWindow(tk.Frame):
         '''permet d'ajouter un element dans la pile'''
         for data in input.content:
             self.result[self.rg].content.append(data)
-            self.cursor += 1
-        self.result[self.rg].add(mathSymbol(chr(166)), self.cursor)
+            self.cursor[self.rg] += 1
         self.graph()
-        self.result[self.rg].destroy(self.cursor+1)
         self.latex_display()
         
     def changeTheme(self) :

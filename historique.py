@@ -182,6 +182,7 @@ class historique(tk.Frame):
         h = historique(self.result, self.parent)
         
     def ajouter(self, i):
+        print(self.parent)
         self.parent.ajout(self.result_[i-1])
         self.master.destroy()
 
