@@ -49,7 +49,7 @@ class mathSymbol():
         self.content = [""]
         return self
     def graphStr(self) -> str:
-        return self.content[0].replace(r'\ast' , '*').replace(r'\times' , '*').replace(r'\div' , '/')
+        return self.content[0].replace(r'\ast' , '*').replace(r'\times' , '*').replace(r'\div' , '/').replace(r'\pi', '3.141592653').replace(r'\:', '')
 
 class sqrt():
     def __init__(self) -> None:
@@ -152,7 +152,7 @@ class frac():
         self.content = [self.content_num, self.content_den]
         self.imax = len(self.content)-1
         self.latex = r'\frac{æ1}{æ2}'
-        self.math = "(æ1)/(æ2)"
+        self.math = "((æ1)/(æ2))"
     def add_num(self, other):
         self.content_num += other
         return self
@@ -395,23 +395,53 @@ class intersection():
 
 class sum():
     def __init__(self) -> None:
-        self.content = [mathObject(), mathObject()]
+        self.content = [mathObject(), mathObject(), mathObject()]
         self.imax = len(self.content)-1
-        self.latex = r'\sum_{æ1}^{æ2}'
+        self.latex = r'\sum_{æ1}^{æ2}{æ3}'
+        self.math = '∑æ1æ2'
     def __add__(self, other):
         self.content += other
         return self
     def __str__(self) -> str:
-        if self.content[0].content == [] and self.content[1].content != []:
-            return self.latex.replace('æ2', str(self.content[1].str())).replace('æ1', '░')
-        elif self.content[0].content != [] and self.content[1].content == []:
-            return self.latex.replace('æ1', str(self.content[0].str())).replace('æ2', '░')
-        elif len(self.content[0].content)==0 and len(self.content[1].content)==0:
-            return self.latex.replace('æ1', '░').replace('æ2', '░')
-        return self.latex.replace('æ2', str(self.content[1].str())).replace('æ1', str(self.content[0].str()))
+        r = self.latex
+        if len(self.content[0].content) == 0:
+            r = r.replace('æ1', '░')
+        if len(self.content[1].content) == 0:
+            r = r.replace('æ2', '░')
+        if len(self.content[2].content) == 0:
+            r = r.replace('æ3', '░')
+        return r.replace('æ2', str(self.content[1].str())).replace('æ1', str(self.content[0].str())).replace('æ3', str(self.content[2].str()))
+    
     def destroy(self) -> None:
         self.latex = r""
         return self
+    
+    def graphStr(self) -> str:
+        a = False
+        k = self.content[0].graphStr()
+        start = 0
+        var = k[0]
+        for i in range(1, len(k)):
+            if k[i] == '=' : a = True
+            if a :
+                try:
+                    start = int(k[i]) + 10*start
+                except:
+                    pass
+        n = self.content[1].graphStr()
+        max = 0
+        try: 
+            max = int(n)
+        except:
+            pass
+        result = ''
+        for i in range(start, max+1):
+            result += '('+self.content[2].graphStr().replace(var, str(i))+')'
+            if i < max: result += ' + '
+        
+        print(result)
+        return result
+
 
 class sum1():
     def __init__(self) -> None:

@@ -128,38 +128,41 @@ class historique(tk.Frame):
         self.label_historique = []
         self.button_supr = []
         for i in range(1,self.nb_historique+1):
-            with open(data_path+r'\historique\hist_'+str(i)+'.pkl', 'rb') as f1:
-                self.result_.append(pickle.load(f1))
-            self.label_historique_name.append(ttk.Label(self, text=self.result_[i-1].name))
-            self.label_historique_name[len(self.label_historique_name)-1].grid(row=i, column=0)
-            self.label_historique_name[len(self.label_historique_name)-1].bind("<Button-1>", lambda event, i=i: self.ajouter(i))
+            try:
+                with open(data_path+r'\historique\hist_'+str(i)+'.pkl', 'rb') as f1:
+                    self.result_.append(pickle.load(f1))
+                self.label_historique_name.append(ttk.Label(self, text=self.result_[i-1].name))
+                self.label_historique_name[len(self.label_historique_name)-1].grid(row=i, column=0)
+                self.label_historique_name[len(self.label_historique_name)-1].bind("<Button-1>", lambda event, i=i: self.ajouter(i))
+                print(self.result_[len(self.result_)-1])
+                tmptext = self.result_[len(self.result_)-1].str()
+                tmptext = tmptext.replace(r"\newline", "$ \n $")
+                tmptext = tmptext.replace(r"æ", "a")
+                if tmptext == "":
+                    tmptext = "Vide"
+                self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
+                self.wx = self.fig_[len(self.fig_)-1].add_subplot(111)
+                if sv_ttk.get_theme()=="dark" :
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
+                else :
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath_white)
+                self.wx.get_xaxis().set_visible(False)
+                self.wx.get_yaxis().set_visible(False)
+                self.wx.patch.set_visible(False)
+                self.wx.axis('off')
+                self.canvas_.append(FigureCanvasTkAgg( self.fig_[len(self.fig_)-1], master=self))
+                self.canvas_[len(self.canvas_)-1].get_tk_widget()
+                if sv_ttk.get_theme()=="dark" :
+                    self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color=whith)
+                else :
+                    self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color='black')
+                self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
+                self.canvas_[len(self.canvas_)-1].draw()
 
-            tmptext = self.result_[len(self.result_)-1].str()
-            tmptext = tmptext.replace(r"\newline", "$ \n $")
-            tmptext = tmptext.replace(r"æ", "a")
-            if tmptext == "":
-                tmptext = "Vide"
-            self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
-            self.wx = self.fig_[len(self.fig_)-1].add_subplot(111)
-            if sv_ttk.get_theme()=="dark" :
-                self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
-            else :
-                self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath_white)
-            self.wx.get_xaxis().set_visible(False)
-            self.wx.get_yaxis().set_visible(False)
-            self.wx.patch.set_visible(False)
-            self.wx.axis('off')
-            self.canvas_.append(FigureCanvasTkAgg( self.fig_[len(self.fig_)-1], master=self))
-            self.canvas_[len(self.canvas_)-1].get_tk_widget()
-            if sv_ttk.get_theme()=="dark" :
-                self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color=whith)
-            else :
-                self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color='black')
-            self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
-            self.canvas_[len(self.canvas_)-1].draw()
-
-            self.button_supr.append(ttk.Button(self, text="Supprimer", command=(lambda i=i:self.supr(i-1))))
-            self.button_supr[len(self.button_supr)-1].grid(row=i, column=2,padx=5)
+                self.button_supr.append(ttk.Button(self, text="Supprimer", command=(lambda i=i:self.supr(i-1))))
+                self.button_supr[len(self.button_supr)-1].grid(row=i, column=2,padx=5)
+            except:
+                self.supr(i-1)
 
     def save(self):
         self.result.name = self.nom_actuel.get()
