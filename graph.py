@@ -30,6 +30,11 @@ from io import BytesIO
 import win32clipboard
 from PIL import Image
 
+#constantes couleurs :
+
+bg = '#1e1e1e'
+bg_white = '#FFFFFF'
+
 #import latex as lt
 
 pyglet.font.add_file("Lato-Regular.ttf")
@@ -82,11 +87,11 @@ class graphScreen(tk.Frame):
         self.ylabel=ttk.Entry(self, width=35)
         self.ylabel.grid(row=6, column=1, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="Asymptote horizontal :", font=('Calibri 10')).grid(row=7, column=0, padx = 10)
+        tk.Label(self, text="Asymptote horizontale :", font=('Calibri 10')).grid(row=7, column=0, padx = 10)
         self.xasym=ttk.Entry(self, width=35)
         self.xasym.grid(row=8, column=0, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="Asymptote Vertical :", font=('Calibri 10')).grid(row=7, column=1, padx = 10)
+        tk.Label(self, text="Asymptote verticale :", font=('Calibri 10')).grid(row=7, column=1, padx = 10)
         self.yasym=ttk.Entry(self, width=35)
         self.yasym.grid(row=8, column=1, padx = 10, pady=(0, 10))
         
@@ -99,7 +104,7 @@ class graphScreen(tk.Frame):
         self.grille = ttk.Checkbutton(self, text="Grille", variable=self.grilleActive)
         self.grille.grid(row=10, column=1, padx = 10, pady=(0, 10))
         
-        tk.Label(self, text="Variable de tracer :", font=('Calibri 10')).grid(row=11, column=0, padx = 10)
+        tk.Label(self, text="Variable du tracé :", font=('Calibri 10')).grid(row=11, column=0, padx = 10)
         self.var=ttk.Entry(self, width=35)
         self.var.insert(0, "x")
         self.var.grid(row=12, column=0, padx = 10, pady=(0, 10))
@@ -211,6 +216,19 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
             else:
                 erreur = True
                 x.pop(len(x)-1)
+
+    windowTitle = ""     #titre de la fenêtre
+    for c in titre :
+        if c != '$':
+            windowTitle= windowTitle + c
+
+    settings = json.load(open(data_path+'\settings\settings.json'))
+    if settings['settings']['theme'] == "light" : #white theme
+        plt.figure(num="Graph - "+windowTitle,facecolor=bg_white)
+        plt.style.use('classic')
+    else : #dark theme
+        plt.figure(num="Graph - "+windowTitle,facecolor=bg)
+        plt.style.use('dark_background')
     plt.plot(x, y, color='blue', linewidth=1.5)
     
     for t in ax:
