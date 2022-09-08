@@ -122,7 +122,7 @@ class graphScreen(tk.Frame):
 
 
 def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable,  yasym, xaxym):
-    func = Mathobj.graphStr().replace(variable, 'æ')
+    func = Mathobj.graphStr().replace(variable, 'æ').replace(' ', '')
     erreur = False
     x = []
     y = []

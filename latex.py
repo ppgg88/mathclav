@@ -49,7 +49,7 @@ class mathSymbol():
         self.content = [""]
         return self
     def graphStr(self) -> str:
-        return self.content[0].replace(r'\ast' , '*').replace(r'\times' , '*').replace(r'\div' , '/').replace(r'\pi', '3.141592653').replace(r'\:', '')
+        return self.content[0].replace(r'\ast' , '*').replace(r'\times' , '*').replace(r'\div' , '/').replace(r'\pi', '3.14159265').replace(r'\:', '').replace(r'^' , '**')
 
 class sqrt():
     def __init__(self) -> None:
@@ -204,7 +204,30 @@ class integral():
     def destroy(self) -> None:
         self.latex = r""
         return self
-
+    def graphStr(self) -> str:
+        #methode des rectangles
+        e = 0.001
+        i = 0
+        start = int(self.content[0].graphStr())
+        end = int(self.content[1].graphStr())
+        y = []
+        func = self.content[2].graphStr().replace(self.content[3].graphStr(), 'æ').replace(' ', '')
+        for t in range(0, len(func)-1):
+            if func[t].isdigit() and (func[t+1].isalpha() or func[t+1] == 'æ' or func[t+1] == '\\' or func[t+1] == '('):
+                func = func[:t+1]+ "*" + func[t+1:]
+            elif func[t]=='æ' and (func[t+1].isalpha() or func[t+1]=='\\' or func[t+1]=='('):
+                func = func[:t+1]+ "*" + func[t+1:]
+            elif func[t]==')' and (func[t+1]=='æ' or func[t+1]=='\\' or func[t+1].isalpha() or func[t+1]=='('):
+                func = func[:t+1]+ "*" + func[t+1:]
+        for j in range(0, int((end-start)/e)+1):
+            x = start + j*e
+            temp = func.replace('æ', str(x))
+            try:
+                i+=eval(temp)
+            except:
+                return "error"
+        return str(i*e)
+    
 class integral2():
     def __init__(self) -> None:
         self.content = [mathObject()]
