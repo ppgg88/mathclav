@@ -500,7 +500,7 @@ class ln():
         self.content = [mathObject()]
         self.imax = 0
         self.latex = r'\ln{\left(░\right)} '
-        self.math = "mt.ln(æ1)"
+        self.math = "mt.log(æ1)"
     def __add__(self, other) -> None:
         self.content += other
         return self
