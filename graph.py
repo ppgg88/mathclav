@@ -257,13 +257,19 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
         for i in range(0,a):
             x.append(i*xstep+xmin)
             æ = i*xstep+xmin
-            for t in range(0, len(func)-1):
+            max = len(func)-1
+            t=0
+            while t<max:
                 if func[t].isdigit() and (func[t+1].isalpha() or func[t+1] == 'æ' or func[t+1] == '\\' or func[t+1] == '('):
                     func = func[:t+1]+ "*" + func[t+1:]
+                    max+=1
                 elif func[t]=='æ' and (func[t+1].isalpha() or func[t+1]=='\\' or func[t+1]=='('):
                     func = func[:t+1]+ "*" + func[t+1:]
+                    max+=1
                 elif func[t]==')' and (func[t+1]=='æ' or func[t+1]=='\\' or func[t+1].isalpha() or func[t+1]=='('):
                     func = func[:t+1]+ "*" + func[t+1:]
+                    max+=1
+                t+=1
             try:
                 y.append(eval(func))
                 erreur = False
