@@ -208,8 +208,8 @@ class integral():
         #methode des rectangles
         e = 0.001
         i = 0
-        start = int(self.content[0].graphStr())
-        end = int(self.content[1].graphStr())
+        start = eval(self.content[0].graphStr())
+        end = eval(self.content[1].graphStr())
         y = []
         func = self.content[2].graphStr().replace(self.content[3].graphStr(), 'æ').replace(' ', '')
         for t in range(0, len(func)-1):
