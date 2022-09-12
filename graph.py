@@ -241,10 +241,10 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
         else : #dark theme
             plt.figure(num="Graph - "+windowTitle,facecolor=bg)
             plt.style.use('dark_background')
-            
-        if index == 0:
-            plt.plot(x, y, color='blue', linewidth=1.5)
-        else :
+        colors = ['b', 'g', 'c', 'm', 'y', 'k', 'w']  
+        try :
+            plt.plot(x, y, color=colors[index], linewidth=1.5)
+        except:
             plt.plot(x, y, linewidth=1.5)
             
         for t in ax:
