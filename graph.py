@@ -12,12 +12,13 @@
 
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import EXCEPTION, ttk
 import sv_ttk
 
 import json
 import pyglet
 import os
+import traceback
 
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -151,8 +152,11 @@ class graphScreen(tk.Frame):
         self.mainloop()
     
     def graph(self):
-        if not(graph(self.mathObj, float(self.xmin.get()), float(self.xmax.get()), float(self.ymin.get()), float(self.ymax.get()), float(self.pas.get()), self.grilleActive.get(), self.titre.get(), self.xlabel.get(), self.ylabel.get(), self.var.get(), self.xasym.get(), self.yasym.get())):
-            tk.messagebox.showinfo("Graph", "La Formule n'est pas une fonction")
+        try :
+            if not(graph(self.mathObj, float(self.xmin.get()), float(self.xmax.get()), float(self.ymin.get()), float(self.ymax.get()), float(self.pas.get()), self.grilleActive.get(), self.titre.get(), self.xlabel.get(), self.ylabel.get(), self.var.get(), self.xasym.get(), self.yasym.get())):
+                tk.messagebox.showinfo("Graph", "La Formule n'est pas une fonction")
+        except Exception:
+            tk.messagebox.showinfo("Graph", traceback.format_exc())
 
 
 def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable,  yasym, xaxym):
