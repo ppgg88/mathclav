@@ -533,11 +533,32 @@ class mainWindow(tk.Frame):
             return 1
         
         #touche sans action dans le logiciel
-        if keyname =='Control_L' or keyname =='Alt_L' or keyname =='Alt_R' or key in [16, 20, 38, 40, 17, 19, 145, 35, 36, 91, 179, 175,174,173] or (self.mode == 1 and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
+        if keyname =='Control_L' or keyname =='Alt_L' or keyname =='Alt_R' or key in [16, 20, 17, 19, 145, 35, 36, 91, 179, 175,174,173] or (self.mode == 1 and touche.char=='^') or touche.char== "\\" or touche.char== "\t" or touche.char=="#" or touche.char=="`" :
             return 1
     
         if keyname == 'F10': # touche F10
             graphScreen(self.result[0])
+            return 1
+        
+        if key == 40: #fleche bas v
+            #print(self.i[self.rg])
+            try:
+                imax = self.result[self.rg-1].content[self.cursor[self.rg-1]-1].imax
+            except:
+                imax = -1
+            print("imax=", imax)
+            if self.i[self.rg] < imax:
+                self.i[self.rg] += 1
+                self.result.pop(self.rg)
+                print(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content)
+                self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+                self.cursor[self.rg] = len(self.result[self.rg].content)
+            elif self.rg > 0 and self.i[self.rg] == imax :
+                self.cursor.pop(self.rg)
+                self.result.pop(self.rg)
+                self.i.pop(self.rg)
+                self.rg -= 1
+            self.graph()
             return 1
         
         if key == 39: #fleche droite ->
@@ -559,7 +580,24 @@ class mainWindow(tk.Frame):
             print(self.result)
             self.graph()
             return(1)
-        
+
+        if key == 38: #fleche haut ^
+            print(self.i[self.rg])
+            if self.i[self.rg] > 0:
+                self.i[self.rg] -= 1
+                self.result.pop(self.rg)
+                print(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content)
+                self.result.append(self.result[self.rg-1].content[self.cursor[self.rg-1]-1].content[self.i[self.rg]])
+                self.cursor[self.rg] = len(self.result[self.rg].content)
+            elif self.rg > 0 and self.i[self.rg] == 0 :
+                self.cursor.pop(self.rg)
+                self.result.pop(self.rg)
+                self.i.pop(self.rg)
+                self.rg -= 1
+                self.cursor[self.rg] -= 1 
+            self.graph()
+            return 1
+            
         if key == 37: #fleche gauche <-
             if self.cursor[self.rg] > 0:
                 if self.result[self.rg].content[self.cursor[self.rg]-1].imax >= 0:
@@ -594,7 +632,6 @@ class mainWindow(tk.Frame):
                 self.cursor[self.rg] -= 1
             else:
                 try :
-                    print(self.result[self.rg].content[self.cursor[self.rg]-1].content[0])
                     if self.result[self.rg].content[self.cursor[self.rg]-1].content[0] == "\\newline":
                         self.pos+=0.15
                         self.height-=20
@@ -641,6 +678,7 @@ class mainWindow(tk.Frame):
         if key == 120: #F9
             c = credit()
             return(1)
+        
         
         if touche.char == "=" and self.result[0].str() == "raptor":
             v = raptor()
@@ -714,7 +752,8 @@ class mainWindow(tk.Frame):
                 self.result[self.rg].content.pop(self.cursor[self.rg]-1)
                 self.cursor[self.rg] -= 1
                 self.multiple_choice([frac()])
-                self.multiple_choice([temp])
+                self.multiple_choice([temp], False)
+                print(self.result)
                 self.i[self.rg] += 1
                 self.cursor[self.rg] = 0
                 self.result.pop(self.rg)
@@ -747,7 +786,7 @@ class mainWindow(tk.Frame):
                 print("lettre inconue en Mode Grec")
             return(1)
     
-    def multiple_choice(self, temp):
+    def multiple_choice(self, temp, into=True):
         self.historique()
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         if len(temp) == 1:
@@ -791,7 +830,7 @@ class mainWindow(tk.Frame):
             self.cursor[self.rg]+=1
             self.prev_time = millis()
 
-        if inser.imax>=0:
+        if inser.imax>=0 and into:
             self.rg_prev_ = self.rg
             self.rg += 1
             self.i.append(0)
