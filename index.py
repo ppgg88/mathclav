@@ -420,11 +420,19 @@ class mainWindow(tk.Frame):
         self.themeButton.grid(row=0, column=3, padx=10,pady=8)
 
         self.clearButton = ttk.Button(self.btn, text='Effacer Tout',width="20", command=self.clear, takefocus=False)
-        self.clearButton.grid(row=1, column=2, padx=10)
+        self.clearButton.grid(row=2, column=2, padx=10,pady=8)
 
         self.quitButton = ttk.Button(self.btn, text='Aide ?', width="20", command=self.openHelp, takefocus=False)
-        self.quitButton.grid(row=1, column=3, padx=10)
+        self.quitButton.grid(row=2, column=3, padx=10,pady=8)
+
+        self.modeButton = ttk.Button(self.btn, text='Mode Math', width="20", command=self.switchMode, takefocus=False)
+        self.modeButton.grid(row=1, column=2, padx=10)
+
+        self.graphButton = ttk.Button(self.btn, text='Graph', width="20", command=self.openGraph, takefocus=False)
+        self.graphButton.grid(row=1, column=3, padx=10)
         self.btn.pack(padx=10, pady=20)
+
+        
         
     def clear(self):
         '''efface le texte precedement ecris'''
@@ -482,6 +490,7 @@ class mainWindow(tk.Frame):
         '''action sur les touches'''
         logging.info("press :" +  str(touche))
         char = touche.char
+        print(touche)
         key = touche.keycode
         keyname = touche.keysym
         
@@ -909,6 +918,24 @@ class mainWindow(tk.Frame):
                 self.help = help(corespondance)
         #self.help_2 = help_2(corespondance)
 
+    def switchMode(self) :
+        '''Alterne entre le mode Usuel/Math/Grec'''
+        if self.mode==0 :
+            self.mode = 1
+            self.modeButton['text'] = "Mode Grec"
+            self.indication.configure(text="Mode Math", foreground=red)
+        elif self.mode==1 :
+            self.mode = 2
+            self.modeButton['text'] = "Mode Usuel"
+            self.indication.configure(text="Lettre Grecque", foreground=green)
+        else :
+            self.mode = 0
+            self.modeButton['text']= "Mode Math"
+            self.indication.configure(text="Lettre Usuelle",foreground=blue)
+    
+    def openGraph(self) :
+        '''Ouvre la fenêtre de graph'''
+        graphScreen(self.result[0])
 
 
 
@@ -916,7 +943,7 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
     #root.geometry("800x380")
-    root.geometry("800x380")
+    root.geometry("800x410")
     root.iconbitmap('favicon.ico')
     sv_ttk.set_theme("dark")
     app = mainWindow(root)
