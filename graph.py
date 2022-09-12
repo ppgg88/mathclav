@@ -19,7 +19,6 @@ import json
 import pyglet
 import os
 
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import math as mt
@@ -284,7 +283,7 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
         settings = json.load(open(data_path+'\settings\settings.json'))
         if settings['settings']['theme'] == "light" : #white theme
             plt.figure(num="Graph - "+windowTitle,facecolor=bg_white)
-            plt.style.use('classic')
+            #plt.style.use('classic')
         else : #dark theme
             plt.figure(num="Graph - "+windowTitle,facecolor=bg)
             plt.style.use('dark_background')
