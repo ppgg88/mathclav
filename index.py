@@ -585,7 +585,6 @@ class mainWindow(tk.Frame):
                 self.cursor[self.rg] -= 1
             else:
                 try :
-                    print(self.result[self.rg].content[self.cursor[self.rg]-1].content[0])
                     if self.result[self.rg].content[self.cursor[self.rg]-1].content[0] == "\\newline":
                         self.pos+=0.15
                         self.height-=20
@@ -705,7 +704,8 @@ class mainWindow(tk.Frame):
                 self.result[self.rg].content.pop(self.cursor[self.rg]-1)
                 self.cursor[self.rg] -= 1
                 self.multiple_choice([frac()])
-                self.multiple_choice([temp])
+                self.multiple_choice([temp], False)
+                print(self.result)
                 self.i[self.rg] += 1
                 self.cursor[self.rg] = 0
                 self.result.pop(self.rg)
@@ -738,7 +738,7 @@ class mainWindow(tk.Frame):
                 print("lettre inconue en Mode Grec")
             return(1)
     
-    def multiple_choice(self, temp):
+    def multiple_choice(self, temp, into=True):
         self.historique()
         '''permet de gerer le cas ou la fonction change lorsque l'on apuis plusieur fois sur le meme bouton'''
         if len(temp) == 1:
@@ -782,7 +782,7 @@ class mainWindow(tk.Frame):
             self.cursor[self.rg]+=1
             self.prev_time = millis()
 
-        if inser.imax>=0:
+        if inser.imax>=0 and into:
             self.rg_prev_ = self.rg
             self.rg += 1
             self.i.append(0)
