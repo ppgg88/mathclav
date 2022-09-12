@@ -55,6 +55,40 @@ class graphScreen(tk.Frame):
             master.tk.call(sv_ttk.toggle_theme())
         tk.Frame.__init__(self, master)
 
+        try :
+            settings = json.load(open(data_path+'\settings\settings.json'))
+            savedxmin = settings['settings']['graph']['xmin']
+            savedxmax = settings['settings']['graph']['xmax']
+            savedymin = settings['settings']['graph']['ymin']
+            savedymax = settings['settings']['graph']['ymax']
+            savedpas = settings['settings']['graph']['pas']
+            savedvar = settings['settings']['graph']['var']
+
+        except :
+            settings = json.load(open(data_path+'\settings\settings.json'))
+            with open (data_path+'\settings\settings.json',"w") as f :
+                f.write('''{"settings": {
+    "theme" : "%s",
+    "font_size" : %d,
+    "help_mode" : "%s",
+    "graph" : {
+        "xmin" : "0",
+        "xmax" : "10",
+        "ymin" : "0",
+        "ymax" : "10",
+        "pas" : "0.01",
+        "var" : "x"
+        }
+    }
+}'''%(sv_ttk.get_theme(),settings['settings']['font_size'],settings['settings']['help_mode']))
+                savedxmin = "0"
+                savedxmax = "10"
+                savedymin = "0"
+                savedymax = "10"
+                savedpas = "0.01"
+                savedvar = "x"
+                f.truncate()  
+
         tk.Label(self, text="Titre du Graphique :", font=('Calibri 10')).grid(row=0, column=0, padx = 10)
         self.titre=ttk.Entry(self, width=35)
         self.titre.insert(0, (self.mathObj.str()))
@@ -62,22 +96,22 @@ class graphScreen(tk.Frame):
         
         tk.Label(self, text="x minimum :", font=('Calibri 10')).grid(row=1, column=0, padx = 10)
         self.xmin=ttk.Entry(self, width=35)
-        self.xmin.insert(0, "0")
+        self.xmin.insert(0, savedxmin)
         self.xmin.grid(row=2, column=0, padx = 10, pady=(0, 10))
 
         tk.Label(self, text="x maximum :", font=('Calibri 10')).grid(row=1, column=1, padx = 10)
         self.xmax=ttk.Entry(self, width=35)
-        self.xmax.insert(0, "10")
+        self.xmax.insert(0, savedxmax)
         self.xmax.grid(row=2, column=1, padx = 10, pady=(0, 10))
         
         tk.Label(self, text="y minimum :", font=('Calibri 10')).grid(row=3, column=0, padx = 10)
         self.ymin=ttk.Entry(self, width=35)
-        self.ymin.insert(0, "0")
+        self.ymin.insert(0, savedymin)
         self.ymin.grid(row=4, column=0, padx = 10, pady=(0, 10))
         
         tk.Label(self, text="y maximum :", font=('Calibri 10')).grid(row=3, column=1, padx = 10)
         self.ymax=ttk.Entry(self, width=35)
-        self.ymax.insert(0, "10")
+        self.ymax.insert(0, savedymax)
         self.ymax.grid(row=4, column=1, padx = 10, pady=(0, 10))
         
         tk.Label(self, text="Label sur l'axe x :", font=('Calibri 10')).grid(row=5, column=0, padx = 10)
@@ -98,7 +132,7 @@ class graphScreen(tk.Frame):
         
         tk.Label(self, text="Pas de la trace :", font=('Calibri 10')).grid(row=9, column=0, padx = 10)
         self.pas=ttk.Entry(self, width=35)
-        self.pas.insert(0, "0.01")
+        self.pas.insert(0, savedpas)
         self.pas.grid(row=10, column=0, padx = 10, pady=(0, 10))
         
         self.grilleActive = tk.IntVar()
@@ -107,7 +141,7 @@ class graphScreen(tk.Frame):
         
         tk.Label(self, text="Variable du tracé :", font=('Calibri 10')).grid(row=11, column=0, padx = 10)
         self.var=ttk.Entry(self, width=35)
-        self.var.insert(0, "x")
+        self.var.insert(0, savedvar)
         self.var.grid(row=12, column=0, padx = 10, pady=(0, 10))
         
         self.graphButton = ttk.Button(self, text='Graph', width="15", command=self.graph)
@@ -301,6 +335,19 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
 
     send_to_clipboard(win32clipboard.CF_DIB, data)
     plt.show()
+
+    with open (data_path+'\settings\settings.json',"r+") as f :
+        settings = json.load(f)
+        settings["settings"]["graph"]["xmin"] = xmin
+        settings["settings"]["graph"]["xmax"] = xmax
+        settings["settings"]["graph"]["ymin"] = ymin
+        settings["settings"]["graph"]["ymax"] = ymax
+        settings["settings"]["graph"]["pas"] = xstep
+        settings["settings"]["graph"]["var"] = variable
+        f.seek(0)
+        f.write(json.dumps(settings))
+        f.truncate()
+    
     return(True)
 
 def send_to_clipboard(clip_type, data):
