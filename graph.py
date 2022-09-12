@@ -43,6 +43,7 @@ data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
 class graphScreen(tk.Frame):
     def __init__(self, mathObj):
         self.mathObj = mathObj
+        
         master = tk.Toplevel()
         master.title("MathClav - Graph")
         master.iconbitmap('favicon.ico')
@@ -122,120 +123,135 @@ class graphScreen(tk.Frame):
 
 
 def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable,  yasym, xaxym):
-    func = Mathobj.graphStr().replace(variable, 'æ').replace(' ', '')
-    erreur = False
-    x = []
-    y = []
-    ax = []
-    ay = []
-    sng=1
+    func_base = Mathobj.graphStr().replace(variable, 'æ').replace(' ', '').replace(r'\newline', '¤')
+    functions = []
+    titre = titre.replace(r'\newline', '$\nf(x) = $')
     a = 0
-    virgule = 0
-    for i in range(0, len(xaxym)):
-        if  i==0 :
-            ax.append(0)
-        if xaxym[i] == ';':
-            ax[a] = sng*ax[a]
-            sng=1
-            ax.append(0)
-            a +=1
-            virgule = 0
-        elif xaxym[i] == ' ':
-            pass
-        elif xaxym[i] == '-':
-            sng = -1
-        elif xaxym[i] == ',' or xaxym[i] == '.':
-            virgule+=1
-        else :
-            try :
-                if virgule>0 :
-                    ax[a] = 1/(10**virgule)*int(xaxym[i])+ax[a]
-                    virgule+=1
-                else:
-                    ax[a] = int(xaxym[i])+10*ax[a]
-            except :
-                ax[a]=sng*ax[a]
+    for i in range(0,len(func_base)):
+        if func_base[i] == '¤':
+            functions.append(func_base[a:i])
+            a=i+1
+    functions.append(func_base[a:i+1])
+    print(functions)
+    for func in functions:
+        index = functions.index(func)
+        erreur = False
+        x = []
+        y = []
+        ax = []
+        ay = []
+        sng=1
+        a = 0
+        virgule = 0
+        for i in range(0, len(xaxym)):
+            if  i==0 :
                 ax.append(0)
-                virgule = 0
-                a +=1
+            if xaxym[i] == ';':
+                ax[a] = sng*ax[a]
                 sng=1
-    if ax != []:
-        ax[len(ax)-1] = sng*ax[len(ax)-1]
-    
-    a=0
-    virgule = 0
-    sng=1
-    for i in range(0, len(yasym)):
-        if  i==0 :
-            ay.append(0)
-        if yasym[i] == ';':
-            ay[a] = sng*ay[a]
-            ay.append(0)
-            virgule = 0
-            sng = 1
-            a +=1
-        elif yasym[i] == '-':
-            sng = -1
-        elif yasym[i] == ' ':
-            pass
-        elif yasym[i] == ',' or yasym[i] == '.':
-            virgule+=1
-        else :
-            try :
-                if virgule>0 :
-                    ay[a] = 1/(10**virgule)*int(yasym[i])+ay[a]
-                    virgule+=1
-                else:
-                    ay[a] = int(yasym[i])+10*ay[a]
-            except :
+                ax.append(0)
+                a +=1
+                virgule = 0
+            elif xaxym[i] == ' ':
+                pass
+            elif xaxym[i] == '-':
+                sng = -1
+            elif xaxym[i] == ',' or xaxym[i] == '.':
+                virgule+=1
+            else :
+                try :
+                    if virgule>0 :
+                        ax[a] = 1/(10**virgule)*int(xaxym[i])+ax[a]
+                        virgule+=1
+                    else:
+                        ax[a] = int(xaxym[i])+10*ax[a]
+                except :
+                    ax[a]=sng*ax[a]
+                    ax.append(0)
+                    virgule = 0
+                    a +=1
+                    sng=1
+        if ax != []:
+            ax[len(ax)-1] = sng*ax[len(ax)-1]
+        
+        a=0
+        virgule = 0
+        sng=1
+        for i in range(0, len(yasym)):
+            if  i==0 :
+                ay.append(0)
+            if yasym[i] == ';':
                 ay[a] = sng*ay[a]
                 ay.append(0)
-                a +=1
+                virgule = 0
                 sng = 1
-    
-    if ay != []:
-        ay[len(ay)-1] = sng*ay[len(ay)-1]
-    a = int((xmax-xmin)/xstep)
-    for i in range(0,a):
-        x.append(i*xstep+xmin)
-        æ = i*xstep+xmin
-        for t in range(0, len(func)-1):
-            if func[t].isdigit() and (func[t+1].isalpha() or func[t+1] == 'æ' or func[t+1] == '\\' or func[t+1] == '('):
-                func = func[:t+1]+ "*" + func[t+1:]
-            elif func[t]=='æ' and (func[t+1].isalpha() or func[t+1]=='\\' or func[t+1]=='('):
-                func = func[:t+1]+ "*" + func[t+1:]
-            elif func[t]==')' and (func[t+1]=='æ' or func[t+1]=='\\' or func[t+1].isalpha() or func[t+1]=='('):
-                func = func[:t+1]+ "*" + func[t+1:]
-        try:
-            y.append(eval(func))
-            erreur = False
-        except:
-            if erreur:
-                print("Ereur dans la fonction : ", func)
-                return(False)
-            else:
-                erreur = True
-                x.pop(len(x)-1)
-
-    windowTitle = ""     #titre de la fenêtre
-    for c in titre :
-        if c != '$':
-            windowTitle= windowTitle + c
-
-    settings = json.load(open(data_path+'\settings\settings.json'))
-    if settings['settings']['theme'] == "light" : #white theme
-        plt.figure(num="Graph - "+windowTitle,facecolor=bg_white)
-        plt.style.use('classic')
-    else : #dark theme
-        plt.figure(num="Graph - "+windowTitle,facecolor=bg)
-        plt.style.use('dark_background')
-    plt.plot(x, y, color='blue', linewidth=1.5)
-    
-    for t in ax:
-        plt.plot([t, t], [ymin, ymax], color='red', linewidth=0.5) 
-    for t in ay:
-        plt.plot([xmin, xmax], [t, t], color='red', linewidth=0.5) 
+                a +=1
+            elif yasym[i] == '-':
+                sng = -1
+            elif yasym[i] == ' ':
+                pass
+            elif yasym[i] == ',' or yasym[i] == '.':
+                virgule+=1
+            else :
+                try :
+                    if virgule>0 :
+                        ay[a] = 1/(10**virgule)*int(yasym[i])+ay[a]
+                        virgule+=1
+                    else:
+                        ay[a] = int(yasym[i])+10*ay[a]
+                except :
+                    ay[a] = sng*ay[a]
+                    ay.append(0)
+                    a +=1
+                    sng = 1
         
+        if ay != []:
+            ay[len(ay)-1] = sng*ay[len(ay)-1]
+        a = int((xmax-xmin)/xstep)
+        for i in range(0,a):
+            x.append(i*xstep+xmin)
+            æ = i*xstep+xmin
+            for t in range(0, len(func)-1):
+                if func[t].isdigit() and (func[t+1].isalpha() or func[t+1] == 'æ' or func[t+1] == '\\' or func[t+1] == '('):
+                    func = func[:t+1]+ "*" + func[t+1:]
+                elif func[t]=='æ' and (func[t+1].isalpha() or func[t+1]=='\\' or func[t+1]=='('):
+                    func = func[:t+1]+ "*" + func[t+1:]
+                elif func[t]==')' and (func[t+1]=='æ' or func[t+1]=='\\' or func[t+1].isalpha() or func[t+1]=='('):
+                    func = func[:t+1]+ "*" + func[t+1:]
+            try:
+                y.append(eval(func))
+                erreur = False
+            except:
+                if erreur:
+                    print("Ereur dans la fonction : ", func)
+                    return(False)
+                else:
+                    erreur = True
+                    x.pop(len(x)-1)
+
+        windowTitle = ""     #titre de la fenêtre
+        for c in titre :
+            if c != '$':
+                windowTitle= windowTitle + c
+
+        settings = json.load(open(data_path+'\settings\settings.json'))
+        if settings['settings']['theme'] == "light" : #white theme
+            plt.figure(num="Graph - "+windowTitle,facecolor=bg_white)
+            plt.style.use('classic')
+        else : #dark theme
+            plt.figure(num="Graph - "+windowTitle,facecolor=bg)
+            plt.style.use('dark_background')
+            
+        if index == 0:
+            plt.plot(x, y, color='blue', linewidth=1.5)
+        else :
+            plt.plot(x, y, linewidth=1.5)
+            
+        for t in ax:
+            plt.plot([t, t], [ymin, ymax], color='red', linewidth=0.5) 
+        for t in ay:
+            plt.plot([xmin, xmax], [t, t], color='red', linewidth=0.5) 
+            
     plt.axis([xmin, xmax, ymin, ymax])
     if grille == 1:
         plt.grid()

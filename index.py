@@ -82,6 +82,7 @@ class mainWindow(tk.Frame):
     def __init__(self, master=None):
         '''initialisation de toute les variable et de la fenetre principale'''
         self.master = master
+        self.height = 0
         self.master.bind("<KeyPress>", self.action)
         tk.Frame.__init__(self, master)
         self.pack()
@@ -583,6 +584,15 @@ class mainWindow(tk.Frame):
                 self.result[self.rg].content.pop(self.cursor[self.rg]-1)
                 self.cursor[self.rg] -= 1
             else:
+                try :
+                    print(self.result[self.rg].content[self.cursor[self.rg]-1].content[0])
+                    if self.result[self.rg].content[self.cursor[self.rg]-1].content[0] == "\\newline":
+                        self.pos+=0.15
+                        self.height-=20
+                        h = self.height+380
+                        root.geometry("800x%d" % (h))
+                except:
+                    pass
                 self.result[self.rg].content.pop(self.cursor[self.rg]-1)
                 self.cursor[self.rg] -= 1
             self.graph()
@@ -630,7 +640,10 @@ class mainWindow(tk.Frame):
         ## touche qui ne depend pas du mode selectioner
         if key==13:
             self.multiple_choice([mathSymbol('\\newline')])
-            self.pos-=0.11
+            self.pos-=0.15
+            self.height+=20
+            h = self.height+380
+            root.geometry("800x%d" % (h))
             return(1)
         elif touche.char=='=':
             self.multiple_choice([mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")])
@@ -902,6 +915,7 @@ class mainWindow(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
+    #root.geometry("800x380")
     root.geometry("800x380")
     root.iconbitmap('favicon.ico')
     sv_ttk.set_theme("dark")
