@@ -57,7 +57,7 @@ class graphScreen(tk.Frame):
 
         tk.Label(self, text="Titre du Graphique :", font=('Calibri 10')).grid(row=0, column=0, padx = 10)
         self.titre=ttk.Entry(self, width=35)
-        self.titre.insert(0, ("f(x) = $" + self.mathObj.str()+"$"))
+        self.titre.insert(0, (self.mathObj.str()))
         self.titre.grid(row=0, column=1, padx = 10, pady=(0, 10))
         
         tk.Label(self, text="x minimum :", font=('Calibri 10')).grid(row=1, column=0, padx = 10)
@@ -124,8 +124,21 @@ class graphScreen(tk.Frame):
 
 def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable,  yasym, xaxym):
     func_base = Mathobj.graphStr().replace(variable, 'æ').replace(' ', '').replace(r'\newline', '¤')
+    titre_ = titre.replace(r'\newline', '¤')
     functions = []
-    titre = titre.replace(r'\newline', '$\nf(x) = $')
+    labels = ['f(x)', 'g(x)', 'h(x)', 'i(x)', 'j(x)', 'k(x)', 'l(x)', 'm(x)', 'n(x)', 'o(x)', 'p(x)', 'q(x)', 'r(x)', 's(x)', 't(x)', 'u(x)', 'v(x)', 'w(x)', 'x(x)', 'y(x)', 'z(x)']
+    k = 0
+    l=0
+    titre = '$'
+    for i in range(len(titre_)-1):
+        if titre_[i] == '¤':
+            titre += labels[k] + " = " + titre_[l:i] +'$\n$'
+            labels[k] = "$"+labels[k] + " = " + titre_[l:i]+"$"
+            l = i+1
+            k += 1
+    titre += labels[k] + " = " + titre_[l:]+"$\n"
+    labels[k] = "$"+labels[k] + " = " + titre_[l:]+"$"
+    
     a = 0
     for i in range(0,len(func_base)):
         if func_base[i] == '¤':
@@ -241,14 +254,15 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
         else : #dark theme
             plt.figure(num="Graph - "+windowTitle,facecolor=bg)
             plt.style.use('dark_background')
-        colors = ['b', 'g', 'c', 'm', 'y', 'k', 'w']  
+        colors = ['b', 'g', 'c', 'm', 'y', 'k', 'w']
         try :
-            plt.plot(x, y, color=colors[index], linewidth=1.5)
+            plt.plot(x, y, color=colors[index], linewidth=1.5, label=labels[index])
+            plt.legend()
         except:
             plt.plot(x, y, linewidth=1.5)
             
         for t in ax:
-            plt.plot([t, t], [ymin, ymax], color='red', linewidth=0.5) 
+            plt.plot([t, t], [ymin, ymax], color='red', linewidth=0.5, ) 
         for t in ay:
             plt.plot([xmin, xmax], [t, t], color='red', linewidth=0.5) 
             
