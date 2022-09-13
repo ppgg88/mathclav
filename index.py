@@ -641,8 +641,19 @@ class mainWindow(tk.Frame):
                         root.geometry("800x%d" % (h))
                 except:
                     pass
-                self.result[self.rg].content.pop(self.cursor[self.rg]-1)
-                self.cursor[self.rg] -= 1
+                ###
+                try:
+                    if self.result[self.rg].content[self.cursor[self.rg]-1].supr_opt == True:
+                        self.i.append(self.result[self.rg].content[self.cursor[self.rg]-1].imax)
+                        self.result.append(self.result[self.rg].content[self.cursor[self.rg]-1].content[self.i[self.rg+1]])
+                        self.cursor.append(len(self.result[self.rg+1].content))
+                        self.rg += 1
+
+                    self.result[self.rg].content.pop(self.cursor[self.rg]-1)
+                    self.cursor[self.rg] -= 1
+                except:
+                    self.result[self.rg].content.pop(self.cursor[self.rg]-1)
+                    self.cursor[self.rg] -= 1
             self.graph()
             return(1)
         

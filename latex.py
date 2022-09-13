@@ -179,6 +179,7 @@ class integral():
         self.content = [mathObject(), mathObject(), mathObject(), mathObject()]
         self.imax = len(self.content)-1
         self.latex = r'\int_{æ1}^{æ2}{ æ3 \: d æ4 \:}'
+        self.supr_opt = True
     def __add__(self, other):
         self.content += other
         return self
@@ -422,6 +423,7 @@ class sum():
         self.imax = len(self.content)-1
         self.latex = r'\sum_{æ1}^{æ2}{æ3}'
         self.math = '∑æ1æ2'
+        self.supr_opt = True
     def __add__(self, other):
         self.content += other
         return self
