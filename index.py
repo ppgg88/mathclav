@@ -635,7 +635,7 @@ class mainWindow(tk.Frame):
                     if self.result[self.rg].content[self.cursor[self.rg]-1].content[0] == "\\newline":
                         self.pos+=0.15
                         self.height-=20
-                        h = self.height+380
+                        h = self.height+410
                         root.geometry("800x%d" % (h))
                 except:
                     pass
@@ -689,7 +689,7 @@ class mainWindow(tk.Frame):
             self.multiple_choice([mathSymbol('\\newline')])
             self.pos-=0.15
             self.height+=20
-            h = self.height+380
+            h = self.height+410
             root.geometry("800x%d" % (h))
             return(1)
         elif touche.char=='=':
