@@ -237,7 +237,6 @@ class mainWindow(tk.Frame):
             ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "^", "+", "-","*", "=", "</>", "&", "!", "( / )", "|"],
         ]
 
-        
         self.corespondance = [
             [   mathSymbol('A'), 
                 mathSymbol('B'), 
@@ -431,8 +430,6 @@ class mainWindow(tk.Frame):
         self.graphButton = ttk.Button(self.btn, text='Graph', width="20", command=self.openGraph, takefocus=False)
         self.graphButton.grid(row=1, column=3, padx=10)
         self.btn.pack(padx=10, pady=20)
-
-        
         
     def clear(self):
         '''efface le texte precedement ecris'''
@@ -564,6 +561,11 @@ class mainWindow(tk.Frame):
         if key == 39: #fleche droite ->
             if len(self.result[self.rg].content)>self.cursor[self.rg]:
                 self.cursor[self.rg] += 1
+                if self.result[self.rg].content[self.cursor[self.rg]-1].imax >= 0:
+                    self.i.append(0)
+                    self.result.append(self.result[self.rg].content[self.cursor[self.rg]-1].content[self.i[self.rg+1]])
+                    self.cursor.append(0)
+                    self.rg += 1
             elif self.rg > 0 and self.i[self.rg] == self.result[self.rg-1].content[self.cursor[self.rg-1]-1].imax:
                 self.cursor.pop(self.rg)
                 self.result.pop(self.rg)
