@@ -84,6 +84,9 @@ class mainWindow(tk.Frame):
         self.master = master
         self.height = 0
         self.master.bind("<KeyPress>", self.action)
+        
+        self.master.protocol("WM_DELETE_WINDOW", self.quiter)
+        
         tk.Frame.__init__(self, master)
         self.pack()
         self.rg = 0
