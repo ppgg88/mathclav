@@ -110,12 +110,20 @@ class mainWindow(tk.Frame):
                 f.write('{"settings": {"theme" : "%s","font_size" : 11}}'%sv_ttk.get_theme())
                 self.size = 11
         self.dpi = 100
-        self.pos = (0.8*11/(self.size*0.9))
-        
+        newline = 0
         try :
             self.result = [pickle.load(open(data_path+r"\historique\last.pkl", "rb"))]
+            for i in self.result[0].content:
+                if i.content[0] == '\\newline':
+                    newline += 1
         except:
             self.result = [mathObject()]
+            
+        self.pos = (0.8*11/(self.size*0.9))-(newline*0.15)
+        self.height = 20*newline
+        h = self.height+410
+        root.geometry("800x%d" % (h))
+        
         self.cursor=[len(self.result[0].content)]
         self.cursor_prev_ =[]
         self.cursor_prev = 0
@@ -219,7 +227,7 @@ class mainWindow(tk.Frame):
                 [frac()],
                 [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
                 [sqrt(), sqrt_n()],
-                [cos(), sin(), tan()],
+                [cos(), sin(), tan(), sinc()],
                 [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
                 [vect()],
                 [mathSymbol('\\forall '), mathSymbol('\\exists ')],
@@ -334,7 +342,7 @@ class mainWindow(tk.Frame):
                 [frac()],
                 [mathSymbol('\mathbb{R} '),mathSymbol('\mathbb{C} '),mathSymbol('\\mathbb{N} '),mathSymbol('\mathbb{Z} '),mathSymbol('\mathbb{Q} ')],
                 [sqrt(), sqrt_n()],
-                [cos(), sin(), tan()],
+                [cos(), sin(), tan(), sinc()],
                 [mathSymbol('\cup '), mathSymbol('\cap '), union(), intersection()],
                 [vect()],
                 [mathSymbol('\\forall '), mathSymbol('\\exists ')],
@@ -444,6 +452,8 @@ class mainWindow(tk.Frame):
         self.rg = 0
         self.i = [0]
         self.pos = (0.8*11/(self.size*0.9))
+        root.geometry("800x410")
+        self.height = 0
         self.latex_display()
         self.wx.clear()
         self.graph()

@@ -640,6 +640,26 @@ class sin():
         print(self.math)
         return self.math.replace('æ1', str(self.content[0].graphStr()))
 
+class sinc():
+    def __init__(self) -> None:
+        self.content = [mathObject()]
+        self.imax = 0
+        self.latex = r'\sin c{\left(░\right)} '
+        self.math = "(mt.sin(æ1)/(æ1))"
+    def __add__(self, other) -> None:
+        self.content += other
+        return self
+    def __str__(self) -> str:
+        if self.content[0].content == []:
+            return self.latex
+        return self.latex.replace('░', str(self.content[0].str()))
+    def destroy(self) -> None:
+        self.latex = r""
+        return self
+    def graphStr(self) -> str:
+        print(self.math)
+        return self.math.replace('æ1', str(self.content[0].graphStr()))
+
 class tan():
     def __init__(self) -> None:
         self.content = [mathObject()]
