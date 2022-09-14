@@ -712,11 +712,11 @@ class mainWindow(tk.Frame):
         
         ## touche qui ne depend pas du mode selectioner
         if key==13:
-            self.multiple_choice([mathSymbol('\\newline')])
             self.pos-=0.15
             self.height+=20
             h = self.height+410
             root.geometry("800x%d" % (h))
+            self.multiple_choice([mathSymbol('\\newline')])
             return(1)
         elif touche.char=='=':
             self.multiple_choice([mathSymbol("="), mathSymbol("\\approx "),mathSymbol("\\neq ") ,mathSymbol("\\equiv "), mathSymbol("\\sim "),mathSymbol("\\simeq "), mathSymbol("\\propto ")])
