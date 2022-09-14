@@ -884,6 +884,7 @@ class mainWindow(tk.Frame):
         # Get the Entry Input
         tmptext = tmptext.replace(r"\newline", "$ \n $")
         tmptext = tmptext.replace(r"æ", "a")
+        tmptext = "\:\, " + tmptext
         # Clear any previous Syntax from the figure
         if self.engine_use == 0:
             try : 
