@@ -133,6 +133,10 @@ class graphScreen(tk.Frame):
         self.pas=ttk.Entry(self, width=35)
         self.pas.insert(0, savedpas)
         self.pas.grid(row=10, column=0, padx = 10, pady=(0, 10))
+
+        self.lightTheme = tk.IntVar()
+        self.ltheme= ttk.Checkbutton(self, text="Afficher en thème clair", variable=self.lightTheme)
+        self.ltheme.grid(row=9,column=1,padx=10,pady=(0,10))
         
         self.grilleActive = tk.IntVar()
         self.grille = ttk.Checkbutton(self, text="Grille", variable=self.grilleActive)
@@ -152,13 +156,13 @@ class graphScreen(tk.Frame):
     
     def graph(self):
         try :
-            if not(graph(self.mathObj, float(self.xmin.get()), float(self.xmax.get()), float(self.ymin.get()), float(self.ymax.get()), float(self.pas.get()), self.grilleActive.get(), self.titre.get(), self.xlabel.get(), self.ylabel.get(), self.var.get(), self.xasym.get(), self.yasym.get())):
+            if not(graph(self.mathObj, float(self.xmin.get()), float(self.xmax.get()), float(self.ymin.get()), float(self.ymax.get()), float(self.pas.get()), self.grilleActive.get(), self.lightTheme.get(), self.titre.get(), self.xlabel.get(), self.ylabel.get(), self.var.get(), self.xasym.get(), self.yasym.get())):
                 tk.messagebox.showinfo("Graph", "La Formule n'est pas une fonction")
         except Exception:
             tk.messagebox.showinfo("Graph", traceback.format_exc())
 
 
-def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel, variable,  yasym, xaxym):
+def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, ltheme, titre, xlabel, ylabel, variable,  yasym, xaxym):
     func_base = Mathobj.graphStr().replace(variable, 'æ').replace(' ', '').replace(r'\newline', '¤')
     titre_ = titre.replace(r'\newline', '¤')
     functions = []
@@ -290,7 +294,7 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
                 windowTitle= windowTitle + c
 
         settings = json.load(open(data_path+'\settings\settings.json'))
-        if settings['settings']['theme'] == "light" : #white theme
+        if settings['settings']['theme'] == "light" or ltheme : #white theme
             plt.figure(num="Graph - "+windowTitle,facecolor=g.bg_white)
             #plt.style.use('classic')
         else : #dark theme
