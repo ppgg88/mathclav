@@ -20,16 +20,11 @@ import webbrowser as wb
 from PIL import ImageTk, Image
 import os
 import json
+import globals as g
 
 #constantes couleurs:
-bg = '#121212'
-bgMath = '#3A3A3A'
-bg_buton = '#2e2e2e'
-bgMath_white = '#edf2fb'
-blue = '#b3d0ff'
-red = '#ffa1c3'
-green = '#c9ffc9'
-whith = '#f0f0f0'
+
+g.initialize()
 
 pyglet.font.add_file("Lato-Regular.ttf")
 data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
@@ -58,9 +53,9 @@ class credit(tk.Frame):
         tk.Frame.__init__(self, master)
 
         if sv_ttk.get_theme()=="dark" :
-            l = tk.Label(master, text="MathClav V0.2 \nPar : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Nous contacter : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=bgMath, fg=whith)
+            l = tk.Label(master, text="MathClav V0.2 \nPar : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Nous contacter : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=g.bgMath, fg=g.whith)
         else :
-            l = tk.Label(master, text="MathClav V0.2 \nPar : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Nous contacter : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=bgMath_white, fg='black')
+            l = tk.Label(master, text="MathClav V0.2 \nPar : Team SchnakyX & apparentés (TS&a) \n\nLicence (CC BY-NC-SA 4.0) 2022 - MathClav \nThis work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0\n\n Lien : https://sourceforge.net/p/mathclav/ \n\n Nous contacter : paul.giroux87@gmail.com ", font=("Helvetica", 10), bg=g.bgMath_white, fg='black')
         l.pack(ipady=15)
         
         self.btn = tk.Frame(self)

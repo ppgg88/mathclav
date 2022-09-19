@@ -23,6 +23,7 @@ import traceback
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import math as mt
+import globals as g
 
 from latex import mathObject
 
@@ -32,9 +33,7 @@ from PIL import Image
 
 #constantes couleurs :
 
-bg = '#1e1e1e'
-bg_white = '#FFFFFF'
-
+g.initialize()
 #import latex as lt
 
 pyglet.font.add_file("Lato-Regular.ttf")
@@ -292,10 +291,10 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, titre, xlabel, ylabel
 
         settings = json.load(open(data_path+'\settings\settings.json'))
         if settings['settings']['theme'] == "light" : #white theme
-            plt.figure(num="Graph - "+windowTitle,facecolor=bg_white)
+            plt.figure(num="Graph - "+windowTitle,facecolor=g.bg_white)
             #plt.style.use('classic')
         else : #dark theme
-            plt.figure(num="Graph - "+windowTitle,facecolor=bg)
+            plt.figure(num="Graph - "+windowTitle,facecolor=g.bg)
             plt.style.use('dark_background')
         colors = ['b', 'g', 'c', 'm', 'y', 'k', 'w']
         try :

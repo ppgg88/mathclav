@@ -33,17 +33,11 @@ from help import *
 from multitouche import *
 from graph import *
 import copy
+import globals as g
 
 #constantes couleurs :
 
-whith = '#f0f0f0'
-bg = '#1e1e1e'
-bgMath = '#3A3A3A'
-bg_buton = '#2e2e2e'
-bg_white = '#FFFFFF'
-blue = '#4188fd'
-red = '#ea4646'
-green = '#5cc25c'
+g.initialize()
 
 #imports a new font
 pyglet.font.add_file("Lato-Regular.ttf")
@@ -372,11 +366,11 @@ class mainWindow(tk.Frame):
         '''creation de tout les widget sur la page principale'''
         self.label = tk.Label(self)
         self.label.bind("<Button-1>",self.copy_to_clipboard)
-        self.label['bg'] = bg
-        self.label['fg'] = whith
+        self.label['bg'] = g.bg
+        self.label['fg'] = g.whith
         self.label.pack()
         
-        self.indication = ttk.Label(self, text="Lettre Usuelle", font=("Lato Regular", 12),foreground=blue)
+        self.indication = ttk.Label(self, text="Lettre Usuelle", font=("Lato Regular", 12),foreground=g.blue)
         self.indication.pack()
 
         label = tk.Frame(self)
@@ -390,9 +384,9 @@ class mainWindow(tk.Frame):
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
         if sv_ttk.get_theme() == 'dark':
-            self.fig.patch.set_facecolor(bgMath)
+            self.fig.patch.set_facecolor(g.bgMath)
         else:
-            self.fig.patch.set_facecolor(bgMath_white)
+            self.fig.patch.set_facecolor(g.bgMath_white)
         
         self.canvas = FigureCanvasTkAgg(self.fig, master=label)
         self.canvas.get_tk_widget().pack(expand=1, fill=tk.BOTH, side=tk.TOP)
@@ -400,7 +394,7 @@ class mainWindow(tk.Frame):
 
 
         self.btn = tk.Frame(self)
-        self.btn['bg'] = bg
+        self.btn['bg'] = g.bg
         liste = []
         for i in range(1, 30):
             liste.append(i)
@@ -514,32 +508,32 @@ class mainWindow(tk.Frame):
             self.mode_prev = self.mode
             if self.mode != 2:
                 self.mode = 2
-                self.indication.configure(text="Lettre Grecque", foreground=green)
+                self.indication.configure(text="Lettre Grecque", foreground=g.green)
             else :
                 self.mode = 0
-                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+                self.indication.configure(text="Lettre Usuelle",foreground=g.blue)
             self.ctrl_l = millis()
             return 1
         elif keyname in ['Alt_R', 'c', 'C', 'z', 'Z'] and millis()-self.ctrl_l < 1000: # corection du bug pour les touche en mode CTRL + ... 
             self.mode = self.mode_prev
             if self.mode == 0 : 
-                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+                self.indication.configure(text="Lettre Usuelle",foreground=g.blue)
             elif self.mode == 1:
-                self.indication.configure(text="Mode Math", foreground=red)
+                self.indication.configure(text="Mode Math", foreground=g.red)
             elif self.mode == 2:
-                self.indication.configure(text="Lettre Grecque", foreground=green)
+                self.indication.configure(text="Lettre Grecque", foreground=g.green)
             else : #juste en cas de bug ailleur mais aucune reel utilité
                 self.mode = 0
-                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+                self.indication.configure(text="Lettre Usuelle",foreground=g.blue)
             
         if keyname == 'twosuperior':
             self.mode_prev = self.mode
             if self.mode != 1:
                 self.mode = 1
-                self.indication.configure(text="Mode Math", foreground=red)
+                self.indication.configure(text="Mode Math", foreground=g.red)
             else :
                 self.mode = 0
-                self.indication.configure(text="Lettre Usuelle",foreground=blue)
+                self.indication.configure(text="Lettre Usuelle",foreground=g.blue)
             return 1
         
         #touche sans action dans le logiciel
@@ -891,7 +885,7 @@ class mainWindow(tk.Frame):
                 matplotlib.rcParams['text.usetex'] = False
                 self.wx.clear()
                 if sv_ttk.get_theme() == "dark" :
-                    self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = whith)
+                    self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = g.whith)
                 else :
                     self.wx.text(-0.1, self.pos, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = self.size, color = 'black')
                 self.wx.patch.set_visible(False)
@@ -943,23 +937,23 @@ class mainWindow(tk.Frame):
             settings = json.load(f)
 
             if sv_ttk.get_theme() == "dark" :
-                self.btn['bg'] = bg
-                self.label['bg'] = bg
-                app['bg'] = bg
+                self.btn['bg'] = g.bg
+                self.label['bg'] = g.bg
+                app['bg'] = g.bg
                 self.latex_display()
                 self.themeButton['text']="Thème clair"
                 settings['settings']['theme']="dark"
-                self.fig.patch.set_facecolor(bgMath)
+                self.fig.patch.set_facecolor(g.bgMath)
                 self.canvas.draw()
                 
             else :
-                self.btn['bg'] = bg_white
-                self.label['bg'] = bg_white
-                app['bg'] = bg_white
+                self.btn['bg'] = g.bg_white
+                self.label['bg'] = g.bg_white
+                app['bg'] = g.bg_white
                 self.latex_display()
                 self.themeButton['text']="Thème sombre"
                 settings['settings']['theme']="light"
-                self.fig.patch.set_facecolor(bgMath_white)
+                self.fig.patch.set_facecolor(g.bgMath_white)
                 self.canvas.draw()
             
             f.seek(0)
@@ -989,15 +983,15 @@ class mainWindow(tk.Frame):
         if self.mode==0 :
             self.mode = 1
             self.modeButton['text'] = "Mode Grec"
-            self.indication.configure(text="Mode Math", foreground=red)
+            self.indication.configure(text="Mode Math", foreground=g.red)
         elif self.mode==1 :
             self.mode = 2
             self.modeButton['text'] = "Mode Usuel"
-            self.indication.configure(text="Lettre Grecque", foreground=green)
+            self.indication.configure(text="Lettre Grecque", foreground=g.green)
         else :
             self.mode = 0
             self.modeButton['text']= "Mode Math"
-            self.indication.configure(text="Lettre Usuelle",foreground=blue)
+            self.indication.configure(text="Lettre Usuelle",foreground=g.blue)
     
     def openGraph(self) :
         '''Ouvre la fenêtre de graph'''
@@ -1013,7 +1007,7 @@ if __name__ == '__main__':
     root.iconbitmap('favicon.ico')
     sv_ttk.set_theme("dark")
     app = mainWindow(root)
-    app['bg'] = bg
+    app['bg'] = g.bg
     try :
         settings = json.load(open(data_path+'\settings\settings.json'))
         if settings['settings']['theme'] == "light" :

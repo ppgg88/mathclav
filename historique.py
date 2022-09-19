@@ -21,17 +21,11 @@ import os
 import pickle
 import sv_ttk
 import json
+import globals as g
 
 #constantes couleurs:
-bg = '#1e1e1e'
-bgMath = '#3A3A3A'
-bg_buton = '#2e2e2e'
-bg_white = '#FFFFFF'
-bgMath_white = '#edf2fb'
-blue = '#b3d0ff'
-red = '#ffa1c3'
-green = '#c9ffc9'
-whith = '#f0f0f0'
+
+g.initialize()
 
 data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
 
@@ -80,7 +74,7 @@ class historique(tk.Frame):
         self.canvas_=[]
         self.wx_=[]
 
-        self['bg'] = bg
+        self['bg'] = g.bg
 
         settings = json.load(open(data_path+'\settings\settings.json'))
         if settings['settings']['theme'] == "light" :
@@ -94,14 +88,14 @@ class historique(tk.Frame):
         self.wx.patch.set_visible(False)
         self.wx.axis('off')
         if sv_ttk.get_theme() == "dark" :
-            self.fig.patch.set_facecolor(bgMath)
+            self.fig.patch.set_facecolor(g.bgMath)
         else :
-            self.fig.patch.set_facecolor(bgMath_white)
+            self.fig.patch.set_facecolor(g.bgMath_white)
         self.canvas = FigureCanvasTkAgg(self.fig, master=self)
         self.canvas.get_tk_widget()
         if sv_ttk.get_theme()=="dark" :
 
-            self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color = whith)
+            self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color = g.whith)
         else :
             self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color = 'black')
         self.canvas.get_tk_widget().grid(row=0, column=0)
@@ -143,9 +137,9 @@ class historique(tk.Frame):
                 self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
                 self.wx = self.fig_[len(self.fig_)-1].add_subplot(111)
                 if sv_ttk.get_theme()=="dark" :
-                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(g.bgMath)
                 else :
-                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath_white)
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(g.bgMath_white)
                 self.wx.get_xaxis().set_visible(False)
                 self.wx.get_yaxis().set_visible(False)
                 self.wx.patch.set_visible(False)
@@ -153,7 +147,7 @@ class historique(tk.Frame):
                 self.canvas_.append(FigureCanvasTkAgg( self.fig_[len(self.fig_)-1], master=self))
                 self.canvas_[len(self.canvas_)-1].get_tk_widget()
                 if sv_ttk.get_theme()=="dark" :
-                    self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color=whith)
+                    self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color=g.whith)
                 else :
                     self.wx.text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =   8, color='black')
                 self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
@@ -190,4 +184,4 @@ class historique(tk.Frame):
         self.master.destroy()
 
     def change_theme(self) :
-        self['bg']=bg_white
+        self['bg']=g.bg_white

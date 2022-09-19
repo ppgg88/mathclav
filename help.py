@@ -24,20 +24,13 @@ import json
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import globals as g
 
 matplotlib.use('TkAgg')
 
 #constantes couleurs:
-bg = '#121212'
-bgMath = '#3A3A3A'
-bg_buton = '#2e2e2e'
-bgMath_white = '#edf2fb'
-blue = '#b3d0ff'
-red = '#ffa1c3'
-red_dark = '#ff7f7f'
-green = '#c9ffc9'
-green_dark = '#7fff7f'
-whith = '#f0f0f0'
+
+g.initialize()
 
 pyglet.font.add_file("Lato-Regular.ttf")
 data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
@@ -149,9 +142,9 @@ class help_2(tk.Frame):
         self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
         self.wx = self.fig_.add_subplot(111)
         if sv_ttk.get_theme()=="dark" :
-            self.fig_.patch.set_facecolor(bgMath)
+            self.fig_.patch.set_facecolor(g.bgMath)
         else :
-            self.fig_.patch.set_facecolor(bgMath_white)
+            self.fig_.patch.set_facecolor(g.bgMath_white)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
@@ -160,9 +153,9 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget()
         tmptext = ' Mode\:\:Math'
         if sv_ttk.get_theme()=="dark" :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=red)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.red)
         else :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=red_dark)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.red_dark)
         
         self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
         self.canvas_.get_tk_widget().grid(row=0, column=1)
@@ -171,9 +164,9 @@ class help_2(tk.Frame):
         self.fig_= plt.Figure(figsize=(2, 0.5), dpi=100)
         self.wx = self.fig_.add_subplot(111)
         if sv_ttk.get_theme()=="dark" :
-            self.fig_.patch.set_facecolor(bgMath)
+            self.fig_.patch.set_facecolor(g.bgMath)
         else :
-            self.fig_.patch.set_facecolor(bgMath_white)
+            self.fig_.patch.set_facecolor(g.bgMath_white)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
@@ -182,7 +175,7 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget()
         tmptext = "\:\:"
         if sv_ttk.get_theme()=="dark" :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.whith)
         else :
             self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
         
@@ -195,9 +188,9 @@ class help_2(tk.Frame):
         self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
         self.wx = self.fig_.add_subplot(111)
         if sv_ttk.get_theme()=="dark" :
-            self.fig_.patch.set_facecolor(bgMath)
+            self.fig_.patch.set_facecolor(g.bgMath)
         else :
-            self.fig_.patch.set_facecolor(bgMath_white)
+            self.fig_.patch.set_facecolor(g.bgMath_white)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
@@ -206,7 +199,7 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget()
         tmptext = '\:\:'
         if sv_ttk.get_theme()=="dark" :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.whith)
         else :
             self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
         
@@ -217,9 +210,9 @@ class help_2(tk.Frame):
         self.fig_= plt.Figure(figsize=(2, 0.5), dpi=100)
         self.wx = self.fig_.add_subplot(111)
         if sv_ttk.get_theme()=="dark" :
-            self.fig_.patch.set_facecolor(bgMath)
+            self.fig_.patch.set_facecolor(g.bgMath)
         else :
-            self.fig_.patch.set_facecolor(bgMath_white)
+            self.fig_.patch.set_facecolor(g.bgMath_white)
         self.wx.get_xaxis().set_visible(False)
         self.wx.get_yaxis().set_visible(False)
         self.wx.patch.set_visible(False)
@@ -228,9 +221,9 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget()
         tmptext = "Mode\:\:Grec"
         if sv_ttk.get_theme()=="dark" :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=green)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.green)
         else :
-            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=green_dark)
+            self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.green_dark)
         
         self.canvas_.get_tk_widget().bind("<MouseWheel>", OnMouseWheel)
         self.canvas_.get_tk_widget().grid(row=1, column=2)
@@ -245,9 +238,9 @@ class help_2(tk.Frame):
             self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
             self.wx = self.fig_.add_subplot(111)
             if sv_ttk.get_theme()=="dark" :
-                self.fig_.patch.set_facecolor(bgMath)
+                self.fig_.patch.set_facecolor(g.bgMath)
             else :
-                self.fig_.patch.set_facecolor(bgMath_white)
+                self.fig_.patch.set_facecolor(g.bgMath_white)
             self.wx.get_xaxis().set_visible(False)
             self.wx.get_yaxis().set_visible(False)
             self.wx.patch.set_visible(False)
@@ -259,7 +252,7 @@ class help_2(tk.Frame):
                 tmptext += x.__str__()
                 tmptext += '\:\:'
             if sv_ttk.get_theme()=="dark" :
-                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.whith)
             else :
                 self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
             
@@ -270,9 +263,9 @@ class help_2(tk.Frame):
             self.fig_= plt.Figure(figsize=(2, 0.5), dpi=100)
             self.wx = self.fig_.add_subplot(111)
             if sv_ttk.get_theme()=="dark" :
-                self.fig_.patch.set_facecolor(bgMath)
+                self.fig_.patch.set_facecolor(g.bgMath)
             else :
-                self.fig_.patch.set_facecolor(bgMath_white)
+                self.fig_.patch.set_facecolor(g.bgMath_white)
             self.wx.get_xaxis().set_visible(False)
             self.wx.get_yaxis().set_visible(False)
             self.wx.patch.set_visible(False)
@@ -281,7 +274,7 @@ class help_2(tk.Frame):
             self.canvas_.get_tk_widget()
             tmptext = corespondance[1][i].__str__() + "  -  " + corespondance[0][i].__str__()
             if sv_ttk.get_theme()=="dark" :
-                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=whith)
+                self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color=g.whith)
             else :
                 self.wx.text(-0.1, 0.2, r"$"+tmptext.replace(r"\text",r"\mathrm").replace('░', 'x')+"$", fontsize =   14, color='black')
             

@@ -21,16 +21,11 @@ import sv_ttk
 import time
 import os
 import json
+import globals as g
 
 #constantes couleurs:
-bg = '#121212'
-bgMath = '#3A3A3A'
-bg_buton = '#2e2e2e'
-bgMath_white = '#edf2fb'
-blue = '#b3d0ff'
-red = '#ffa1c3'
-green = '#c9ffc9'
-whith = '#f0f0f0'
+
+g.initialize()
 
 pyglet.font.add_file("Lato-Regular.ttf")
 data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
@@ -67,9 +62,9 @@ class multi(tk.Frame):
                 self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
                 self.wx_.append(self.fig_[len(self.fig_)-1].add_subplot(111))
                 if sv_ttk.get_theme()=="dark" :
-                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath_white)
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(g.bgMath_white)
                 else :
-                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(g.bgMath)
                 self.wx_[len(self.wx_)-1].get_xaxis().set_visible(False)
                 self.wx_[len(self.wx_)-1].get_yaxis().set_visible(False)
                 self.wx_[len(self.wx_)-1].patch.set_visible(False)
@@ -79,16 +74,16 @@ class multi(tk.Frame):
                 if sv_ttk.get_theme()=="dark" :
                     self.wx_[len(self.wx_)-1].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color='black')
                 else :
-                    self.wx_[len(self.wx_)-1].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=whith)
+                    self.wx_[len(self.wx_)-1].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=g.whith)
                 self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
                 self.canvas_[len(self.canvas_)-1].draw()
             else:
                 self.fig_.append(plt.Figure(figsize=(4, 0.5), dpi=100))
                 self.wx_.append(self.fig_[len(self.fig_)-1].add_subplot(111))
                 if sv_ttk.get_theme()=="dark" :
-                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath)
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(g.bgMath)
                 else :
-                    self.fig_[len(self.fig_)-1].patch.set_facecolor(bgMath_white)
+                    self.fig_[len(self.fig_)-1].patch.set_facecolor(g.bgMath_white)
                 self.wx_[len(self.wx_)-1].get_xaxis().set_visible(False)
                 self.wx_[len(self.wx_)-1].get_yaxis().set_visible(False)
                 self.wx_[len(self.wx_)-1].patch.set_visible(False)
@@ -96,7 +91,7 @@ class multi(tk.Frame):
                 self.canvas_.append(FigureCanvasTkAgg( self.fig_[len(self.fig_)-1], master=self))
                 self.canvas_[len(self.canvas_)-1].get_tk_widget()
                 if sv_ttk.get_theme()=="dark" :
-                    self.wx_[len(self.wx_)-1].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=whith)
+                    self.wx_[len(self.wx_)-1].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=g.whith)
                 else :
                     self.wx_[len(self.wx_)-1].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color='black')
                 self.canvas_[len(self.canvas_)-1].get_tk_widget().grid(row=i, column=1)
@@ -113,21 +108,21 @@ class multi(tk.Frame):
         tmptext = latex[l].__str__().replace(r"æ", "a")
         #actif
         if sv_ttk.get_theme()=="dark" :
-            self.fig_[l].patch.set_facecolor(bgMath_white)
+            self.fig_[l].patch.set_facecolor(g.bgMath_white)
             self.wx_[l].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color='black')
         else :
-            self.fig_[l].patch.set_facecolor(bgMath)
-            self.wx_[l].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=whith)
+            self.fig_[l].patch.set_facecolor(g.bgMath)
+            self.wx_[l].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=g.whith)
         #precedent
         j=l-1
         if j==-1:
             j=len(self.fig_)-1
         tmptext = latex[j].__str__().replace(r"æ", "a")
         if sv_ttk.get_theme()=="dark" :
-            self.fig_[j].patch.set_facecolor(bgMath)
-            self.wx_[j].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=whith)
+            self.fig_[j].patch.set_facecolor(g.bgMath)
+            self.wx_[j].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize = 10, color=g.whith)
         else :
-            self.fig_[j].patch.set_facecolor(bgMath_white)
+            self.fig_[j].patch.set_facecolor(g.bgMath_white)
             self.wx_[j].text(-0.1, 0.6, r"$"+tmptext.replace(r"\text",r"\mathrm")+"$", fontsize =  10, color='black')
         
         self.canvas_[l].draw()
