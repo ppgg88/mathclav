@@ -1,4 +1,4 @@
-# MathClav v0.3
+# MathClav V0.5
 # by : Team SchnakyX & apparentés (TS&a)
 #
 # Licence (CC BY-NC-SA 4.0) 2022 - MathClav
