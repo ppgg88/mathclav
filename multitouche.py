@@ -28,20 +28,10 @@ import globals as g
 g.initialize()
 
 pyglet.font.add_file("Lato-Regular.ttf")
-data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
+data_path = g.data_path
 
 millis = lambda: int(round(time.time() * 1000))
 
-if not(os.path.exists(data_path)):
-    os.makedirs(data_path)
-    os.makedirs(data_path+"\historique")
-    os.makedirs(data_path+"\log")
-    os.makedirs(data_path+"\settings")
-
-# for user they alredy have download verssion 0.1 of MathClav
-if not(os.path.exists(data_path+"\settings")):
-    os.makedirs(data_path+"\settings")
-    
 
 class multi(tk.Frame):
     def __init__(self,all, root, latex, l):

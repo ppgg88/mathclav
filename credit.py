@@ -18,7 +18,6 @@ import pyglet
 import sv_ttk
 import webbrowser as wb
 from PIL import ImageTk, Image
-import os
 import json
 import globals as g
 
@@ -27,17 +26,7 @@ import globals as g
 g.initialize()
 
 pyglet.font.add_file("Lato-Regular.ttf")
-data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
-
-if not(os.path.exists(data_path)):
-    os.makedirs(data_path)
-    os.makedirs(data_path+"\historique")
-    os.makedirs(data_path+"\log")
-    os.makedirs(data_path+"\settings")
-
-# for user they alredy have download verssion 0.1 of MathClav
-if not(os.path.exists(data_path+"\settings")):
-    os.makedirs(data_path+"\settings")
+data_path = g.data_path
     
 class credit(tk.Frame):
     def __init__(self):

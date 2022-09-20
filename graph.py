@@ -37,7 +37,7 @@ g.initialize()
 #import latex as lt
 
 pyglet.font.add_file("Lato-Regular.ttf")
-data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
+data_path = g.data_path
 
 class graphScreen(tk.Frame):
     def __init__(self, mathObj):

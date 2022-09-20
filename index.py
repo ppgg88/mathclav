@@ -1,4 +1,4 @@
-# MathClav v0.3  
+# MathClav v0.3
 # by : Team SchnakyX & apparentés (TS&a)
 #
 # Licence (CC BY-NC-SA 4.0) 2022 - MathClav
@@ -44,17 +44,7 @@ pyglet.font.add_file("Lato-Regular.ttf")
 
 millis = lambda: int(round(time.time() * 1000))
 
-data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
-
-if not(os.path.exists(data_path)):
-    os.makedirs(data_path)
-    os.makedirs(data_path+"\settings")
-    os.makedirs(data_path+"\historique")
-    os.makedirs(data_path+"\log")
-
-# for user they alredy have download verssion 0.1 of MathClav
-if not(os.path.exists(data_path+"\settings")):
-    os.makedirs(data_path+"\settings")
+data_path = g.data_path
 
 matplotlib.use('TkAgg')
 #matplotlib.rcParams['font.size'] = 20
