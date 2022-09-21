@@ -38,4 +38,4 @@ def initialize():
     if not(os.path.exists(data_path+"\settings")):
         os.makedirs(data_path+"\settings")
         
-    v = "0.4"
+    v = "0.5"
