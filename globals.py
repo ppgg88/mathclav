@@ -13,7 +13,7 @@
 import os
 
 def initialize():
-    global whith,bg,bgMath,bgMath_white,bg_buton,bg_white,blue,red,green,red_dark,green_dark,data_path
+    global whith,bg,bgMath,bgMath_white,bg_buton,bg_white,blue,red,green,red_dark,green_dark,data_path,v
     whith = '#f0f0f0'
     bg = '#1e1e1e'
     bgMath = '#3A3A3A'
@@ -26,7 +26,7 @@ def initialize():
     red_dark = '#ff7f7f'
     green_dark = '#7fff7f'
 
-    data_path = os.path.expanduser('~')+"\AppData\Local\mathclav0_5"
+    data_path = os.path.expanduser('~')+"\AppData\Local\mathclav"
 
     if not(os.path.exists(data_path)):
         os.makedirs(data_path)
@@ -37,3 +37,5 @@ def initialize():
     # for user they alredy have download verssion 0.1 of MathClav
     if not(os.path.exists(data_path+"\settings")):
         os.makedirs(data_path+"\settings")
+        
+    v = "0.4"

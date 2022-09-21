@@ -34,6 +34,7 @@ from multitouche import *
 from graph import *
 import copy
 import globals as g
+import update
 
 #constantes couleurs :
 
@@ -351,6 +352,8 @@ class mainWindow(tk.Frame):
         self.createWidgets()
         self.graph()
         #pyi_splash.close()
+        
+        update.update_q(self)
 
     def createWidgets(self):
         '''creation de tout les widget sur la page principale'''
