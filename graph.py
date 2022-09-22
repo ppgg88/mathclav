@@ -296,7 +296,7 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, ltheme, titre, xlabel
         settings = json.load(open(data_path+'\settings\settings.json'))
         if settings['settings']['theme'] == "light" or ltheme : #white theme
             plt.figure(num="Graph - "+windowTitle,facecolor=g.bg_white)
-            #plt.style.use('classic')
+            plt.style.use('seaborn-white')
         else : #dark theme
             plt.figure(num="Graph - "+windowTitle,facecolor=g.bg)
             plt.style.use('dark_background')
