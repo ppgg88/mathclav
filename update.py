@@ -35,7 +35,7 @@ def update_q(root):
     def Mbox(title, text, style):
         return ctypes.windll.user32.MessageBoxW(0, text, title, style)
     if g.v != verssion():
-        if Mbox('Update', 'Une nouvelle verssion est disponible, voulez vous l\'instaler ?', 4) == 6:
+        if Mbox('Update', 'Une nouvelle version est disponible, voulez vous l\'installer ?', 4) == 6:
             update_download(root)
     
 

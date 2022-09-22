@@ -282,7 +282,7 @@ def graph(Mathobj, xmin, xmax, ymin, ymax, xstep,  grille, ltheme, titre, xlabel
                 erreur = False
             except:
                 if erreur:
-                    print("Ereur dans la fonction : ", func)
+                    print("Erreur dans la fonction : ", func)
                     return(False)
                 else:
                     erreur = True
