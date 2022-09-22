@@ -127,7 +127,7 @@ class help_2(tk.Frame):
         container.bind("<MouseWheel>", OnMouseWheel)
         self.bind("<MouseWheel>", OnMouseWheel)
         
-        ttk.Label(scrollable_frame, text=("          "+"²" + " -> "), font=('Helvetica', 14, 'bold')).grid(row=0, column=0, padx=10, pady=10)
+        ttk.Label(scrollable_frame, text=("          "+"²" + "  → "), font=('Helvetica', 14, 'bold')).grid(row=0, column=0, padx=10, pady=10)
         
         self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
         self.wx = self.fig_.add_subplot(111)
@@ -173,7 +173,7 @@ class help_2(tk.Frame):
         self.canvas_.get_tk_widget().grid(row=0, column=2)
         self.canvas_.draw()
         
-        ttk.Label(scrollable_frame, text=("       "+"CTRL" + " -> "), font=('Helvetica', 14, 'bold')).grid(row=1, column=0, padx=10, pady=10)
+        ttk.Label(scrollable_frame, text=("       "+"CTRL" + "  → "), font=('Helvetica', 14, 'bold')).grid(row=1, column=0, padx=10, pady=10)
     
         self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
         self.wx = self.fig_.add_subplot(111)
@@ -223,7 +223,7 @@ class help_2(tk.Frame):
         
         for i in range(len(self.corespondance[0])):
             #ttk.Label(scrollable_frame, text="Sample scrolling label").pack()
-            ttk.Label(scrollable_frame, text=("          "+corespondance[3][i] + " -> "), font=('Helvetica', 14, 'bold')).grid(row=i+2, column=0, padx=10, pady=10)
+            ttk.Label(scrollable_frame, text=("          "+corespondance[3][i] + "  → "), font=('Helvetica', 14, 'bold')).grid(row=i+2, column=0, padx=10, pady=10)
             
             self.fig_= plt.Figure(figsize=(4, 0.5), dpi=100)
             self.wx = self.fig_.add_subplot(111)
