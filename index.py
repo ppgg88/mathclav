@@ -35,6 +35,8 @@ from graph import *
 import copy
 import globals as g
 import update
+import requests
+import re
 
 #constantes couleurs :
 
@@ -107,7 +109,7 @@ class mainWindow(tk.Frame):
         self.pos = (0.8*11/(self.size*0.9))-(newline*0.15)
         self.height = 20*newline
         h = self.height+410
-        root.geometry("800x%d" % (h))
+        root.geometry("1000x%d" % (h))
         
         self.cursor=[len(self.result[0].content)]
         self.cursor_prev_ =[]
@@ -235,7 +237,7 @@ class mainWindow(tk.Frame):
 
         self.corespondance = [
             [   mathSymbol('A'), 
-                mathSymbol('B'), 
+                mathSymbol('B'),
                 mathSymbol('\\Theta '), 
                 mathSymbol('\\Delta '),  
                 mathSymbol('E'),
@@ -353,6 +355,8 @@ class mainWindow(tk.Frame):
         self.graph()
         #pyi_splash.close()
         
+        url_verssion = ""
+
         update.update_q(self)
 
     def createWidgets(self):
@@ -439,7 +443,7 @@ class mainWindow(tk.Frame):
         self.rg = 0
         self.i = [0]
         self.pos = (0.8*11/(self.size*0.9))
-        root.geometry("800x410")
+        root.geometry("1000x410")
         self.height = 0
         self.latex_display()
         self.wx.clear()
@@ -638,7 +642,7 @@ class mainWindow(tk.Frame):
                         self.pos+=0.15
                         self.height-=20
                         h = self.height+410
-                        root.geometry("800x%d" % (h))
+                        root.geometry("1000x%d" % (h))
                 except:
                     pass
                 ###
@@ -702,7 +706,7 @@ class mainWindow(tk.Frame):
             self.pos-=0.15
             self.height+=20
             h = self.height+410
-            root.geometry("800x%d" % (h))
+            root.geometry("1000x%d" % (h))
             self.multiple_choice([mathSymbol('\\newline')])
             return(1)
         elif touche.char=='=':
@@ -995,8 +999,8 @@ class mainWindow(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("MathClav")
-    #root.geometry("800x380")
-    root.geometry("800x410")
+    #root.geometry("1000x380")
+    root.geometry("1000x410")
     root.iconbitmap('favicon.ico')
     sv_ttk.set_theme("dark")
     app = mainWindow(root)
